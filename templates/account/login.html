@@ -1,0 +1,66 @@
+{% extends 'account/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Log In{% endblock %}
+
+{% block content %}
+    <div class="mt-4">
+        <form method="post">
+            {% csrf_token %}
+
+            {% for hidden_field in form.hidden_fields %}
+                {{ hidden_field }}
+            {% endfor %}
+
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in form.non_field_errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% for field in form.visible_fields %}
+                <div class="form-group">
+                    <p class="small mb-0">{{ field.label_tag }}</p>
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                {% if field.name == 'username' %}
+                                    <i class="fa fa-envelope"></i>
+                                {% elif field.name == 'password' %}
+                                    <i class="fa fa-key"></i>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if form.is_bound %}
+                            {% if field.errors %}
+                                {% render_field field class="form-control is-invalid" %}
+                                {% for error in field.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                {% render_field field class="form-control is-valid" %}
+                            {% endif %}
+                        {% else %}
+                            {% render_field field class="form-control" %}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="clearfix py-3">
+                <div class="float-left small mt-1">
+                    <a href="{% url 'account_reset_password' %}" style="color: #faaf40">Forgot password?</a> <br>
+                </div>
+                <button class="btn float-right px-3 text-white font-weight-500" type="submit" style="background-color: #faaf40">
+                    Log In
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+

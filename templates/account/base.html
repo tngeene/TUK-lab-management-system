@@ -1,0 +1,49 @@
+{% load static %}
+
+<!Doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <!-- Favicon icon -->
+    <link rel="icon" href="{%static 'images/favicon.ico" type="image/x-icon' %}">
+    <!-- fontawesome icon -->
+    <link rel="stylesheet" href="{%static 'fonts/fontawesome/css/fontawesome-all.min.css' %}">
+    <!-- animation css -->
+    <link rel="stylesheet" href="{%static 'plugins/animation/css/animate.min.css' %}">
+    <!-- vendor css -->
+    <link rel="stylesheet" href="{%static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>{% block title %}Log In{% endblock %} | Scit </title>
+    <style>
+        .auth-bg {
+            background-image: url('/static/images/user/avatar-3.jpg');
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        .h-100 {
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+<div class="auth-bg h-100">
+    <div class="row">
+        <div class="col-md-4 mx-auto pt-5" style = "padding-right:40px; padding-left:40px;">
+            <div class="card shadow-sm mt-5">
+                <div class="card-body px-4">
+                    <div class="text-center pb-2">
+                        <img src="{% static 'images/user/avatar-3.jpg' %}" alt="scit" class="py-3" width="200">
+                    </div>
+                    <hr>
+                    {% block content %}Log In{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

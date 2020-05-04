@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<!-- [ Main Content ] start -->
+<div class="row">
+    <!-- cards start  -->
+    <div class="col-md-6 col-xl-3">
+        <div class="card daily-sales">
+            <div class="card-block">
+                <h6 class="mb-4">Total Equipment</h6>
+                <div class="row d-flex align-items-center">
+                    <div class="col-9">
+                        <h3 class="f-w-300 d-flex align-items-center m-b-0"><i
+                                class="feather icon-arrow-up text-c-green f-30 m-r-10"></i> 249</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card Monthly-sales">
+            <div class="card-block">
+                <h6 class="mb-4">Students</h6>
+                <div class="row d-flex align-items-center">
+                    <div class="col-9">
+                        <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i
+                                class="feather icon-arrow-down text-c-red f-30 m-r-10"></i>2.942</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-xl-3">
+        <div class="card yearly-sales">
+            <div class="card-block">
+                <h6 class="mb-4">Labs</h6>
+                <div class="row d-flex align-items-center">
+                    <div class="col-9">
+                        <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i
+                                class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>40</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-xl-3">
+        <div class="card yearly-sales">
+            <div class="card-block">
+                <h6 class="mb-4">Lab Technicians</h6>
+                <div class="row d-flex align-items-center">
+                    <div class="col-9">
+                        <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i
+                                class="fa fa-user text-c-green m-r-10"></i>{{ lab_technicians_count }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- cards end -->
+    {% comment %} main body starts {% endcomment %}
+    <div class="col-xl-12 col-md-12">
+        <div class="card Recent-Users">
+            <div class="card-header">
+                <h5>Recent Lab Technicians</h5>
+            </div>
+            <div class="card-block px-0 py-3">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> Full Name </th>
+                                <th> Gender </th>
+                                <th> Contact </th>
+                                <th> Status </th>
+                                <th> Date Joined </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in recent_lab_techs %}
+                            <tr>
+                                <td>{{ user.get_full_name }}</td>
+                                <td>{{ user.gender }}</td>
+                                <td>{{ user.phone_number }}</td>
+                                <td>{{ user.is_active }}</td>
+                                <td><i class="fas fa-circle text-c-green f-10 m-r-15"></i>{{ user.date_joined }}</td>
+                                <td><a href="#!" class="label theme-bg2 text-white f-12">View</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-12 col-md-12">
+        <div class="card Recent-Users">
+            <div class="card-header">
+                <h5>Recent Lab Secretaries</h5>
+            </div>
+            <div class="card-block px-0 py-3">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> Full Name </th>
+                                <th> Gender </th>
+                                <th> Contact </th>
+                                <th> Status </th>
+                                <th> Date Joined </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in recent_lab_secs %}
+                            <tr>
+                                <td>{{ user.get_full_name }}</td>
+                                <td>{{ user.gender }}</td>
+                                <td>{{ user.phone_number }}</td>
+                                <td>{{ user.is_active }}</td>
+                                <td><i class="fas fa-circle text-c-green f-10 m-r-15"></i>{{ user.date_joined }}</td>
+                                <td><a href="#!" class="label theme-bg2 text-white f-12">View</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--[ Recent Users ] end-->
+</div>
+
+
+{% endblock %}
