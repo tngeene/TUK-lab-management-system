@@ -39,7 +39,11 @@ Add Lab Technicians
                             <td>{{ user.get_full_name }}</td>
                             <td>{{ user.gender }}</td>
                             <td>{{ user.phone_number }}</td>
-                            <td>{{ user.is_active }}</td>
+                            {% if user.is_active %}
+                            <td><span class="badge badge-pill badge-success">Active</span></td>
+                            {% else %}
+                            <td><span class="badge badge-pill badge-danger">Suspended</span></td>
+                            {% endif %}
                             <td><i class="fas fa-circle text-c-green f-10 m-r-15"></i>{{ user.date_joined }}</td>
                             <td><a href="{% url 'users:lab_technician_details' user.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
                         </tr>

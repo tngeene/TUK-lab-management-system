@@ -58,9 +58,9 @@ Lab Technician Details
                                         <th>Status</th>
                                         <td>
                                             {% if user.is_active %}
-                                                Active
+                                            <span class="badge badge-pill badge-success">Active</span>
                                             {% else %}
-                                                Deactivated
+                                            <span class="badge badge-pill badge-danger">Suspended</span>
                                             {% endif %}
                                         </td>
                                     </tr>
