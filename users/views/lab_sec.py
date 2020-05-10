@@ -1,4 +1,4 @@
-from django.views.generic import CreateView, UpdateView, ListView
+from django.views.generic import CreateView, UpdateView, ListView, DetailView
 from users.models import UserAccount
 from dashboard.views import DashboardView
 from django.urls import reverse_lazy
@@ -47,3 +47,8 @@ class LabSecListView(DashboardView, ListView):
             context = super().get_context_data(**kwargs)
             context["users"] = UserAccount.objects.filter(user_type='Lab_Sec')
             return context
+
+class LabSecDetailView(DashboardView, DetailView):
+    model = UserAccount
+    template_name = 'users/lab_secretaries/details.html'
+    context_object_name = 'user'

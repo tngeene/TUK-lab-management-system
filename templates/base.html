@@ -18,8 +18,10 @@
     <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <!-- fontawesome icon -->
     <link rel="stylesheet" href="{% static 'fonts/fontawesome/css/fontawesome-all.min.css' %}">
+    <link href="{% static 'themify-icons/css/themify-icons.css' %}" rel="stylesheet">
     <!-- animation css -->
     <link rel="stylesheet" href="{% static 'plugins/animation/css/animate.min.css' %}">
+
     {% block styles %}{% endblock %}
     <!-- vendor css -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -45,6 +47,15 @@
                             {% block content%}{% endblock %}
                         </div>
                     </div>
+
+                    <footer class="sticky-footer">
+            <div class="container">
+                <div class="text-center">
+                    <small>Copyright &copy; Tuk Lab Management system {% now 'Y' %}</small>
+                </div>
+            </div>
+        </footer>
+
                 </div>
             </div>
         </div>

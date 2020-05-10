@@ -35,7 +35,7 @@ class UserAccount(AbstractUser):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     photo = models.ImageField(upload_to='media/profiles', null=True)
-    phone_number = models.CharField(max_length=50, default="-")
+    phone_number = models.CharField(max_length=50)
     user_type = models.CharField(max_length=30,choices=MEMBERSHIP_CHOICES,default='Lab_Tech')
     gender = models.CharField(max_length=20, choices=GENDER_CHOICES, default='Male')
     staff_id = models.CharField(max_length=50, null=True,blank=True)

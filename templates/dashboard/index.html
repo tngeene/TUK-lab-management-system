@@ -87,7 +87,7 @@
                                 <td>{{ user.phone_number }}</td>
                                 <td>{{ user.is_active }}</td>
                                 <td><i class="fas fa-circle text-c-green f-10 m-r-15"></i>{{ user.date_joined }}</td>
-                                <td><a href="#!" class="label theme-bg2 text-white f-12">View</a></td>
+                                <td><a href="{% url 'users:lab_technician_details' user.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -123,7 +123,7 @@
                                 <td>{{ user.phone_number }}</td>
                                 <td>{{ user.is_active }}</td>
                                 <td><i class="fas fa-circle text-c-green f-10 m-r-15"></i>{{ user.date_joined }}</td>
-                                <td><a href="#!" class="label theme-bg2 text-white f-12">View</a></td>
+                                <td><a href="{% url 'users:lab_secretaries_details' user.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>

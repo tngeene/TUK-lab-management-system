@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Department Details
+{% endblock %}
+
+
+{% block styles %}
+<link href="{% static 'css/data-tables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="m-3 p-3 shadow-sm">
+                            <h3 class="text-center py-3">Department Details</h3>
+                            <div class="table-responsive">
+                                <table class="table table-striped text-center">
+                                    <tbody>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td>{{ department.name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Date Added</th>
+                                            <td>{{ department.created_on }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Schools</th>
+                                            <td>{{ department.schools_in_department_count }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Last Update</th>
+                                            <td>{{ department.updated_on }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <a href="{% url 'schools:department_edit' department.pk %}" class="mx-1">
+                                <button class="btn btn-md w-50 btn-primary">Edit</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-12 col-md-12">
+    <div class="card Recent-departments">
+        <div class="card-header">
+            <h5>All Schools in {{department.name}} department</h5>
+        </div>
+        
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                
+                <table class="table" id="data-table">
+                    <div class="float-right">
+                        <a href="{% url 'schools:school_add' %}" class="label theme-bg2 text-white f-12">Add School</a>
+                    </div>
+                    <thead>
+                        <tr>
+                            <th> Name </th>
+                            <th> Date Added </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                         {% for school in schools %}
+                        <tr>
+                            <td>{{ school.name }}</td>
+                            <td>{{ school.created_on }}</td>
+                            <td><a href="{% url 'schools:school_details' school.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
+                        </tr>
+                        {% endfor %} 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+    
+    </div>
+</div>
+
+{% endblock  %}
+
+{% block scripts %}
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+<script>
+    $('#data-table').DataTable();
+</script>
+{% endblock %}
