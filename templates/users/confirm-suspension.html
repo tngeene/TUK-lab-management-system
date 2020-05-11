@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Confirm Deactivation
+{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="text-center py-3">Suspend {{ user.get_full_name }}</h3>
+                    <div class="col-md-6 mx-auto">
+                            <div class="py-3 text-center">
+                                <p> Proceed with Suspension? </p>
+                                <a href="{% url 'users:user_suspend_action' user.pk %}" class="mx-1">
+                                                <button class="btn btn-danger">Suspend</button>
+                                </a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

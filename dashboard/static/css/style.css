@@ -139,6 +139,11 @@ strong {
 
 .theme-bg2 {
   background: linear-gradient(-135deg, #899FD4 0%, #A389D4 100%);
+  border-radius: 20px;
+}
+.theme-bg3 {
+  background: linear-gradient(315deg, #fce043 0%, #fb7ba2 74%);
+  border-radius: 20px;
 }
 
 /* ==========  card css start  =========== */

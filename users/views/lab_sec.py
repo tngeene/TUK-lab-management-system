@@ -52,3 +52,11 @@ class LabSecDetailView(DashboardView, DetailView):
     model = UserAccount
     template_name = 'users/lab_secretaries/details.html'
     context_object_name = 'user'
+
+class LabSecSuspendView(DashboardView, DetailView):
+    model = UserAccount
+    context_object_name = 'user'
+    template_name = 'users/confirm-suspension.html'
+
+    def get_success_url(self):
+        return reverse_lazy('users:lab_secretaries_details', kwargs={'pk': self.object.pk})

@@ -3,7 +3,8 @@ from .views.departments import DepartmentCreateView, DepartmentListView, Departm
     DepartmentUpdateView
 
 from .views.schools import SchoolCreateView, SchoolListView, SchoolDetailView, SchoolUpdateView
-from .views.labs import LabCreateView, LabDetailView, LabListView, LabUpdateView
+from .views.labs import LabCreateView, LabDetailView, LabListView, LabUpdateView, SchoolAssignView, \
+    school_assign_view, school_unassign_view
 
 app_name = "schools"
 
@@ -22,5 +23,8 @@ urlpatterns = [
     path('labs/add', LabCreateView.as_view(),name='lab_add'),
     path('labs/',LabListView.as_view(),name='labs_list'),
     path('labs/<int:pk>/details', LabDetailView.as_view(),name='lab_details'),
-    path('labs/<int:pk>/edit/',LabUpdateView.as_view(),name='lab_edit')
+    path('labs/<int:pk>/edit/',LabUpdateView.as_view(),name='lab_edit'),
+    path('labs/<int:pk>/assign', SchoolAssignView.as_view(), name='lab_assign_school'),
+    path('labs/<int:pk>/assign/<int:school_pk>/', school_assign_view, name='school_assign_action'),
+    path('labs/<int:pk>/unassign/<int:school_pk>/', school_unassign_view, name='school_unassign_action'),
 ]

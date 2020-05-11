@@ -66,29 +66,18 @@ Lab Technician Details
                                     </tr>
                                     </tbody>
                                 </table>
-                                {% comment %} <div class="text-center py-3">
+                                 <div class="text-center py-3">
                                     {% if user.is_active%}
-                                        <a href="{% url 'users:technician_confirm_suspension' user.pk %}"
+                                        <a href="{% url 'users:lab_secretary_confirm_suspension' user.pk %}"
                                             class="mx-1">
-                                            <button class="btn btn-warning">Suspend</button>
+                                            <button class="btn btn-warning btn-md w-50">Suspend</button>
                                         </a>
                                         {% else %}
-                                        <a href="{% url 'users:technician_unsuspend_action' user.pk %}" class="mx-1">
-                                            <button class="btn btn-success">Activate</button>
+                                        <a href="{% url 'users:user_unsuspend_action' user.pk %}" class="mx-1">
+                                            <button class="btn btn-success btn-md w-50">Activate</button>
                                         </a>
                                         {% endif %}
-                                        {% if user.is_terminated %}
-                                        <a href="{% url 'users:technician_unterminate_action' user.pk %}"
-                                            class="mx-1">
-                                            <button class="btn btn-success">Unterminate</button>
-                                        </a>
-                                        {% else %}
-                                        <a href="{% url 'users:technician_confirm_termination' user.pk %}"
-                                            class="mx-1">
-                                            <button class="btn btn-danger">Terminate</button>
-                                        </a>
-                                        {% endif %}
-                                </div> {% endcomment %}
+                                </div> 
                             </div>
                         </div>
                     </div>

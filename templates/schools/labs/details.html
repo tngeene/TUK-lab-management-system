@@ -62,7 +62,7 @@ Lab Details
 
                         <table class="table" id="data-table">
                             <div class="float-right">
-                                <a href="{% url 'schools:school_add' %}" class="label theme-bg2 text-white f-12">Add
+                                <a href="{% url 'schools:lab_assign_school' lab.pk %}" class="label theme-bg2 text-white f-12 mt-5">Add
                                     School</a>
                             </div>
                             <thead>
@@ -70,6 +70,7 @@ Lab Details
                                     <th> Name </th>
                                     <th> Department </th>
                                     <th> Date Added </th>
+                                    <th></th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -79,6 +80,7 @@ Lab Details
                                     <td>{{ school.name }}</td>
                                     <td>{{ school.department }}</td>
                                     <td>{{ school.created_on }}</td>
+                                    <td><a href=" {% url 'schools:school_unassign_action' school_pk=school.pk pk=lab.pk %} " class="label theme-bg3 text-white f-12">Unassign</a></td>
                                     <td><a href=" {% url 'schools:school_details' school.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
                                 </tr>
                                 {% endfor %}
@@ -100,3 +102,4 @@ Lab Details
     $('#data-table').DataTable();
 </script>
 {% endblock %}
+

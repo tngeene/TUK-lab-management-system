@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+All schools
+{% endblock %}
+
+
+{% block styles %}
+<link href="{% static 'css/data-tables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="col-xl-12 col-md-12">
+    <div class="card Recent-schools">
+        <div class="card-header">
+            <h5>Assign School To {{lab.name}} </h5>
+        </div>
+        
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                
+                <table class="table" id="data-table">
+                    <div class="float-right mt-1">
+                        <a href="{% url 'schools:school_add' %}" class="label theme-bg2 text-white f-12">Add school</a>
+                    </div>
+                    <thead>
+                        <tr>
+                            <th> Name </th>
+                            <th> Date Added </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for school in schools %}
+                        <tr>
+                            <td>{{ school.name }}</td>
+                            <td>{{ school.created_on }}</td>
+                            <td><a href=" {% url 'schools:school_assign_action' pk=lab.pk school_pk=school.pk  %} " class="label theme-bg3 text-white f-12">Assign</a></td>
+                            <td><a href=" {% url 'schools:school_details' school.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock  %}
+
+{% block scripts %}
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+<script>
+    $('#data-table').DataTable();
+</script>
+{% endblock %}
