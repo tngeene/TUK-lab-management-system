@@ -80,7 +80,7 @@ Lab Details
                                     <td>{{ school.name }}</td>
                                     <td>{{ school.department }}</td>
                                     <td>{{ school.created_on }}</td>
-                                    <td><a href=" {% url 'schools:school_unassign_action' school_pk=school.pk pk=lab.pk %} " class="label theme-bg3 text-white f-12">Unassign</a></td>
+                                    <td><a href=" {% url 'schools:school_unassign_action' school_pk=school.pk pk=lab.pk %} " class="label theme-bg3 text-white f-12">Remove</a></td>
                                     <td><a href=" {% url 'schools:school_details' school.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
                                 </tr>
                                 {% endfor %}

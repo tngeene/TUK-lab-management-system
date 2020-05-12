@@ -35,7 +35,7 @@ All schools
                         <tr>
                             <td>{{ school.name }}</td>
                             <td>{{ school.created_on }}</td>
-                            <td><a href=" {% url 'schools:school_assign_action' pk=lab.pk school_pk=school.pk  %} " class="label theme-bg3 text-white f-12">Assign</a></td>
+                            <td><a href=" {% url 'schools:school_assign_action' pk=lab.pk school_pk=school.pk  %} " class="label theme-bg3 text-white f-12">Add</a></td>
                             <td><a href=" {% url 'schools:school_details' school.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
                         </tr>
                         {% endfor %}

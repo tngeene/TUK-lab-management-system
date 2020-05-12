@@ -38,7 +38,7 @@ class LabDetailView(DashboardView, DetailView):
 class LabUpdateView(DashboardView, UpdateView):
     model = Lab
     template_name = 'schools/labs/edit.html'
-    fields = ('name','school')
+    fields = ('name',)
 
     def get_success_url(self):
         return reverse_lazy('schools:lab_details', kwargs={'pk': self.object.pk})
