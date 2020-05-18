@@ -8,17 +8,17 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 
 
-class LabTechnicianCreateView(DashboardView, CreateView):
+class StudentCreateView(DashboardView, CreateView):
         model = UserAccount
-        fields = ('first_name','last_name','email','phone_number','gender','staff_id')
-        template_name = 'users/lab_technicians/add.html'
+        fields = ('first_name','last_name','email','phone_number','gender','registration_no','course','year_of_study')
+        template_name = 'users/students/add.html'
 
         def form_valid(self, form):
             random_password = generate_random_string()
             user = form.save(commit=False)
             user.username = user.email
             user.set_password(random_password)
-            user.user_type = 'Lab_Tech'
+            user.user_type = 'Student'
             user.save()
 
             current_site = get_current_site(self.request)
@@ -34,29 +34,29 @@ class LabTechnicianCreateView(DashboardView, CreateView):
             email.content_subtype = 'html'
             email.send()
 
-            return super(LabTechnicianCreateView, self).form_valid(form)
+            return super(StudentCreateView, self).form_valid(form)
 
         def get_success_url(self):
-                return reverse_lazy('users:lab_technician_details', kwargs={'pk':self.object.pk})
+                return reverse_lazy('users:student_details', kwargs={'pk':self.object.pk})
 
-class LabTechnicianListView(DashboardView, ListView):
+class StudentListView(DashboardView, ListView):
         model = UserAccount
-        template_name = 'users/lab_technicians/list.html'
+        template_name = 'users/students/list.html'
 
         def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
-            context["users"] = UserAccount.objects.filter(user_type='Lab_Tech')
+            context["users"] = UserAccount.objects.filter(user_type='Student')
             return context
 
-class LabTechnicianDetailView(DashboardView, DetailView):
+class StudentDetailView(DashboardView, DetailView):
     model = UserAccount
-    template_name = 'users/lab_technicians/details.html'
+    template_name = 'users/students/details.html'
     context_object_name = 'user'
 
-class LabTechnicianSuspendView(DashboardView, DetailView):
+class StudentSuspendView(DashboardView, DetailView):
     model = UserAccount
     context_object_name = 'user'
     template_name = 'users/confirm-suspension.html'
 
     def get_success_url(self):
-        return reverse_lazy('users:lab_technician_details', kwargs={'pk': self.object.pk})
+        return reverse_lazy('users:student_details', kwargs={'pk': self.object.pk})

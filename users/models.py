@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.utils.translation import ugettext_lazy as _
-
+from schools.models import Course
 
 class UserAccountManager(UserManager):
     def create_user(self, username=None, email=None, password=None, **extra_fields):
@@ -30,6 +30,16 @@ MEMBERSHIP_CHOICES = (
     ('Lab_Sec', 'Lab Secretary'),
     ('Student', 'Student'),
 )
+
+YEAR_OF_STUDY_CHOICES = (
+    ('Select One', 'Select One'),
+    ('1st Year', 'First Year'),
+    ('2nd Year', 'Second Year'),
+    ('3rd Year', 'Third Year'),
+    ('4th Year', 'Fourth Year'),
+    ('5th Year', 'Fifth Year'),
+    ('6th Year', 'Sixth Year'),
+)
 class UserAccount(AbstractUser):
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=50)
@@ -37,7 +47,9 @@ class UserAccount(AbstractUser):
     photo = models.ImageField(upload_to='media/profiles', null=True)
     phone_number = models.CharField(max_length=50)
     user_type = models.CharField(max_length=30,choices=MEMBERSHIP_CHOICES,default='Lab_Tech')
-    gender = models.CharField(max_length=20, choices=GENDER_CHOICES, default='Male')
+    gender = models.CharField(max_length=20, choices=GENDER_CHOICES)
+    course = models.ForeignKey(Course,on_delete=models.PROTECT,null=True,blank=True)
+    year_of_study = models.CharField(max_length=30, choices=YEAR_OF_STUDY_CHOICES,default="Select One",blank=True,null=True)
     staff_id = models.CharField(max_length=50, null=True,blank=True)
     registration_no = models.CharField(max_length=50, null=True, blank=True)
 
@@ -47,4 +59,6 @@ class UserAccount(AbstractUser):
     objects = UserAccountManager()
 
     def __str_(self):
-        return f' {self.first_name} {self.last_name} {self.phone_number} '
+        return f'{self.first_name} {self.last_name} {self.phone_number}'
+
+

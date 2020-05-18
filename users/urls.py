@@ -3,6 +3,7 @@ from users.views.staff import StaffCreateView, StaffDetailView, StaffDetailView,
 from users.views.lab_technicians import LabTechnicianCreateView, LabTechnicianListView, LabTechnicianDetailView, \
     LabTechnicianSuspendView
 from users.views.lab_sec import LabSecCreateView, LabSecListView, LabSecDetailView, LabSecSuspendView
+from users.views.students import StudentCreateView, StudentListView, StudentDetailView, StudentSuspendView
 from users.views.admin_actions import suspend_user, unsuspend_user
 
 
@@ -23,6 +24,11 @@ urlpatterns = [
     path('staff/add',StaffCreateView.as_view(),name='staff_add'),
     path('staff/<int:pk>/details',StaffDetailView.as_view(),name='staff_details'),
     path('staff/<int:pk>/suspend',StaffSuspendView.as_view(),name='staff_confirm_suspension'),
+
+    path('students/',StudentListView.as_view(),name='students_list'),
+    path('students/add',StudentCreateView.as_view(),name='student_add'),
+    path('students/<int:pk>/details',StudentDetailView.as_view(),name='student_details'),
+    path('students/<int:pk>/suspend',StudentSuspendView.as_view(),name='student_confirm_suspension'),
 
     path('users/<int:pk>/suspend_user', suspend_user,name="user_suspend_action"),
     path('users/<int:pk>/unsuspend_user', unsuspend_user,name="user_unsuspend_action")

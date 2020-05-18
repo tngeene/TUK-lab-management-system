@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-All schools
+All courses
 {% endblock %}
 
 
@@ -11,30 +11,34 @@ All schools
 
 {% block content %}
 <div class="col-xl-12 col-md-12">
-    <div class="card Recent-schools">
+    <div class="card Recent-courses">
         <div class="card-header">
-            <h5>All schools</h5>
+            <h5>All courses</h5>
         </div>
         
         <div class="card-block px-0 py-3">
             <div class="table-responsive">
                 <table class="table" id="data-table">
                     <div class="float-right">
-                        <a href="{% url 'schools:school_add' %}" class="label theme-bg2 text-white f-12">Add school</a>
+                        <a href="{% url 'schools:course_add' %}" class="label theme-bg2 text-white f-12">Add Course</a>
                     </div>
                     <thead>
                         <tr>
                             <th> Name </th>
+                            <th> School </th>
+                            <th> Course Code </th>
                             <th> Date Added </th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for school in schools %}
+                        {% for course in courses %}
                         <tr>
-                            <td>{{ school.name }}</td>
-                            <td>{{ school.created_on }}</td>
-                            <td><a href=" {% url 'schools:school_details' school.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
+                            <td>{{ course.name }}</td>
+                            <td>{{ course.school }}</td>
+                            <td>{{ course.code }}</td>
+                            <td>{{ course.created_on }}</td>
+                            <td><a href=" {% url 'schools:course_details' course.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
