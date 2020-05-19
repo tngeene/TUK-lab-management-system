@@ -32,7 +32,7 @@ class CourseDetailView(DashboardView, DetailView):
         course = self.object.id
         context = super().get_context_data(**kwargs)
         context["users"] = UserAccount.objects.filter(course=course)
-        context["course"] = Course.objects.annotate(students_in_course_count=Count('useraccount')).first()
+        context["course"] = Course.objects.filter(id=course).annotate(students_in_course_count=Count('useraccount')).first()
         return context
     
 

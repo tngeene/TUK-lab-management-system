@@ -30,7 +30,7 @@ class DepartmentDetailView(DashboardView, DetailView):
         department = self.object.id
         context = super().get_context_data(**kwargs)
         context["schools"] = School.objects.filter(department=department)
-        context["department"] = Department.objects.annotate(schools_in_department_count=Count('school')).first()
+        context["department"] = Department.objects.filter(id=department).annotate(schools_in_department_count=Count('school')).first()
         return context
     
 

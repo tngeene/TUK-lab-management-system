@@ -35,7 +35,7 @@ All courses
                         {% for course in courses %}
                         <tr>
                             <td>{{ course.name }}</td>
-                            <td>{{ course.school }}</td>
+                            <td>{{ course.school.name }}</td>
                             <td>{{ course.code }}</td>
                             <td>{{ course.created_on }}</td>
                             <td><a href=" {% url 'schools:course_details' course.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
