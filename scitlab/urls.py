@@ -11,6 +11,7 @@ urlpatterns = [
     path('dashboard/',include('dashboard.urls',namespace='dashboard')),
     path('users/',include('users.urls',namespace='users')),
     path('schools/',include('schools.urls',namespace='schools')),
+    path('equipment/',include('equipment.urls',namespace='equipment')),
     path('', LoginView.as_view(template_name='account/login.html'),name='login'),
     path('logout', LogoutView.as_view(template_name='account/login.html'),name='logout'),
 

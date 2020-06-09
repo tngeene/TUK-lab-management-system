@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Equipment Details
+{% endblock %}
+
+
+{% block styles %}
+<link href="{% static 'css/data-tables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="m-3 p-3 shadow-sm">
+                            <h3 class="text-center py-3">Equipment Details</h3>
+                            <div class="table-responsive">
+                                <table class="table table-striped text-center">
+                                    <tbody>
+                                        <tr>
+                                            <th>Serial No.</th>
+                                            <td>{{ equipment.serial_no }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Equipment Type</th>
+                                            <td>{{ equipment.category.name }}</td>
+                                        </tr>
+                                        {% if equipment.batch %}
+                                        <tr>
+                                            <th>School</th>
+                                            <td>{{ equipment.batch.s }}</td>
+                                        </tr>
+                                        {% endif %}
+                                        <tr>
+                                            <th>Status</th>
+                                            {% if equipment.is_damaged == False %}
+                                            <td> <span class="badge badge-pill badge-success">Working</span></td>
+                                            {% else %}
+                                            <td> <span class="badge badge-pill badge-danger">Damaged</span></td>
+                                            {% endif %}
+                                        </tr>
+                                        <tr>
+                                            <th>Added On</th>
+                                            <td>{{ equipment.created_on }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <a href="{% url 'equipment:equipment_edit' equipment.pk %}" class="mx-1 col-md-6">
+                                <button class="btn btn-sm w-50 btn-primary">Edit</button>
+                            </a>
+                            <a href="{% url 'equipment:equipment_edit' equipment.pk %}" class="mx-1 col-md-6">
+                                <button class="btn btn-sm w-50 btn-warning">Mark as Damaged</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</div>
+    
+    </div>
+</div>
+
+{% endblock  %}
+
+{% block scripts %}
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+<script>
+    $('#data-table').DataTable();
+</script>
+{% endblock %}

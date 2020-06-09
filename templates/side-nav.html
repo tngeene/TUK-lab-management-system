@@ -5,7 +5,7 @@
                 <div class="b-bg">
                     <i class="feather icon-trending-up"></i>
                 </div>
-                <span class="b-title">Scit Lab</span>
+                <span class="b-title">TUK Lab</span>
             </a>
             <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
         </div>
@@ -18,17 +18,6 @@
                     <a href=" {% url 'dashboard:index' %} " class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
                 </li>
-                <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
-                    class="nav-item pcoded-hasmenu">
-                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-airplay"></i></span><span class="pcoded-mtext">Equipment</span></a>
-                    <ul class="pcoded-submenu">
-                        <li class=""><a href="bc_button.html" class=""></a></li>
-                        <li class=""><a href="bc_badges.html" class="">All Equipment</a></li>
-                        <li class=""><a href="bc_breadcrumb-pagination.html" class="">Add Equipment</a></li>
-                    </ul>
-                </li>
-                
                 <li data-username="basic components" class="{% if request.path == 'schools/' %}active{% endif %} nav-item pcoded-hasmenu">
                     <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
                                 class="ti-blackboard"></i></span><span class="pcoded-mtext">Departments and Schools</span></a>
@@ -52,6 +41,46 @@
                         <li class=""><a href="{% url 'schools:course_list' %}" class="">All Courses</a></li>
                         <li class=""><a href="{% url 'schools:course_add' %}" class="">Add Course</a></li>
                     </ul>
+                </li>
+                <li class="nav-item pcoded-menu-caption">
+                    <label>Equipment</label>
+                </li>
+                <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
+                    class="nav-item pcoded-hasmenu">
+                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-layers"></i></span><span class="pcoded-mtext">Categories</span></a>
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="{% url 'equipment:categories_list' %}" class="">All Categories</a></li>
+                    </ul>
+                </li>
+                <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
+                    class="nav-item pcoded-hasmenu">
+                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
+                                class="fa fa-box-open"></i></span><span class="pcoded-mtext">Batches</span></a>
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="{% url 'equipment:batch_list' %}" class="">All Batches</a></li>
+                    </ul>
+                </li>
+                <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
+                    class="nav-item pcoded-hasmenu">
+                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-filter"></i></span><span class="pcoded-mtext">Equipment</span></a>
+                    <ul class="pcoded-submenu">>
+                        <li class=""><a href="{% url 'equipment:equipment_list' %}" class="">All Equipment</a></li>
+                        <li class=""><a href="{% url 'equipment:equipment_add' %}" class="">Add Equipment</a></li>
+                    </ul>
+                </li>
+                <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
+                    class="nav-item pcoded-hasmenu">
+                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
+                                class="fa fa-store"></i></span><span class="pcoded-mtext">Storage Units</span></a>
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="{% url 'equipment:storage_units_list' %}" class="">All Storage Units</a></li>
+                    </ul>
+                </li>
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item">
+                    <a href="" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-share-2"></i></span><span class="pcoded-mtext">Allocations</span></a>
                 </li>
                 <li class="nav-item pcoded-menu-caption">
                     <label>Users</label>

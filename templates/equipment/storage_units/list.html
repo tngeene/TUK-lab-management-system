@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+All Storage Units
+{% endblock %}
+
+
+{% block styles %}
+<link href="{% static 'css/data-tables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="col-xl-12 col-md-12">
+    <div class="card Recent-units">
+        <div class="card-header">
+            <h5>All Storage Units</h5>
+        </div>
+        
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                <table class="table" id="data-table">
+                    <div class="float-right">
+                        <a href="{% url 'equipment:storage_unit_add' %}" class="label theme-bg2 text-white f-12">Add unit</a>
+                    </div>
+                    <thead>
+                        <tr>
+                            <th> Name </th>
+                            <th> Lab </th> 
+                            <th> Date Added </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for unit in units %}
+                        <tr>
+                            <td>{{ unit.name }}</td>
+                            <td>{{ unit.lab.name }}</td>
+                            <td>{{ unit.created_on }}</td>
+                            <td><a href=" {% url 'equipment:storage_unit_details' unit.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock  %}
+
+{% block scripts %}
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+<script>
+    $('#data-table').DataTable();
+</script>
+{% endblock %}

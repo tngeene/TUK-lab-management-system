@@ -17,7 +17,7 @@ class School(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.name} {self.department}"
+        return self.name
 
 class Lab(models.Model):
     name = models.CharField(max_length=255)
@@ -26,7 +26,7 @@ class Lab(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.name} {self.school}"
+        return self.name
 
 class Course(models.Model):
     name = models.CharField(max_length=255)
