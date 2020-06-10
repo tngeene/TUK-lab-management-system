@@ -3,7 +3,7 @@ from ..models import StorageUnit, Category, Equipment, Batch
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from dashboard.views import DashboardView
 from django.urls import reverse_lazy
-
+from django.db.models import Count
 
 
 class StorageUnitCreateView(DashboardView, CreateView):
@@ -24,7 +24,14 @@ class StorageUnitListView(DashboardView, ListView):
 class StorageUnitDetailView(DashboardView, DetailView):
     model = StorageUnit
     template_name = 'equipment/storage_units/details.html'
-    context_object_name = 'unit'
+
+    def get_context_data(self, **kwargs):
+        unit = self.object.id
+        context = super().get_context_data(**kwargs)
+        context["equipments"] = Equipment.objects.filter(storage_unit=unit)
+        context["unit"] = StorageUnit.objects.filter(id=unit).annotate(equipment_count=Count('equipment')).first()
+        return context
+
 
 
 class StorageUnitUpdateView(DashboardView, UpdateView):

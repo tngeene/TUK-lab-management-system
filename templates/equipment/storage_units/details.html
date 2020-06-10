@@ -32,11 +32,11 @@ Storage Unit Details
                                         {% comment %} <tr>
                                             <th>Batch Quantities</th>
                                             <td>{{ unit.batch_quantities }}</td>
-                                        </tr>
+                                        </tr>{% endcomment %}
                                         <tr>
                                             <th>Equipment Quantities</th>
-                                            <td>{{ unit.equipment_quantities }}</td>
-                                        </tr> {% endcomment %}
+                                            <td>{{ unit.equipment_count }}</td>
+                                        </tr> 
                                         <tr>
                                             <th>Added On</th>
                                             <td>{{ unit.created_on }}</td>
@@ -60,36 +60,42 @@ Storage Unit Details
             <h5 class="text-capitalize">All Equipment in  this Storage Unit</h5>
         </div>
         
-        {% comment %} <div class="card-block px-0 py-3">
+        <div class="card-block px-0 py-3">
             <div class="table-responsive">
                 
                 <table class="table" id="data-table">
                     <div class="float-right">
-                        <a href="{% url 'Storage Unit:Storage Unit_add' %}" class="label theme-bg2 text-white f-12">Add New Storage Unit</a>
+                        <a href="{% url 'equipment:equipment_add' %}" class="label theme-bg2 text-white f-12">Add equipment</a>
                     </div>
                     <thead>
                         <tr>
-                            <th> Name </th>
-                            <th> Registration No. </th>
-                            <th> YOS </th>
+                            <th> Serial No. </th>
+                            <th> Equipment Type </th> 
+                            <th> Lab </th>
+                            <th> Status </th> 
                             <th> Date Added </th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                         {% for user in users %}
+                        {% for equipment in equipments %}
                         <tr>
-                            <td>{{ user.get_full_name }}</td>
-                            <td>{{ user.registration_no }}</td>
-                            <td>{{ user.year_of_study }}</td>
-                            <td>{{ user.date_joined }}</td>
-                            <td><a href="{% url 'users:student_details' user.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
+                            <td>{{ equipment.serial_no }}</td>
+                            <td>{{ equipment.category.name }}</td>
+                            <td>{{ equipment.lab.name }}</td>
+                            {% if equipment.is_damaged == False %}
+                             <td> <span class="badge badge-pill badge-success">Working</span></td>
+                             {% else %}
+                              <td> <span class="badge badge-pill badge-danger">Damaged</span></td>
+                            {% endif %}
+                            <td>{{ equipment.created_on }}</td>
+                            <td><a href=" {% url 'equipment:equipment_details' equipment.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
                         </tr>
-                        {% endfor %}  
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
-        </div> {% endcomment %}
+        </div>
     </div>
 </div>
     

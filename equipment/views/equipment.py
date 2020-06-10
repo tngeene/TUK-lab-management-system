@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from ..models import Equipment, Category
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from dashboard.views import DashboardView
@@ -34,3 +34,18 @@ class EquipmentUpdateView(DashboardView, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('equipment:equipment_details', kwargs={'pk':self.object.pk})
+
+def mark_as_damaged(request, pk):
+    equipment = get_object_or_404(Equipment, pk=pk)
+    equipment.is_damaged = not equipment.is_damaged
+    equipment.save()
+
+    return redirect("equipment:equipment_details", pk=pk)
+
+# logic for marking equipment as in good condition
+def mark_as_working(request,pk):
+    equipment = get_object_or_404(Equipment, pk=pk)
+    equipment.is_damaged = False
+    equipment.save()
+
+    return redirect("equipment:equipment_details", pk=pk)

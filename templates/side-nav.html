@@ -18,9 +18,11 @@
                     <a href=" {% url 'dashboard:index' %} " class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
                 </li>
-                <li data-username="basic components" class="{% if request.path == 'schools/' %}active{% endif %} nav-item pcoded-hasmenu">
+                <li data-username="basic components"
+                    class="{% if request.path == 'schools/' %}active{% endif %} nav-item pcoded-hasmenu">
                     <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
-                                class="ti-blackboard"></i></span><span class="pcoded-mtext">Departments and Schools</span></a>
+                                class="ti-blackboard"></i></span><span class="pcoded-mtext">Departments and
+                            Schools</span></a>
                     <ul class="pcoded-submenu">
                         <li class=""><a href="{% url 'schools:departments_list' %}" class="">Departments</a></li>
                         <li class=""><a href="{% url 'schools:schools_list' %}" class="">Schools</a></li>
@@ -53,6 +55,10 @@
                         <li class=""><a href="{% url 'equipment:categories_list' %}" class="">All Categories</a></li>
                     </ul>
                 </li>
+                <li data-username="dashboard Default" class="nav-item">
+                    <a href="{% url 'equipment:storage_units_list' %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="fa fa-store"></i></span><span class="pcoded-mtext">Storage Units</span></a>
+                </li>
                 <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
                     class="nav-item pcoded-hasmenu">
                     <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
@@ -65,22 +71,15 @@
                     class="nav-item pcoded-hasmenu">
                     <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-filter"></i></span><span class="pcoded-mtext">Equipment</span></a>
-                    <ul class="pcoded-submenu">>
+                    <ul class="pcoded-submenu">
                         <li class=""><a href="{% url 'equipment:equipment_list' %}" class="">All Equipment</a></li>
                         <li class=""><a href="{% url 'equipment:equipment_add' %}" class="">Add Equipment</a></li>
                     </ul>
                 </li>
-                <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
-                    class="nav-item pcoded-hasmenu">
-                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
-                                class="fa fa-store"></i></span><span class="pcoded-mtext">Storage Units</span></a>
-                    <ul class="pcoded-submenu">
-                        <li class=""><a href="{% url 'equipment:storage_units_list' %}" class="">All Storage Units</a></li>
-                    </ul>
-                </li>
                 <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item">
                     <a href="" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-share-2"></i></span><span class="pcoded-mtext">Allocations</span></a>
+                                class="feather icon-share-2"></i></span><span
+                            class="pcoded-mtext">Allocations</span></a>
                 </li>
                 <li class="nav-item pcoded-menu-caption">
                     <label>Users</label>
@@ -101,7 +100,8 @@
                             Secretaries</span></a>
                     <ul class="pcoded-submenu">
                         <li class=""><a href="bc_button.html" class=""></a></li>
-                        <li class=""><a href="{% url 'users:lab_secretaries_list' %}" class="">All Lab Secretaries </a></li>
+                        <li class=""><a href="{% url 'users:lab_secretaries_list' %}" class="">All Lab Secretaries </a>
+                        </li>
                         <li class=""><a href="{% url 'users:lab_secretaries_add' %}" class="">Add Lab Secretary</a></li>
                     </ul>
                 </li>

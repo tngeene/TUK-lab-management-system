@@ -1,7 +1,8 @@
 from django.urls import path
 from .views.categories import CategoryCreateView, CategoryDetailView, CategoryListView, CategoryUpdateView
 from .views.batches import BatchCreateView, BatchListView, BatchDetailView, BatchUpdateView
-from .views.equipment import EquipmentCreateView, EquipmentDetailView, EquipmentListView, EquipmentUpdateView
+from .views.equipment import EquipmentCreateView, EquipmentDetailView, EquipmentListView, EquipmentUpdateView, \
+    mark_as_damaged, mark_as_working
 from .views.storage_units import StorageUnitCreateView, StorageUnitListView, StorageUnitDetailView, \
         StorageUnitUpdateView
 
@@ -26,6 +27,8 @@ urlpatterns = [
     path('equipment/add',EquipmentCreateView.as_view(),name="equipment_add"),
     path('equipment/<int:pk>/details',EquipmentDetailView.as_view(),name="equipment_details"),
     path('equipment/<int:pk>/edit',EquipmentUpdateView.as_view(),name="equipment_edit"),
+    path('equipment/<int:pk>/mark-as-damaged',mark_as_damaged,name="equipment_damaged_action"),
+    path('equipment/<int:pk>/mark-as-working',mark_as_working,name="equipment_working_action"),
 
     # storage units
     path('storage-units/',StorageUnitListView.as_view(),name="storage_units_list"),
