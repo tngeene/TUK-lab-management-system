@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Department(models.Model):
+class School(models.Model):
     name = models.CharField(max_length=255)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -9,10 +9,9 @@ class Department(models.Model):
     def __str__(self):
         return self.name
 
-
-class School(models.Model):
-    department = models.ForeignKey(Department, on_delete=models.PROTECT)
+class Department(models.Model):
     name = models.CharField(max_length=255)
+    school = models.ForeignKey(School,on_delete=models.CASCADE,related_name='schools')
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -31,7 +30,7 @@ class Lab(models.Model):
 class Course(models.Model):
     name = models.CharField(max_length=255)
     code = models.CharField(max_length=255)
-    school = models.ForeignKey(School,on_delete=models.PROTECT)
+    department = models.ForeignKey(Department,on_delete=models.PROTECT,related_name='departments')
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 

@@ -26,17 +26,17 @@ School Details
                                             <td>{{ school.name }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Department</th>
-                                            <td>{{ school.department }}</td>
-                                        </tr>
-                                        <tr>
                                             <th>Date Added</th>
                                             <td>{{ school.created_on }}</td>
                                         </tr>
                                         <tr>
+                                            <th>Departments</th>
+                                            <td>{{ school.departments_in_school_count }}</td>
+                                        </tr>
+                                        {% comment %} <tr>
                                             <th>Courses</th>
                                             <td>{{ school.courses_in_school_count }}</td>
-                                        </tr>
+                                        </tr> {% endcomment %}
                                         <tr>
                                             <th>Labs</th>
                                             <td>{{ school.labs_in_school_count }}</td>
@@ -62,6 +62,40 @@ School Details
         <div class="col-xl-12 col-md-12">
             <div class="card Recent-schools">
                 <div class="card-header">
+                    <h5>All Departments in {{school.name}} school</h5>
+                </div>
+                <div class="card-block px-0 py-3">
+                    <div class="table-responsive">
+
+                        <table class="table" id="data-table">
+                            <div class="float-right">
+                                <a href="{% url 'schools:course_add' %}" class="label theme-bg2 text-white f-12">Add
+                                    Department</a>
+                            </div>
+                            <thead>
+                                <tr>
+                                    <th> Name </th>
+                                    <th> Date Added </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for department in departments %}
+                                <tr>
+                                    <td>{{ department.name }}</td>
+                                    <td>{{ department.created_on }}</td>
+                                    <td><a href="{% url 'schools:department_details' department.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 col-md-12">
+            <div class="card Recent-schools">
+                <div class="card-header">
                     <h5>All Courses in {{school.name}} school</h5>
                 </div>
                 <div class="card-block px-0 py-3">
@@ -76,6 +110,7 @@ School Details
                                 <tr>
                                     <th> Name </th>
                                     <th> Course Code </th>
+                                    <th> Department </th>
                                     <th> Date Added </th>
                                     <th></th>
                                 </tr>
@@ -85,6 +120,7 @@ School Details
                                 <tr>
                                     <td>{{ course.name }}</td>
                                     <td>{{ course.code }}</td>
+                                    <td>{{ course.department.name }}</td>
                                     <td>{{ course.created_on }}</td>
                                     <td><a href="{% url 'schools:course_details' course.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
                                 </tr>

@@ -10,7 +10,7 @@ from django.db.models import Count
 
 class CourseCreateView(DashboardView, CreateView):
     model = Course
-    fields = ('name','code','school')
+    fields = ('name','code','department')
     template_name = 'schools/courses/add.html'
 
     def get_success_url(self):
@@ -39,7 +39,7 @@ class CourseDetailView(DashboardView, DetailView):
 
 class CourseUpdateView(DashboardView, UpdateView):
     model = Course
-    template_name = 'Courses/Courses/edit.html'
+    template_name = 'schools/courses/edit.html'
     fields = ('name','department')
 
     def get_success_url(self):

@@ -14,7 +14,8 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['tuklabs.pythonanywhere.com']
+# ALLOWED_HOSTS = ['tuklabs.pythonanywhere.com']
+ALLOWED_HOSTS = ['*']
 
 SITE_ID = 1
 # Application definition
