@@ -1,10 +1,17 @@
 from django.urls import path
-from .views.categories import CategoryCreateView, CategoryDetailView, CategoryListView, CategoryUpdateView
-from .views.batches import BatchCreateView, BatchListView, BatchDetailView, BatchUpdateView
-from .views.equipment import EquipmentCreateView, EquipmentDetailView, EquipmentListView, EquipmentUpdateView, \
-    mark_as_damaged, mark_as_working
-from .views.storage_units import StorageUnitCreateView, StorageUnitListView, StorageUnitDetailView, \
-        StorageUnitUpdateView
+
+from .views.allocations import (AllocationCreateView, AllocationDetailView,
+                                AllocationListView, AllocationUpdateView)
+from .views.batches import (BatchCreateView, BatchDetailView, BatchListView,
+                            BatchUpdateView)
+from .views.categories import (CategoryCreateView, CategoryDetailView,
+                               CategoryListView, CategoryUpdateView)
+from .views.equipment import (EquipmentCreateView, EquipmentDetailView,
+                              EquipmentListView, EquipmentUpdateView,
+                              mark_as_damaged, mark_as_working)
+from .views.storage_units import (
+    StorageUnitCreateView, StorageUnitDetailView, StorageUnitListView,
+    StorageUnitUpdateView)
 
 app_name = "equipment"
 
@@ -35,4 +42,10 @@ urlpatterns = [
     path('storage-units/add',StorageUnitCreateView.as_view(),name="storage_unit_add"),
     path('storage-units/<int:pk>/details',StorageUnitDetailView.as_view(),name="storage_unit_details"),
     path('storage-units/<int:pk>/edit',StorageUnitUpdateView.as_view(),name="storage_unit_edit"),
+
+    # allocations
+    path('allocations/',AllocationListView.as_view(),name="all_allocations"),
+    path('allocations/new/',AllocationCreateView.as_view(),name="new_allocation"),
+    path('allocations/<int:pk>/details/',AllocationDetailView.as_view(),name="allocation_details"),
+    path('allocations/<int:pk>/edit',AllocationUpdateView.as_view(),name="allocation_edit"),
 ]

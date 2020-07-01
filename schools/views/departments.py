@@ -1,9 +1,12 @@
-from django.shortcuts import render
-from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
-from dashboard.views import DashboardView
-from django.urls import reverse_lazy
-from ..models import Department, Course, Lab
 from django.db.models import Count
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import (
+    CreateView, DeleteView, DetailView, ListView, UpdateView)
+
+from dashboard.views import DashboardView
+
+from ..models import Course, Department, Lab
 
 # Create your views here.
 

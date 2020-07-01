@@ -1,6 +1,7 @@
 from django.db import models
 from schools.models import Lab, Course, School
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 
 User = get_user_model()
 
@@ -59,8 +60,8 @@ class Batch(models.Model):
 class Allocation(models.Model):
     student = models.ForeignKey(User,limit_choices_to={'user_type':'Student'},on_delete=models.CASCADE,
         null=True,blank=True,related_name='equipment_allocated_to')
-    course = models.ForeignKey(Course,on_delete=models.CASCADE,null=True,blank=True,related_name='equipment_course')
-    equipment = models.ForeignKey(Equipment,on_delete=models.CASCADE,null=True,blank=True,related_name='allocated_equipment')
+    course = models.ForeignKey(Course,on_delete=models.CASCADE,null=True,blank=True,related_name='courses')
+    equipment = models.ForeignKey(Equipment,on_delete=models.CASCADE,null=True,blank=True,related_name='equipment')
     quantity = models.IntegerField(default=0)
     allocated_by = models.ForeignKey(User,on_delete=models.PROTECT,related_name='equipment_allocated_by')
     is_returned = models.BooleanField(default=False)
@@ -72,3 +73,8 @@ class Allocation(models.Model):
             return f"{self.student.first_name} {self.student.last_name} {self.student.course} {self.allocated_by}"
         else:
             return f"{self.course.name} {self.allocated_by.first_name}"
+
+    @property
+    def validate_quantiy(self):
+        if self.quantity > self.equipment.count():
+            raise ValidationError('Cannot allocate more than available equipment')

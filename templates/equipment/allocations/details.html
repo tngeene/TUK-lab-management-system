@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+allocation Details
+{% endblock %}
+
+
+{% block styles %}
+<link href="{% static 'css/data-tables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="m-3 p-3 shadow-sm">
+                            <h3 class="text-center py-3">Allocation Details</h3>
+                            <div class="table-responsive">
+                                <table class="table table-striped text-center">
+                                    <tbody>
+                                        <tr>
+                                            <th>Allocated To.</th>
+                                            {% if allocation.student %}
+                                            <td>{{ allocation.student.get_full_name }}</td>
+                                            {% else %}
+                                            <td>{{ allocation.course  }}</td>
+                                            {% endif %}
+                                        </tr>
+                                        <tr>
+                                            <th>Equipment</th>
+                                            <td>{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }} </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Quantities</th>
+                                            <td>{{ allocation.quantity }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Added On</th>
+                                            <td>{{ allocation.created_on }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <a href="{% url 'equipment:allocation_edit' allocation.pk %}" class="mx-1">
+                                <button class="btn btn-md w-50 btn-primary">Edit</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 col-md-12">
+        <div class="card Recent-allocations">
+        <div class="card-header">
+            <h5 class="text-capitalize">All Equipment in  this allocation</h5>
+        </div>
+        
+        {% comment %} <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                
+                <table class="table" id="data-table">
+                    <div class="float-right">
+                        <a href="{% url 'equipment:allocation_add' %}" class="label theme-bg2 text-white f-12">Add New allocation</a>
+                    </div>
+                    <thead>
+                        <tr>
+                            <th> Name </th>
+                            <th> Registration No. </th>
+                            <th> YOS </th>
+                            <th> Date Added </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                         {% for user in users %}
+                        <tr>
+                            <td>{{ user.get_full_name }}</td>
+                            <td>{{ user.registration_no }}</td>
+                            <td>{{ user.year_of_study }}</td>
+                            <td>{{ user.date_joined }}</td>
+                            <td><a href="{% url 'users:student_details' user.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
+                        </tr>
+                        {% endfor %}  
+                    </tbody>
+                </table>
+            </div>
+        </div> {% endcomment %}
+    </div>
+</div>
+    
+    </div>
+</div>
+
+{% endblock  %}
+
+{% block scripts %}
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+<script>
+    $('#data-table').DataTable();
+</script>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+All Equipment allocations
+{% endblock %}
+
+
+{% block styles %}
+<link href="{% static 'css/data-tables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="col-xl-12 col-md-12">
+    <div class="card Recent-allocations">
+        <div class="card-header">
+            <h5>All allocations</h5>
+        </div>
+        
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                <table class="table" id="data-table">
+                    <div class="float-right">
+                        <a href="{% url 'equipment:new_allocation' %}" class="label theme-bg2 text-white f-12">Add allocation</a>
+                    </div>
+                    <thead>
+                        <tr>
+                            <th>Allocated To.</th>
+                            <th>Equipment</th>
+                            <th>Quantity</th>
+                            <th>Allocated By</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for allocation in allocations %}
+                        <tr>
+                            {% if allocation.student %}
+                            <td>{{ allocation.student.get_full_name }}</td>
+                            {% else %}
+                            <td>{{ allocation.course.name }}</td>
+                            {% endif %}
+                            <td>{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }}</td>
+                            <td>{{ allocation.quantity }}</td>
+                            <td>{{ allocation.allocated_by.get_full_name }}</td>
+                            {% if allocation.is_returned == 'False' %}
+                            <td><span class="badge badge-pill badge-danger">Unreturned</span></td>
+                            {% else %}
+                            <td><span class="badge badge-pill badge-success">Returned</span></td>
+                            {% endif %}
+                            <td>{{ allocation.created_on }}</td>
+                            <td><a href=" {% url 'equipment:allocation_details' allocation.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock  %}
+
+{% block scripts %}
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+<script>
+    $('#data-table').DataTable();
+</script>
+{% endblock %}
