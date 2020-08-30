@@ -1,10 +1,13 @@
-from django.shortcuts import render
-from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
-from dashboard.views import DashboardView
-from django.urls import reverse_lazy
-from django.shortcuts import redirect
-from ..models import School, Lab
+from django.contrib import messages
 from django.db.models import Count
+from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
+from django.views.generic import (
+    CreateView, DeleteView, DetailView, ListView, UpdateView)
+
+from dashboard.views import DashboardView
+
+from ..models import Lab, School
 
 # Create your views here.
 
@@ -14,6 +17,7 @@ class LabCreateView(DashboardView, CreateView):
     template_name = 'dashboard/schools/labs/add.html'
 
     def get_success_url(self):
+        messages.success(self.request,"Lab Added Successfully")
         return reverse_lazy('schools:lab_details', kwargs={'pk': self.object.pk})
 
 
@@ -41,6 +45,7 @@ class LabUpdateView(DashboardView, UpdateView):
     fields = ('name',)
 
     def get_success_url(self):
+        messages.success(self.request,"Lab Updated")
         return reverse_lazy('schools:lab_details', kwargs={'pk': self.object.pk})
 
 class SchoolAssignView(DashboardView, ListView):
@@ -61,6 +66,7 @@ def school_assign_view(request, pk, school_pk):
     school = School.objects.get(id=school_pk)
     lab.school.add(school)
     lab.save()
+    messages.success(request,"School assigned to lab")
     return redirect('schools:lab_details', pk=pk)
 
 def school_unassign_view(request, pk, school_pk):
@@ -68,4 +74,6 @@ def school_unassign_view(request, pk, school_pk):
     school = School.objects.get(id=school_pk)
     lab.school.remove(school)
     lab.save()
+
+    messages.success(request,"School removed from lab")
     return redirect('schools:lab_details', pk=pk)

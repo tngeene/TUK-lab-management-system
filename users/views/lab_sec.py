@@ -1,6 +1,7 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import CreateView, UpdateView, ListView, DetailView
 from users.models import UserAccount
-from dashboard.views import DashboardView
+from dashboard.views import DashboardView, TemplateView
 from django.urls import reverse_lazy
 from django.template.loader import render_to_string
 from core.utils import generate_random_string
@@ -60,3 +61,13 @@ class LabSecSuspendView(DashboardView, DetailView):
 
     def get_success_url(self):
         return reverse_lazy('users:lab_secretaries_details', kwargs={'pk': self.object.pk})
+
+class LabSecView(LoginRequiredMixin, UserPassesTestMixin):
+    def test_func(self):
+        user = self.request.user
+        if user.user_type == 'Lab_Sec':
+            return True
+        return False
+
+class LabSecDashboardView(LabSecView, TemplateView):
+    template_name = 'lab-secretaries/dashboard.html'

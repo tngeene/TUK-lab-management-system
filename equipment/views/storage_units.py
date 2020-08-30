@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib import messages
 from ..models import StorageUnit, Category, Equipment, Batch
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from dashboard.views import DashboardView
@@ -12,6 +13,7 @@ class StorageUnitCreateView(DashboardView, CreateView):
     template_name = 'dashboard/equipment/storage_units/add.html'
 
     def get_success_url(self):
+        messages.success(self.request,"Storage Unit added")
         return reverse_lazy('equipment:storage_unit_details', kwargs={'pk':self.object.pk})
 
 
@@ -40,4 +42,5 @@ class StorageUnitUpdateView(DashboardView, UpdateView):
     fields = ('name','lab')
 
     def get_success_url(self):
+        messages.success(self.request,"Storage Unit updated")
         return reverse_lazy('equipment:storage_unit_details', kwargs={'pk':self.object.pk})

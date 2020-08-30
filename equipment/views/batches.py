@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib import messages
 from ..models import Batch, Equipment
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from dashboard.views import DashboardView
@@ -12,6 +13,7 @@ class BatchCreateView(DashboardView, CreateView):
     template_name = 'dashboard/equipment/batches/add.html'
 
     def get_success_url(self):
+        messages.success(self.request,"Batch Added Successfully")
         return reverse_lazy('equipment:batch_details', kwargs={'pk':self.object.pk})
 
 
@@ -33,4 +35,5 @@ class BatchUpdateView(DashboardView, UpdateView):
     fields = ('category','serial_no','school','equipment_quantities')
 
     def get_success_url(self):
+        messages.success(self.request,"Batch Updated")
         return reverse_lazy('equipment:batch_details', kwargs={'pk':self.object.pk})

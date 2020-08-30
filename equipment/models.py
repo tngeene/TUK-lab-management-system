@@ -83,8 +83,8 @@ class Allocation(models.Model):
         if self.equipment and self.is_returned:
             self.equipment.is_allocated = False
 
-        if self.equipment.batch:
-            if self.quantity < self.equipment.batch.equipment_quantities:
-                raise ValidationError(f"Amount is higher than available quantities, please allocate a lower quantity.")
+        # if self.equipment.batch:
+        #     if self.quantity < self.equipment.batch.equipment_quantities:
+        #         raise ValidationError(f"Amount is higher than available quantities, please allocate a lower quantity.")
 
         super().save(*args, **kwargs)

@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect
+from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
@@ -21,6 +22,7 @@ class AllocationCreateView(DashboardView,CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
+        messages.success(self.request,"Allocation saved")
         return reverse_lazy('equipment:allocation_details',kwargs = {'pk': self.object.pk})
 
 class AllocationListView(DashboardView,ListView):
@@ -55,6 +57,7 @@ class AllocationUpdateView(DashboardView, UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
+        messages.success(self.request,"Allocation updated")
         return reverse_lazy('equipment:allocation_details', kwargs={'pk': self.object.pk})
 
 
@@ -67,6 +70,7 @@ def mark_as_returned(request, pk):
     allocation.is_returned = True
     allocation.save()
 
+    messages.success(request,"Allocation updated")
     return redirect('equipment:allocation_details', pk=pk)
 
 def mark_as_damaged(request, pk):
@@ -75,4 +79,5 @@ def mark_as_damaged(request, pk):
     allocation.equipment.is_damaged = True
     allocation.equipment.save()
 
+    messages.success(request,"Equipment marked as damaged")
     return redirect('equipment:allocation_details', pk=pk)

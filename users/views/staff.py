@@ -1,4 +1,5 @@
 from django.views.generic import CreateView, UpdateView, ListView, DetailView
+from django.contrib import messages
 from users.models import UserAccount
 from dashboard.views import DashboardView
 from django.urls import reverse_lazy
@@ -38,7 +39,8 @@ class StaffCreateView(DashboardView, CreateView):
             return super(StaffCreateView, self).form_valid(form)
 
         def get_success_url(self):
-                return reverse_lazy('users:staff_details', kwargs ={'pk': self.object.id})
+            messages.success(self.request,"Admin added successfully")
+            return reverse_lazy('users:staff_details', kwargs ={'pk': self.object.id})
 
 class StaffListView(DashboardView, ListView):
         model = UserAccount

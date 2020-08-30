@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib import messages
 from ..models import Category, Equipment, Batch
 from django.db.models import Count
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
@@ -13,6 +14,7 @@ class CategoryCreateView(DashboardView, CreateView):
     template_name = 'dashboard/equipment/categories/add.html'
 
     def get_success_url(self):
+        messages.success(self.request,"Category Added Successfully")
         return reverse_lazy('equipment:category_details', kwargs={'pk':self.object.pk})
 
 
@@ -42,4 +44,5 @@ class CategoryUpdateView(DashboardView, UpdateView):
     fields = ('name',)
 
     def get_success_url(self):
+        messages.success(self.request,"Category Updated")
         return reverse_lazy('equipment:category_details', kwargs={'pk':self.object.pk})

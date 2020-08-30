@@ -1,4 +1,5 @@
 from django.db.models import Count
+from django.contrib import messages
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import (
@@ -16,6 +17,7 @@ class DepartmentCreateView(DashboardView, CreateView):
     template_name = 'dashboard/schools/departments/add.html'
 
     def get_success_url(self):
+        messages.success(self.request,"Department Added Successfully")
         return reverse_lazy('schools:department_details', kwargs={'pk': self.object.pk})
 
 
@@ -45,4 +47,5 @@ class DepartmentUpdateView(DashboardView, UpdateView):
     fields = ('name','school')
 
     def get_success_url(self):
+        messages.success(self.request,"Department Updated")
         return reverse_lazy('schools:department_details', kwargs={'pk': self.object.pk})

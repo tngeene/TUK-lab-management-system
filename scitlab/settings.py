@@ -1,5 +1,6 @@
 import os
 from decouple import config
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -131,3 +132,11 @@ STATIC_ROOT = 'static'
 
 MEDIA_URL  = '/media/'
 MEDIA_ROOT = 'media'
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'info',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger',
+}

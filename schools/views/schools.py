@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib import messages
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
 from dashboard.views import DashboardView
 from django.urls import reverse_lazy
@@ -13,6 +14,7 @@ class SchoolCreateView(DashboardView, CreateView):
     template_name = 'dashboard/schools/Schools/add.html'
 
     def get_success_url(self):
+        messages.success(self.request,"School added successfully")
         return reverse_lazy('schools:school_details', kwargs={'pk': self.object.pk})
 
 
@@ -42,4 +44,5 @@ class SchoolUpdateView(DashboardView, UpdateView):
     fields = ('name',)
 
     def get_success_url(self):
+        messages.success(self.request,"School updated")
         return reverse_lazy('schools:school_details', kwargs={'pk': self.object.pk})

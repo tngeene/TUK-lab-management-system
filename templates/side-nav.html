@@ -15,9 +15,21 @@
                     <label>Navigation</label>
                 </li>
                 <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item active">
-                    <a href=" {% url 'dashboard:index' %} " class="nav-link "><span class="pcoded-micon"><i
+                {% if user.user_type == 'Staff' %}
+                <a href=" {% url 'dashboard:index' %} " class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+                {% elif  user.user_type == 'Student' %}
+                <a href=" {% url 'users:student_dashboard_index' %} " class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+                {% elif  user.user_type == 'Lab_Tech' %}
+                <a href=" {% url 'users:lab_technician_dashboard_index' %} " class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+                {% elif  user.user_type == 'Lab_Sec' %}
+                <a href=" {% url 'users:lab_sec_dashboard_index' %} " class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+                {% endif %}
                 </li>
+                {% if user.user_type == 'Staff' %}
                 <li data-username="basic components"
                     class="{% if request.path == 'schools/' %}active{% endif %} nav-item pcoded-hasmenu">
                     <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
@@ -44,9 +56,11 @@
                         <li class=""><a href="{% url 'schools:course_add' %}" class="">Add Course</a></li>
                     </ul>
                 </li>
+                {% endif %}
                 <li class="nav-item pcoded-menu-caption">
                     <label>Equipment</label>
                 </li>
+                {% if user.user_type == 'Staff' %}
                 <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
                     class="nav-item pcoded-hasmenu">
                     <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
@@ -81,6 +95,34 @@
                                 class="feather icon-share-2"></i></span><span
                             class="pcoded-mtext">Allocations</span></a>
                 </li>
+                {% elif user.user_type == 'Student' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item">
+                    <a href="{% url 'equipment:all_allocations' %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-share-2"></i></span><span
+                            class="pcoded-mtext">My Allocations</span></a>
+                </li>
+                {% elif user.user_type == 'Lab_Sec' %}
+                <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
+                    class="nav-item pcoded-hasmenu">
+                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-filter"></i></span><span class="pcoded-mtext">Equipment</span></a>
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="{% url 'equipment:equipment_list' %}" class="">All Equipment</a></li>
+                        <li class=""><a href="{% url 'equipment:equipment_add' %}" class="">Add Equipment</a></li>
+                    </ul>
+                </li>
+                {% elif user.user_type == 'Lab_Tech' %}
+                <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
+                    class="nav-item pcoded-hasmenu">
+                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-filter"></i></span><span class="pcoded-mtext">Equipment</span></a>
+                    <ul class="pcoded-submenu">
+                        <li class=""><a href="{% url 'equipment:equipment_list' %}" class="">All Equipment</a></li>
+                        <li class=""><a href="{% url 'equipment:equipment_add' %}" class="">Add Equipment</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+                {% if user.user_type == 'Staff' %}
                 <li class="nav-item pcoded-menu-caption">
                     <label>Users</label>
                 </li>
@@ -121,6 +163,13 @@
                         <li class=""><a href="{% url 'users:staff_add' %}" class="">Add Admin</a></li>
                     </ul>
                 </li>
+                {% elif not user.user_type == 'Staff' %}
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item">
+                    <a href="{% url 'equipment:all_allocations' %}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-user"></i></span><span
+                            class="pcoded-mtext">My Profile</span></a>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </div>

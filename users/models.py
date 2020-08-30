@@ -29,6 +29,7 @@ MEMBERSHIP_CHOICES = (
     ('Lab_Tech', 'Lab Technician'),
     ('Lab_Sec', 'Lab Secretary'),
     ('Student', 'Student'),
+    ('Staff', 'Staff'),
 )
 
 YEAR_OF_STUDY_CHOICES = (

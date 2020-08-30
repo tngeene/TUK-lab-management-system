@@ -1,12 +1,15 @@
-from django.shortcuts import render
-from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
-from dashboard.views import DashboardView
-from django.urls import reverse_lazy
-from ..models import Course, Lab
-from users.models import UserAccount
+from django.contrib import messages
 from django.db.models import Count
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import (
+    CreateView, DeleteView, DetailView, ListView, UpdateView)
 
-# Create your views here.
+from dashboard.views import DashboardView
+from users.models import UserAccount
+
+from ..models import Course, Lab
+
 
 class CourseCreateView(DashboardView, CreateView):
     model = Course
@@ -14,6 +17,7 @@ class CourseCreateView(DashboardView, CreateView):
     template_name = 'dashboard/schools/courses/add.html'
 
     def get_success_url(self):
+        messages.success(self.request,"Course Added Successfully")
         return reverse_lazy('schools:course_details', kwargs={'pk': self.object.pk})
 
 
@@ -42,4 +46,5 @@ class CourseUpdateView(DashboardView, UpdateView):
     fields = ('name','department')
 
     def get_success_url(self):
+        messages.success(self.request,"Course Updated")
         return reverse_lazy('schools:course_details', kwargs={'pk': self.object.pk})
