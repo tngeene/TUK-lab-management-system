@@ -27,8 +27,9 @@ All Equipment
                             <th> Serial No. </th>
                             <th> Equipment Type </th> 
                             <th> Lab </th>
-                            <th> Storage Unit </th> 
-                            <th> Status </th> 
+                            <th> Storage Unit </th>
+                            <th> Allocation Status</th>
+                            <th> Working Condition </th>
                             <th> Date Added </th>
                             <th></th>
                         </tr>
@@ -40,6 +41,11 @@ All Equipment
                             <td>{{ equipment.category.name }}</td>
                             <td>{{ equipment.lab.name }}</td>
                             <td>{{ equipment.storage_unit.name }}</td>
+                            {% if not equipment.is_allocated %}
+                            <td><span class="badge badge-pill badge-success">In Storage</span></td>
+                            {% else %}
+                            <td><span class="badge badge-pill badge-danger">Allocated</span></td>
+                            {% endif %}
                             {% if equipment.is_damaged == False %}
                              <td> <span class="badge badge-pill badge-success">Working</span></td>
                              {% else %}

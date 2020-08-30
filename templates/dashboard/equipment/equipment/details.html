@@ -36,11 +36,19 @@ Equipment Details
                                         </tr>
                                         {% endif %}
                                         <tr>
-                                            <th>Status</th>
-                                            {% if equipment.is_damaged == False %}
+                                            <th>Working Condition</th>
+                                            {% if not equipment.is_damaged %}
                                             <td> <span class="badge badge-pill badge-success">Working</span></td>
                                             {% else %}
                                             <td> <span class="badge badge-pill badge-danger">Damaged</span></td>
+                                            {% endif %}
+                                        </tr>
+                                        <tr>
+                                            <th>Allocation Status</th>
+                                            {% if equipment.is_allocated  %}
+                                            <td> <span class="badge badge-pill badge-info">Allocted</span></td>
+                                            {% else %}
+                                            <td> <span class="badge badge-pill badge-success">In Storage</span></td>
                                             {% endif %}
                                         </tr>
                                         <tr>

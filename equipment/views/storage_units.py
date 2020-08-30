@@ -9,7 +9,7 @@ from django.db.models import Count
 class StorageUnitCreateView(DashboardView, CreateView):
     model = StorageUnit
     fields = ('name','lab')
-    template_name = 'equipment/storage_units/add.html'
+    template_name = 'dashboard/equipment/storage_units/add.html'
 
     def get_success_url(self):
         return reverse_lazy('equipment:storage_unit_details', kwargs={'pk':self.object.pk})
@@ -17,13 +17,13 @@ class StorageUnitCreateView(DashboardView, CreateView):
 
 class StorageUnitListView(DashboardView, ListView):
     model = StorageUnit
-    template_name = 'equipment/storage_units/list.html'
+    template_name = 'dashboard/equipment/storage_units/list.html'
     context_object_name = 'units'
 
 
 class StorageUnitDetailView(DashboardView, DetailView):
     model = StorageUnit
-    template_name = 'equipment/storage_units/details.html'
+    template_name = 'dashboard/equipment/storage_units/details.html'
 
     def get_context_data(self, **kwargs):
         unit = self.object.id
@@ -36,7 +36,7 @@ class StorageUnitDetailView(DashboardView, DetailView):
 
 class StorageUnitUpdateView(DashboardView, UpdateView):
     model = StorageUnit
-    template_name = 'equipment/storage_units/edit.html'
+    template_name = 'dashboard/equipment/storage_units/edit.html'
     fields = ('name','lab')
 
     def get_success_url(self):

@@ -10,7 +10,7 @@ from django.urls import reverse_lazy
 class CategoryCreateView(DashboardView, CreateView):
     model = Category
     fields = ('name',)
-    template_name = 'equipment/categories/add.html'
+    template_name = 'dashboard/equipment/categories/add.html'
 
     def get_success_url(self):
         return reverse_lazy('equipment:category_details', kwargs={'pk':self.object.pk})
@@ -18,13 +18,13 @@ class CategoryCreateView(DashboardView, CreateView):
 
 class CategoryListView(DashboardView, ListView):
     model = Category
-    template_name = 'equipment/categories/list.html'
+    template_name = 'dashboard/equipment/categories/list.html'
     context_object_name = 'categories'
 
 
 class CategoryDetailView(DashboardView, DetailView):
     model = Category
-    template_name = 'equipment/categories/details.html'
+    template_name = 'dashboard/equipment/categories/details.html'
     context_object_name = 'category'
 
     def get_context_data(self, **kwargs):
@@ -38,7 +38,7 @@ class CategoryDetailView(DashboardView, DetailView):
 
 class CategoryUpdateView(DashboardView, UpdateView):
     model = Category
-    template_name = 'equipment/categories/edit.html'
+    template_name = 'dashboard/equipment/categories/edit.html'
     fields = ('name',)
 
     def get_success_url(self):

@@ -58,7 +58,7 @@ class UserAccount(AbstractUser):
 
     objects = UserAccountManager()
 
-    def __str_(self):
-        return f'{self.first_name} {self.last_name} {self.phone_number}'
+    def __str__(self):
+        return f"{self.get_full_name()}"
 
 

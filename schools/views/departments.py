@@ -13,7 +13,7 @@ from ..models import Course, Department, Lab
 class DepartmentCreateView(DashboardView, CreateView):
     model = Department
     fields = ('name','school')
-    template_name = 'schools/departments/add.html'
+    template_name = 'dashboard/schools/departments/add.html'
 
     def get_success_url(self):
         return reverse_lazy('schools:department_details', kwargs={'pk': self.object.pk})
@@ -22,12 +22,12 @@ class DepartmentCreateView(DashboardView, CreateView):
 class DepartmentListView(DashboardView, ListView):
     model = Department
     context_object_name = 'departments'
-    template_name = 'schools/departments/list.html'
+    template_name = 'dashboard/schools/departments/list.html'
 
 
 class DepartmentDetailView(DashboardView, DetailView):
     model = Department
-    template_name = 'schools/departments/details.html'
+    template_name = 'dashboard/schools/departments/details.html'
 
     def get_context_data(self, **kwargs):
         department = self.object.id

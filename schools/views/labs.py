@@ -11,7 +11,7 @@ from django.db.models import Count
 class LabCreateView(DashboardView, CreateView):
     model = Lab
     fields = ('name','school')
-    template_name = 'schools/labs/add.html'
+    template_name = 'dashboard/schools/labs/add.html'
 
     def get_success_url(self):
         return reverse_lazy('schools:lab_details', kwargs={'pk': self.object.pk})
@@ -20,13 +20,13 @@ class LabCreateView(DashboardView, CreateView):
 class LabListView(DashboardView, ListView):
     model = Lab
     context_object_name = 'labs'
-    template_name = 'schools/labs/list.html'
+    template_name = 'dashboard/schools/labs/list.html'
 
 
 class LabDetailView(DashboardView, DetailView):
     model = Lab
     context_object_name = 'lab'
-    template_name = 'schools/labs/details.html'
+    template_name = 'dashboard/schools/labs/details.html'
 
     def get_context_data(self, **kwargs):
         lab = self.object.id
@@ -37,7 +37,7 @@ class LabDetailView(DashboardView, DetailView):
 
 class LabUpdateView(DashboardView, UpdateView):
     model = Lab
-    template_name = 'schools/labs/edit.html'
+    template_name = 'dashboard/schools/labs/edit.html'
     fields = ('name',)
 
     def get_success_url(self):
@@ -46,7 +46,7 @@ class LabUpdateView(DashboardView, UpdateView):
 class SchoolAssignView(DashboardView, ListView):
     model = School
     context_object_name = 'schools'
-    template_name = 'schools/labs/assign_school.html'
+    template_name = 'dashboard/schools/labs/assign_school.html'
 
     def get_queryset(self):
         return School.objects.all()

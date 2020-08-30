@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-Student Details
+Lab Technician Details
 {% endblock %}
 
 
@@ -26,7 +26,7 @@ Student Details
                                     </span>
                                 <p>
                                     <a href="" class="mx-1">
-                                        <button class="btn btn-primary">Edit Student</button>
+                                        <button class="btn btn-primary">Edit User</button>
                                     </a>
                                 </p>
 
@@ -34,7 +34,7 @@ Student Details
                     </div>
                     <div class="col-md-8 ">
                         <div class="m-3 p-3 shadow-sm">
-                            <h3 class="text-center py-3">Student Details</h3>
+                            <h3 class="text-center py-3">Lab Technician Details</h3>
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <tbody>
@@ -47,16 +47,8 @@ Student Details
                                         <td>{{ user.phone_number }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Registration Number</th>
-                                        <td>{{ user.registration_no }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Course</th>
-                                        <td>{{ user.course }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Year of Study</th>
-                                        <td>{{ user.year_of_study }}</td>
+                                        <th>Staff Id</th>
+                                        <td>{{ user.staff_id }}</td>
                                     </tr>
                                     <tr>
                                         <th>Gender</th>
@@ -76,7 +68,7 @@ Student Details
                                 </table>
                                 <div class="text-center py-3">
                                     {% if user.is_active%}
-                                        <a href="{% url 'users:student_confirm_suspension' user.pk %}"
+                                        <a href="{% url 'users:lab_technician_confirm_suspension' user.pk %}"
                                             class="mx-1">
                                             <button class="btn btn-warning btn-md w-50">Suspend</button>
                                         </a>
@@ -85,10 +77,64 @@ Student Details
                                             <button class="btn btn-success btn-md w-50">Activate</button>
                                         </a>
                                         {% endif %}
-                                </div>
+                                </div> 
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="col-xl-12 col-md-12">
+        <div class="card equipment-allocations">
+            <div class="card-header">
+                <h5>All Equipment Allocations</h5>
+            </div>
+
+            <div class="card-block px-0 py-3">
+                <div class="table-responsive">
+
+                    <table class="table" id="data-table">
+                        {% comment %}
+                        <div class="float-right">
+                            <a href="{% url 'equipment:equipment_add' %}" class="label theme-bg2 text-white f-12">Add
+                                equipment</a>
+                        </div> {% endcomment %}
+                        <thead>
+                            <tr>
+                                <th> Serial No. </th>
+                                <th> Equipment Type </th>
+                                <th> Lab </th>
+                                <th> Allocated To </th>
+                                <th> Working Condition </th>
+                                <th> Allocation Status </th>
+                                <th> Date Added </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for allocation in equipment_allocations %}
+                            <tr>
+                                <td><a href="{% url 'equipment:equipment_details' allocation.equipment.id %}">{{ allocation.equipment.serial_no }}</a></td>
+                                <td>{{ allocation.equipment.category.name }}</td>
+                                <td>{{ allocation.equipment.lab.name }}</td>
+                                <td><a href="{% url 'users:student_details' allocation.student.id %}">{{ allocation.student }}</a>
+                                </td>
+                                {% if not allocation.equipment.is_damaged %}
+                                <td> <span class="badge badge-pill badge-success">Working</span></td>
+                                {% else %}
+                                <td> <span class="badge badge-pill badge-danger">Damaged</span></td>
+                                {% endif %} {% if allocation.is_returned %}
+                                <td><span class="badge badge-pill badge-success">Returned</span></td>
+                                {% else %}
+                                <td><span class="badge badge-pill badge-danger">Unreturned</span></td>
+                                {% endif %}
+                                <td>{{ allocation.created_on }}</td>
+                                <td><a href=" {% url 'equipment:allocation_details' allocation.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

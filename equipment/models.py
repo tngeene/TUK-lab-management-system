@@ -2,6 +2,7 @@ from django.db import models
 from schools.models import Lab, Course, School
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+from .validators import validate_quantities
 
 User = get_user_model()
 
@@ -24,6 +25,7 @@ class Equipment(models.Model):
     batch = models.ForeignKey('Batch',on_delete=models.SET_NULL,related_name='equipment_batch',null=True,blank=True)
     lab = models.ForeignKey(Lab,related_name='equipment_lab',on_delete=models.PROTECT)
     storage_unit = models.ForeignKey('StorageUnit',on_delete=models.CASCADE,null=True)
+    is_allocated = models.BooleanField(default=False)
     is_damaged = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True,null=True)
@@ -44,7 +46,7 @@ class Batch(models.Model):
     category = models.ForeignKey(Category,on_delete=models.SET_NULL,null=True)
     serial_no = models.CharField(max_length=45,null=True)
     school= models.ForeignKey(School,on_delete=models.CASCADE,related_name='batch_school',null=True)
-    equipment_quantities = models.IntegerField(default=1,verbose_name='Quantities')
+    equipment_quantities = models.IntegerField(default=1, verbose_name='Quantities')
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True,null=True)
 
@@ -58,23 +60,31 @@ class Batch(models.Model):
 
 
 class Allocation(models.Model):
-    student = models.ForeignKey(User,limit_choices_to={'user_type':'Student'},on_delete=models.CASCADE,
-        null=True,blank=True,related_name='equipment_allocated_to')
-    course = models.ForeignKey(Course,on_delete=models.CASCADE,null=True,blank=True,related_name='courses')
-    equipment = models.ForeignKey(Equipment,on_delete=models.CASCADE,null=True,blank=True,related_name='equipment')
+    student = models.ForeignKey(User, limit_choices_to={'user_type':'Student'},on_delete=models.CASCADE,
+        null=True,blank=True,related_name='equipment_allocated')
+    course = models.ForeignKey(Course,on_delete=models.CASCADE,null=True,blank=True,related_name='allocations')
+    equipment = models.ForeignKey(Equipment,on_delete=models.CASCADE,null=True,blank=True,related_name='allocations')
     quantity = models.IntegerField(default=0)
-    allocated_by = models.ForeignKey(User,on_delete=models.PROTECT,related_name='equipment_allocated_by')
+    allocated_by = models.ForeignKey(User, on_delete=models.PROTECT,related_name='equipment_allocations')
     is_returned = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True,null=True)
 
     def __str__(self):
         if self.student:
-            return f"{self.student.first_name} {self.student.last_name} {self.student.course} {self.allocated_by}"
+            return f"{self.student} {self.student.course} {self.allocated_by}"
         else:
             return f"{self.course.name} {self.allocated_by.first_name}"
 
-    @property
-    def validate_quantiy(self):
-        if self.quantity > self.equipment.count():
-            raise ValidationError('Cannot allocate more than available equipment')
+    def save(self, *args, **kwargs):
+        if self.equipment:
+            self.equipment.is_allocated = True
+
+        if self.equipment and self.is_returned:
+            self.equipment.is_allocated = False
+
+        if self.equipment.batch:
+            if self.quantity < self.equipment.batch.equipment_quantities:
+                raise ValidationError(f"Amount is higher than available quantities, please allocate a lower quantity.")
+
+        super().save(*args, **kwargs)

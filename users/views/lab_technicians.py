@@ -6,12 +6,12 @@ from core.utils import generate_random_string
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-
+from equipment.models import Allocation
 
 class LabTechnicianCreateView(DashboardView, CreateView):
         model = UserAccount
         fields = ('first_name','last_name','email','phone_number','gender','staff_id')
-        template_name = 'users/lab_technicians/add.html'
+        template_name = 'dashboard/users/lab_technicians/add.html'
 
         def form_valid(self, form):
             random_password = generate_random_string()
@@ -41,7 +41,7 @@ class LabTechnicianCreateView(DashboardView, CreateView):
 
 class LabTechnicianListView(DashboardView, ListView):
         model = UserAccount
-        template_name = 'users/lab_technicians/list.html'
+        template_name = 'dashboard/users/lab_technicians/list.html'
 
         def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
@@ -50,13 +50,19 @@ class LabTechnicianListView(DashboardView, ListView):
 
 class LabTechnicianDetailView(DashboardView, DetailView):
     model = UserAccount
-    template_name = 'users/lab_technicians/details.html'
+    template_name = 'dashboard/users/lab_technicians/details.html'
     context_object_name = 'user'
+
+    def get_context_data(self, **kwargs):
+        lab_technician = self.object.id
+        context = super().get_context_data(**kwargs)
+        context["equipment_allocations"] = Allocation.objects.filter(allocated_by=lab_technician)
+        return context
 
 class LabTechnicianSuspendView(DashboardView, DetailView):
     model = UserAccount
     context_object_name = 'user'
-    template_name = 'users/confirm-suspension.html'
+    template_name = 'dashboard/users/confirm-suspension.html'
 
     def get_success_url(self):
         return reverse_lazy('users:lab_technician_details', kwargs={'pk': self.object.pk})

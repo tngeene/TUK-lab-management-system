@@ -1,8 +1,9 @@
-from django.views.generic import DetailView
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.views.generic import DetailView
 
 from ..models import UserAccount
+
 
 # logic for suspending users and redirection based on user type
 def suspend_user(request, pk):
@@ -33,4 +34,3 @@ def unsuspend_user(request,pk):
         return redirect("users:staff_details", pk=pk)
     elif(user.user_type == 'Student'):
         return redirect("users:student_details", pk=pk)
-

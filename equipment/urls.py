@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views.allocations import (AllocationCreateView, AllocationDetailView,
-                                AllocationListView, AllocationUpdateView)
+                                AllocationListView, AllocationUpdateView, mark_as_damaged, mark_as_returned)
 from .views.batches import (BatchCreateView, BatchDetailView, BatchListView,
                             BatchUpdateView)
 from .views.categories import (CategoryCreateView, CategoryDetailView,
@@ -34,8 +34,8 @@ urlpatterns = [
     path('equipment/add',EquipmentCreateView.as_view(),name="equipment_add"),
     path('equipment/<int:pk>/details',EquipmentDetailView.as_view(),name="equipment_details"),
     path('equipment/<int:pk>/edit',EquipmentUpdateView.as_view(),name="equipment_edit"),
-    path('equipment/<int:pk>/mark-as-damaged',mark_as_damaged,name="equipment_damaged_action"),
-    path('equipment/<int:pk>/mark-as-working',mark_as_working,name="equipment_working_action"),
+    path('equipment/<int:pk>/mark-as-damaged/',mark_as_damaged,name="equipment_damaged_action"),
+    path('equipment/<int:pk>/mark-as-working/',mark_as_working,name="equipment_working_action"),
 
     # storage units
     path('storage-units/',StorageUnitListView.as_view(),name="storage_units_list"),
@@ -48,4 +48,6 @@ urlpatterns = [
     path('allocations/new/',AllocationCreateView.as_view(),name="new_allocation"),
     path('allocations/<int:pk>/details/',AllocationDetailView.as_view(),name="allocation_details"),
     path('allocations/<int:pk>/edit',AllocationUpdateView.as_view(),name="allocation_edit"),
+    path('allocations/<int:pk>/mark-as-returned/', mark_as_returned, name="allocation_return_action"),
+    path('allocations/<int:pk>/mark-as-damaged/', mark_as_damaged, name="allocation_damaged_action"),
 ]

@@ -11,7 +11,7 @@ from django.db.models import Count
 class CourseCreateView(DashboardView, CreateView):
     model = Course
     fields = ('name','code','department')
-    template_name = 'schools/courses/add.html'
+    template_name = 'dashboard/schools/courses/add.html'
 
     def get_success_url(self):
         return reverse_lazy('schools:course_details', kwargs={'pk': self.object.pk})
@@ -20,13 +20,13 @@ class CourseCreateView(DashboardView, CreateView):
 class CourseListView(DashboardView, ListView):
     model = Course
     context_object_name = 'courses'
-    template_name = 'schools/courses/list.html'
+    template_name = 'dashboard/schools/courses/list.html'
 
 
 class CourseDetailView(DashboardView, DetailView):
     model = Course
     context_object_name = 'course'
-    template_name = 'schools/courses/details.html'
+    template_name = 'dashboard/schools/courses/details.html'
 
     def get_context_data(self, **kwargs):
         course = self.object.id
@@ -34,12 +34,11 @@ class CourseDetailView(DashboardView, DetailView):
         context["users"] = UserAccount.objects.filter(course=course)
         context["course"] = Course.objects.filter(id=course).annotate(students_in_course_count=Count('useraccount')).first()
         return context
-    
 
 
 class CourseUpdateView(DashboardView, UpdateView):
     model = Course
-    template_name = 'schools/courses/edit.html'
+    template_name = 'dashboard/schools/courses/edit.html'
     fields = ('name','department')
 
     def get_success_url(self):

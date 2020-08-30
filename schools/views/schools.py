@@ -10,7 +10,7 @@ from django.db.models import Count
 class SchoolCreateView(DashboardView, CreateView):
     model = School
     fields = ('name',)
-    template_name = 'schools/Schools/add.html'
+    template_name = 'dashboard/schools/Schools/add.html'
 
     def get_success_url(self):
         return reverse_lazy('schools:school_details', kwargs={'pk': self.object.pk})
@@ -19,12 +19,12 @@ class SchoolCreateView(DashboardView, CreateView):
 class SchoolListView(DashboardView, ListView):
     model = School
     context_object_name = 'schools'
-    template_name = 'schools/schools/list.html'
+    template_name = 'dashboard/schools/schools/list.html'
 
 
 class SchoolDetailView(DashboardView, DetailView):
     model = School
-    template_name = 'schools/schools/details.html'
+    template_name = 'dashboard/schools/schools/details.html'
 
     def get_context_data(self, **kwargs):
         school = self.object.id
@@ -38,7 +38,7 @@ class SchoolDetailView(DashboardView, DetailView):
 
 class SchoolUpdateView(DashboardView, UpdateView):
     model = School
-    template_name = 'schools/Schools/edit.html'
+    template_name = 'dashboard/schools/Schools/edit.html'
     fields = ('name',)
 
     def get_success_url(self):

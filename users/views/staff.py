@@ -11,7 +11,7 @@ from django.template.loader import render_to_string
 class StaffCreateView(DashboardView, CreateView):
         model = UserAccount
         fields = ('first_name','last_name','email','phone_number','gender','staff_id')
-        template_name = 'users/Staff/add.html'
+        template_name = 'dashboard/users/Staff/add.html'
 
         def form_valid(self, form):
             random_password = generate_random_string()
@@ -42,7 +42,7 @@ class StaffCreateView(DashboardView, CreateView):
 
 class StaffListView(DashboardView, ListView):
         model = UserAccount
-        template_name = 'users/Staff/list.html'
+        template_name = 'dashboard/users/Staff/list.html'
 
         def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
@@ -51,13 +51,13 @@ class StaffListView(DashboardView, ListView):
 
 class StaffDetailView(DashboardView, DetailView):
     model = UserAccount
-    template_name = 'users/Staff/details.html'
+    template_name = 'dashboard/users/Staff/details.html'
     context_object_name = 'user'
 
 class StaffSuspendView(DashboardView, DetailView):
     model = UserAccount
     context_object_name = 'user'
-    template_name = 'users/confirm-suspension.html'
+    template_name = 'dashboard/users/confirm-suspension.html'
 
     def get_success_url(self):
         return reverse_lazy('users:staff_details', kwargs={'pk': self.object.pk})

@@ -24,14 +24,14 @@ allocation Details
                                         <tr>
                                             <th>Allocated To.</th>
                                             {% if allocation.student %}
-                                            <td>{{ allocation.student.get_full_name }}</td>
+                                            <td> <a href="{% url 'users:student_details' allocation.student.id %}"> {{ allocation.student }} </a> </td>
                                             {% else %}
                                             <td>{{ allocation.course  }}</td>
                                             {% endif %}
                                         </tr>
                                         <tr>
                                             <th>Equipment</th>
-                                            <td>{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }} </td>
+                                            <td><a href="{% url 'equipment:equipment_details' allocation.equipment.id %}">{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }} </a></td>
                                         </tr>
                                         <tr>
                                             <th>Quantities</th>
@@ -41,55 +41,41 @@ allocation Details
                                             <th>Added On</th>
                                             <td>{{ allocation.created_on }}</td>
                                         </tr>
+                                        <tr>
+                                            <th>Allocated By</th>
+                                            <td> <a href="{% url 'users:lab_technician_details' allocation.allocated_by.id %}"> {{ allocation.allocated_by }} </a> </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <div class="text-center">
-                            <a href="{% url 'equipment:allocation_edit' allocation.pk %}" class="mx-1">
-                                <button class="btn btn-md w-50 btn-primary">Edit</button>
+                        {% if not allocation.is_returned %}
+                            <a href="{% url 'equipment:allocation_return_action' pk=allocation.pk %}" class="mx-1">
+                                <button class="btn btn-md  btn-success">Mark as Returned</button>
                             </a>
+                        {% endif %}
+                            <a href="{% url 'equipment:allocation_edit' allocation.pk %}" class="mx-1">
+                                <button class="btn btn-md btn-primary">Edit</button>
+                            </a>
+                            {% if not allocation.equipment.is_damaged %}
+                            <a href="{% url 'equipment:allocation_damaged_action' pk=allocation.pk %}" class="mx-1">
+                                <button class="btn btn-md  btn-warning">Mark as damaged</button>
+                            </a>
+                            {% else%}
+                            <a href="{% url 'equipment:allocation_damaged_action' pk=allocation.pk %}" class="mx-1">
+                                <button class="btn btn-md  btn-info">Mark as Replaced</button>
+                            </a>
+                            {% endif %}
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-12 col-md-12">
-        <div class="card Recent-allocations">
-        <div class="card-header">
-            <h5 class="text-capitalize">All Equipment in  this allocation</h5>
-        </div>
-        
-        {% comment %} <div class="card-block px-0 py-3">
-            <div class="table-responsive">
-                
-                <table class="table" id="data-table">
-                    <div class="float-right">
-                        <a href="{% url 'equipment:allocation_add' %}" class="label theme-bg2 text-white f-12">Add New allocation</a>
-                    </div>
-                    <thead>
-                        <tr>
-                            <th> Name </th>
-                            <th> Registration No. </th>
-                            <th> YOS </th>
-                            <th> Date Added </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                         {% for user in users %}
-                        <tr>
-                            <td>{{ user.get_full_name }}</td>
-                            <td>{{ user.registration_no }}</td>
-                            <td>{{ user.year_of_study }}</td>
-                            <td>{{ user.date_joined }}</td>
-                            <td><a href="{% url 'users:student_details' user.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
-                        </tr>
-                        {% endfor %}  
-                    </tbody>
-                </table>
-            </div>
-        </div> {% endcomment %}
+
+
+
     </div>
 </div>
     

@@ -11,7 +11,7 @@ from django.contrib.sites.shortcuts import get_current_site
 class LabSecCreateView(DashboardView, CreateView):
         model = UserAccount
         fields = ('first_name','last_name','email','phone_number','gender','staff_id')
-        template_name = 'users/lab_secretaries/add.html'
+        template_name = 'dashboard/users/lab_secretaries/add.html'
 
         def form_valid(self, form):
             random_password = generate_random_string()
@@ -50,13 +50,13 @@ class LabSecListView(DashboardView, ListView):
 
 class LabSecDetailView(DashboardView, DetailView):
     model = UserAccount
-    template_name = 'users/lab_secretaries/details.html'
+    template_name = 'dashboard/users/lab_secretaries/details.html'
     context_object_name = 'user'
 
 class LabSecSuspendView(DashboardView, DetailView):
     model = UserAccount
     context_object_name = 'user'
-    template_name = 'users/confirm-suspension.html'
+    template_name = 'dashboard/users/confirm-suspension.html'
 
     def get_success_url(self):
         return reverse_lazy('users:lab_secretaries_details', kwargs={'pk': self.object.pk})

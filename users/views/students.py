@@ -6,12 +6,13 @@ from core.utils import generate_random_string
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from equipment.models import Allocation
 
 
 class StudentCreateView(DashboardView, CreateView):
         model = UserAccount
         fields = ('first_name','last_name','email','phone_number','gender','registration_no','course','year_of_study')
-        template_name = 'users/students/add.html'
+        template_name = 'dashboard/users/students/add.html'
 
         def form_valid(self, form):
             random_password = generate_random_string()
@@ -41,7 +42,7 @@ class StudentCreateView(DashboardView, CreateView):
 
 class StudentListView(DashboardView, ListView):
         model = UserAccount
-        template_name = 'users/students/list.html'
+        template_name = 'dashboard/users/students/list.html'
 
         def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
@@ -50,13 +51,19 @@ class StudentListView(DashboardView, ListView):
 
 class StudentDetailView(DashboardView, DetailView):
     model = UserAccount
-    template_name = 'users/students/details.html'
+    template_name = 'dashboard/users/students/details.html'
     context_object_name = 'user'
+
+    def get_context_data(self, **kwargs):
+        student = self.object.id
+        context = super().get_context_data(**kwargs)
+        context["equipment_allocations"] = Allocation.objects.filter(student=student)
+        return context
 
 class StudentSuspendView(DashboardView, DetailView):
     model = UserAccount
     context_object_name = 'user'
-    template_name = 'users/confirm-suspension.html'
+    template_name = 'dashboard/users/confirm-suspension.html'
 
     def get_success_url(self):
         return reverse_lazy('users:student_details', kwargs={'pk': self.object.pk})
