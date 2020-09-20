@@ -22,7 +22,7 @@
                 <a href=" {% url 'users:student_dashboard_index' %} " class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
                 {% elif  user.user_type == 'Lab_Tech' %}
-                <a href=" {% url 'users:lab_technician_dashboard_index' %} " class="nav-link "><span class="pcoded-micon"><i
+                <a href=" {% url 'users:lab_technicians_dashboard_index' %} " class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
                 {% elif  user.user_type == 'Lab_Sec' %}
                 <a href=" {% url 'users:lab_sec_dashboard_index' %} " class="nav-link "><span class="pcoded-micon"><i
