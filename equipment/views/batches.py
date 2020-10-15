@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 
 class BatchCreateView(DashboardView, CreateView):
     model = Batch
-    fields = ('category','serial_no','school','equipment_quantities')
+    fields = ('category','supplier','serial_no','school','equipment_quantities')
     template_name = 'dashboard/equipment/batches/add.html'
 
     def get_success_url(self):
@@ -32,7 +32,7 @@ class BatchDetailView(DashboardView, DetailView):
 class BatchUpdateView(DashboardView, UpdateView):
     model = Batch
     template_name = 'dashboard/equipment/batches/edit.html'
-    fields = ('category','serial_no','school','equipment_quantities')
+    fields = ('category','supplier', 'serial_no','school','equipment_quantities')
 
     def get_success_url(self):
         messages.success(self.request,"Batch Updated")
