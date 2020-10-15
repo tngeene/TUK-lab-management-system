@@ -11,7 +11,7 @@ from django.db.models import Count
 class SchoolCreateView(DashboardView, CreateView):
     model = School
     fields = ('name',)
-    template_name = 'dashboard/schools/Schools/add.html'
+    template_name = 'dashboard/schools/schools/add.html'
 
     def get_success_url(self):
         messages.success(self.request,"School added successfully")
