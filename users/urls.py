@@ -32,7 +32,7 @@ urlpatterns = [
     path('admin/lab-secretaries/<int:pk>/details',LabSecDetailView.as_view(),name='lab_secretaries_details'),
     path('admin/lab-/<int:pk>/suspend', LabSecSuspendView.as_view(),name='lab_secretary_confirm_suspension'),
 
-    path('lab-secretaries-dashboard/', LabSecDashboardView.as_view(), name='lab_sec_dashoard_index'),
+    path('lab-secretaries-dashboard/', LabSecDashboardView.as_view(), name='lab_sec_dashboard_index'),
 
     # staff urls
     path('admin/staff/',StaffListView.as_view(),name='staff_list'),

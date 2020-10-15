@@ -8,7 +8,7 @@ from dashboard.views import DashboardView
 from ..models import Allocation
 
 
-class AllocationCreateView(DashboardView,CreateView):
+class AllocationCreateView(CreateView):
     model = Allocation
     fields = ('equipment','quantity','student',)
     template_name  = 'dashboard/equipment/allocations/add.html'
@@ -31,7 +31,7 @@ class AllocationListView(DashboardView,ListView):
     context_object_name = 'allocations'
 
 
-class AllocationDetailView(DashboardView, DetailView):
+class AllocationDetailView(DetailView):
     model = Allocation
     template_name = 'dashboard/equipment/allocations/details.html'
     context_object_name = 'allocation'
