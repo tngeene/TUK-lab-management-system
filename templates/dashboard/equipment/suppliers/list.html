@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-All Lab Secretaries
+All Equipment Suppliers
 {% endblock %}
 
 
@@ -11,9 +11,9 @@ All Lab Secretaries
 
 {% block content %}
 <div class="col-xl-12 col-md-12">
-    <div class="card Recent-Users">
+    <div class="card Recent-suppliers">
         <div class="card-header">
-            <h5>All Lab Secretaries</h5>
+            <h5>All Equipment Suppliers</h5>
         </div>
         
         <div class="card-block px-0 py-3">
@@ -21,31 +21,29 @@ All Lab Secretaries
                 
                 <table class="table" id="data-table">
                     <div class="float-right">
-                        <a href="{% url 'users:lab_secretaries_add' %}" class="label theme-bg2 text-white f-12">Add New Lab Secretary</a>
+                        <a href="{% url 'equipment:supplier_add' %}" class="label theme-bg2 text-white f-12">Add New Supplier</a>
                     </div>
                     <thead>
                         <tr>
-                            <th> Full Name </th>
-                            <th> Gender </th>
-                            <th> Contact </th>
-                            <th> Status </th>
-                            <th> Date Joined </th>
+                            <th> Name </th>
+                            <th> Phone Number </th>
+                            <th> Email </th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for user in users %}
+                        {% for supplier in suppliers %}
                         <tr>
-                            <td>{{ user.get_full_name }}</td>
-                            <td>{{ user.gender }}</td>
-                            <td>{{ user.phone_number }}</td>
-                            {% if user.is_active %}
+                            <td>{{ supplier.name }}</td>
+                            <td>{{ supplier.phone_number }}</td>
+                            <td>{{ supplier.email }}</td>
+                            {% comment %} {% if supplier.is_active %}
                             <td><span class="badge badge-pill badge-success">Active</span></td>
                             {% else %}
                             <td><span class="badge badge-pill badge-danger">Suspended</span></td>
                             {% endif %}
-                            <td><i class="fas fa-circle text-c-green f-10 m-r-15"></i>{{ user.date_joined }}</td>
-                            <td><a href="{% url 'users:lab_secretaries_details' user.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
+                            <td><i class="fas fa-circle text-c-green f-10 m-r-15"></i>{{ supplier.date_joined }}</td> {% endcomment %}
+                            <td><a href="{% url 'equipment:supplier_details' supplier.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

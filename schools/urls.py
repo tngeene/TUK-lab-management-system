@@ -10,7 +10,7 @@ from .views.courses import CourseCreateView, CourseListView, CourseDetailView, C
 app_name = "schools"
 
 urlpatterns = [
-    
+
     path('departments/add/',DepartmentCreateView.as_view(),name='department_add'),
     path('departments/list/',DepartmentListView.as_view(),name='departments_list'),
     path('departments/<int:pk>/details',DepartmentDetailView.as_view(),name='department_details'),

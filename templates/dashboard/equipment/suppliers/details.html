@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Supplier Details
+{% endblock %}
+
+
+{% block styles %}
+<link href="{% static 'css/data-tables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="m-3 p-3 shadow-sm">
+                            <h3 class="text-center py-3">Supplier Details</h3>
+                            <div class="table-responsive">
+                                <table class="table table-striped text-center">
+                                    <tbody>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td>{{ supplier.name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Phone Number</th>
+                                            <td>{{ supplier.phone_number }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email</th>
+                                            <td>{{ supplier.email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Batches Supplied</th>
+                                            <td>{{ supplier.batches.count }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Date Added</th>
+                                            <td>{{ supplier.created_on }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Last Update</th>
+                                            <td>{{ supplier.updated_on }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <a href="{% url 'equipment:supplier_edit' supplier.pk %}" class="mx-1">
+                                <button class="btn btn-md w-50 btn-primary">Edit</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-12 col-md-12">
+            <div class="card Recent-suppliers">
+                <div class="card-header">
+                    <h5>All Batches Supplied</h5>
+                </div>
+                <div class="card-block px-0 py-3">
+                    <div class="table-responsive">
+
+                        <table class="table" id="data-table">
+                            <div class="float-right">
+                                <a href="{% url 'equipment:batch_add' %}" class="label theme-bg2 text-white f-12">Add
+                                    Batch</a>
+                            </div>
+                           <thead>
+                        <tr>
+                            <th>Serial No.</th>
+                            <th>School</th>
+                            <th>Equipment Type</th>
+                            <th>Equipment Quantities</th>
+                            <th>Date Added</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for batch in batches %}
+                        <tr>
+                            <td>{{ batch.serial_no }}</td>
+                            <td>{{ batch.school.name | truncatechars:13 }}</td>
+                            <td>{{ batch.category }}</td>
+                            <td>{{ batch.equipment_quantities }}</td>
+                            <td>{{ batch.created_on }}</td>
+                            <td><a href=" {% url 'equipment:batch_details' batch.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock  %}
+
+{% block scripts %}
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+<script>
+    $('#data-table').DataTable();
+</script>
+{% endblock %}

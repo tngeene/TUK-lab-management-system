@@ -27,11 +27,15 @@ Batch Details
                                         </tr>
                                         <tr>
                                             <th>Equipment Type</th>
-                                            <td>{{ batch.category.name }}</td>
+                                            <td><a href="{% url 'equipment:category_details' batch.category.pk %}">{{ batch.category.name }}</a></td>
                                         </tr>
                                         <tr>
                                             <th>School</th>
-                                            <td>{{ batch.school.name }}</td>
+                                            <td><a href="{% url 'schools:school_details' batch.supplier.pk %}">{{ batch.school.name }}</a></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Supplier</th>
+                                            <td><a href="{% url 'equipment:supplier_details' batch.supplier.pk %}">{{ batch.supplier.name }}</a></td>
                                         </tr>
                                         <tr>
                                             <th>Equipment Quantities</th>

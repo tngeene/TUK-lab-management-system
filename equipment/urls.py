@@ -12,7 +12,7 @@ from .views.equipment import (EquipmentCreateView, EquipmentDetailView,
 from .views.storage_units import (
     StorageUnitCreateView, StorageUnitDetailView, StorageUnitListView,
     StorageUnitUpdateView)
-
+from .views.suppliers import SupplierCreateView, SupplierDetailView, SupplierListView, SupplierUpdateView
 app_name = "equipment"
 
 
@@ -36,6 +36,12 @@ urlpatterns = [
     path('equipment/<int:pk>/edit',EquipmentUpdateView.as_view(),name="equipment_edit"),
     path('equipment/<int:pk>/mark-as-damaged/',mark_as_damaged,name="equipment_damaged_action"),
     path('equipment/<int:pk>/mark-as-working/',mark_as_working,name="equipment_working_action"),
+
+    # supplier urls
+    path('suppliers/', SupplierListView.as_view(), name='supplier_list'),
+    path('suppliers/add/', SupplierCreateView.as_view(), name='supplier_add'),
+    path('suppliers/<int:pk>/details/', SupplierDetailView.as_view(), name='supplier_details'),
+    path('suppliers/<int:pk>/edit/', SupplierUpdateView.as_view(), name='supplier_edit'),
 
     # storage units
     path('storage-units/',StorageUnitListView.as_view(),name="storage_units_list"),

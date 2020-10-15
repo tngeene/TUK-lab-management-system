@@ -15,6 +15,7 @@
 {% for field in form.visible_fields %}
     <div class="form-group">
         {{ field.label_tag }}
+        <span class='text-danger'>{% if field.field.required %}*{% endif %}</span>
 
         {% if form.is_bound %}
             {% if field.errors %}
