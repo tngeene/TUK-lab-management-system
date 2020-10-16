@@ -47,7 +47,7 @@ class UserAccount(AbstractUser):
     last_name = models.CharField(max_length=50)
     photo = models.ImageField(upload_to='media/profiles', null=True)
     phone_number = models.CharField(max_length=50)
-    user_type = models.CharField(max_length=30,choices=MEMBERSHIP_CHOICES,default='Lab_Tech')
+    user_type = models.CharField(max_length=30,choices=MEMBERSHIP_CHOICES,default='Staff')
     gender = models.CharField(max_length=20, choices=GENDER_CHOICES)
     course = models.ForeignKey(Course,on_delete=models.PROTECT,null=True,blank=True)
     year_of_study = models.CharField(max_length=30, choices=YEAR_OF_STUDY_CHOICES,default="Select One",blank=True,null=True)
