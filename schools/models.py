@@ -20,7 +20,7 @@ class Department(models.Model):
 
 class Lab(models.Model):
     name = models.CharField(max_length=255)
-    school = models.ManyToManyField(School)
+    school = models.ManyToManyField(School, related_name='labs')
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 

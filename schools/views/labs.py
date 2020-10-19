@@ -13,12 +13,12 @@ from ..models import Lab, School
 
 class LabCreateView(DashboardView, CreateView):
     model = Lab
-    fields = ('name','school')
+    fields = ('name',)
     template_name = 'dashboard/schools/labs/add.html'
 
     def get_success_url(self):
         messages.success(self.request,"Lab Added Successfully")
-        return reverse_lazy('schools:lab_details', kwargs={'pk': self.object.pk})
+        return reverse_lazy('schools:lab_assign_school', kwargs={'pk': self.object.pk})
 
 
 class LabListView(DashboardView, ListView):
@@ -35,7 +35,7 @@ class LabDetailView(DashboardView, DetailView):
     def get_context_data(self, **kwargs):
         lab = self.object.id
         context = super().get_context_data(**kwargs)
-        context["schools"] = School.objects.filter(lab=lab)
+        context["schools"] = School.objects.filter(labs=lab)
         return context
 
 
@@ -45,7 +45,7 @@ class LabUpdateView(DashboardView, UpdateView):
     fields = ('name',)
 
     def get_success_url(self):
-        messages.success(self.request,"Lab Updated")
+        messages.success(self.request,"Lab Details Updated")
         return reverse_lazy('schools:lab_details', kwargs={'pk': self.object.pk})
 
 class SchoolAssignView(DashboardView, ListView):
@@ -54,7 +54,7 @@ class SchoolAssignView(DashboardView, ListView):
     template_name = 'dashboard/schools/labs/assign_school.html'
 
     def get_queryset(self):
-        return School.objects.all()
+        return School.objects.exclude(labs=self.kwargs['pk'])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -66,7 +66,7 @@ def school_assign_view(request, pk, school_pk):
     school = School.objects.get(id=school_pk)
     lab.school.add(school)
     lab.save()
-    messages.success(request,"School assigned to lab")
+    messages.success(request,f"School assigned to {lab.name} lab")
     return redirect('schools:lab_details', pk=pk)
 
 def school_unassign_view(request, pk, school_pk):
@@ -75,5 +75,5 @@ def school_unassign_view(request, pk, school_pk):
     lab.school.remove(school)
     lab.save()
 
-    messages.success(request,"School removed from lab")
+    messages.success(request,f"School removed from {lab.name} lab")
     return redirect('schools:lab_details', pk=pk)

@@ -42,7 +42,7 @@ class LabSecCreateView(DashboardView, CreateView):
 
 class LabSecListView(DashboardView, ListView):
         model = UserAccount
-        template_name = 'users/lab_secretaries/list.html'
+        template_name = 'dashboard/users/lab_secretaries/list.html'
 
         def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
