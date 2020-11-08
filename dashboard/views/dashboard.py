@@ -11,6 +11,14 @@ class DashboardView(LoginRequiredMixin, UserPassesTestMixin):
             return True
         return False
 
+class DashboardBaseView(TemplateView):
+    template_name = 'dashboard/base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user"] = self.request.user
+        return context
+
 class DashboardTemplateView(DashboardView, TemplateView):
     template_name = 'dashboard/index.html'
 

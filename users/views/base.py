@@ -11,7 +11,7 @@ class IndexTemplateView(TemplateView):
 
 def logout_user(request):
     logout(request)
-    return redirect('index')
+    return redirect('login')
 
 # handle redirect based on user role
 def login_redirect(request):

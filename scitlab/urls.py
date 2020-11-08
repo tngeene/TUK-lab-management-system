@@ -11,7 +11,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/',include('allauth.urls')),
     path('accounts/logout', logout_user, name='logout'),
-    path('', LoginUserView.as_view(template_name='account/login.html'), name='index'),
+    path('', LoginUserView.as_view(template_name='account/login.html'), name='login'),
     # path('', LoginView.as_view(template_name='account/login.html'),name='index'),
     path('accounts/login-redirect/', login_redirect, name='login_redirect'),
     path('dashboard/',include('dashboard.urls',namespace='dashboard')),

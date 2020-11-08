@@ -28,6 +28,7 @@ GENDER_CHOICES = (
 MEMBERSHIP_CHOICES = (
     ('Lab_Tech', 'Lab Technician'),
     ('Lab_Sec', 'Lab Secretary'),
+    ('Lecturer', 'Lecturer'),
     ('Student', 'Student'),
     ('Staff', 'Staff'),
 )
