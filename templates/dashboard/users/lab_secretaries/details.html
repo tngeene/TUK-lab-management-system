@@ -68,7 +68,7 @@ Lab Technician Details
                                 </table>
                                  <div class="text-center py-3">
                                     {% if user.is_active%}
-                                        <a href="{% url 'users:lab_secretary_confirm_suspension' user.pk %}"
+                                        <a href="{% url 'dashboard:lab_secretary_confirm_suspension' user.pk %}"
                                             class="mx-1">
                                             <button class="btn btn-warning btn-md w-50">Suspend</button>
                                         </a>

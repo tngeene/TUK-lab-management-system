@@ -14,16 +14,16 @@ def suspend_user(request, pk):
 
     if(user.user_type == 'Lab_Tech'):
         messages.success(request,"User suspended")
-        return redirect("users:lab_technician_details", pk=pk)
+        return redirect("dashboard:lab_technician_details", pk=pk)
     elif(user.user_type == 'Lab_Sec'):
         messages.success(request,"User suspended")
-        return redirect("users:lab_secretaries_details", pk=pk)
+        return redirect("dashboard:lab_secretaries_details", pk=pk)
     elif(user.user_type == 'Staff'):
         messages.success(request,"User suspended")
-        return redirect("users:staff_details", pk=pk)
+        return redirect("dashboard:staff_details", pk=pk)
     elif(user.user_type == 'Student'):
         messages.success(request,"User suspended")
-        return redirect("users:student_details", pk=pk)
+        return redirect("dashboard:student_details", pk=pk)
 
 # logic for unsuspending users and redirection
 def unsuspend_user(request,pk):
@@ -33,13 +33,13 @@ def unsuspend_user(request,pk):
 
     if(user.user_type == 'Lab_Tech'):
         messages.success(request,"User activated")
-        return redirect("users:lab_technician_details", pk=pk)
+        return redirect("dashboard:lab_technician_details", pk=pk)
     elif(user.user_type == 'Lab_Sec'):
         messages.success(request,"User activated")
-        return redirect("users:lab_secretaries_details", pk=pk)
+        return redirect("dashboard:lab_secretaries_details", pk=pk)
     elif(user.user_type == 'Staff'):
         messages.success(request,"User activated")
-        return redirect("users:staff_details", pk=pk)
+        return redirect("dashboard:staff_details", pk=pk)
     elif(user.user_type == 'Student'):
         messages.success(request,"User activated")
-        return redirect("users:student_details", pk=pk)
+        return redirect("dashboard:student_details", pk=pk)

@@ -64,7 +64,7 @@
                                 </table>
                                 <div class="text-center py-3">
                                     {% if user.is_active%}
-                                    <a href="{% url 'users:student_confirm_suspension' user.pk %}" class="mx-1">
+                                    <a href="{% url 'dashboard:student_confirm_suspension' user.pk %}" class="mx-1">
                                         <button class="btn btn-warning btn-md w-50">Suspend</button>
                                     </a>
                                     {% else %}
@@ -113,7 +113,7 @@
                                 <td><a href="{% url 'equipment:equipment_details' allocation.equipment.id %}">{{ allocation.equipment.serial_no }}</a></td>
                                 <td>{{ allocation.equipment.category.name }}</td>
                                 <td>{{ allocation.equipment.lab.name }}</td>
-                                <td><a href="{% url 'users:lab_technician_details' allocation.allocated_by.id %}">{{ allocation.allocated_by }}</a>
+                                <td><a href="{% url 'dashboard:lab_technician_details' allocation.allocated_by.id %}">{{ allocation.allocated_by }}</a>
                                 </td>
                                 {% if not allocation.equipment.is_damaged %}
                                 <td> <span class="badge badge-pill badge-success">Working</span></td>

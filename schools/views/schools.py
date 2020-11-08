@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib import messages
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
-from dashboard.views import DashboardView
+from dashboard.views.dashboard import DashboardView
 from django.urls import reverse_lazy
 from ..models import School, Lab, Course, Department
 from django.db.models import Count

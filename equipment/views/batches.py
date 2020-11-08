@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib import messages
 from ..models import Batch, Equipment
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
-from dashboard.views import DashboardView
+from dashboard.views.dashboard import DashboardView
 from django.urls import reverse_lazy
 
 

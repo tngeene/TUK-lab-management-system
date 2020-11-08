@@ -1,7 +1,7 @@
 <nav class="pcoded-navbar">
     <div class="navbar-wrapper">
         <div class="navbar-brand header-logo">
-            <a href="index.html" class="b-brand">
+            <a href="{% url 'dashboard:index' %}" class="b-brand">
                 <div class="b-bg">
                     <i class="feather icon-trending-up"></i>
                 </div>
@@ -140,8 +140,8 @@
                             Technicians</span></a>
                     <ul class="pcoded-submenu">
                         <li class=""><a href="bc_button.html" class=""></a></li>
-                        <li class=""><a href="{% url 'users:lab_technicians_list' %}" class="">All Technicians </a></li>
-                        <li class=""><a href="{% url 'users:lab_technician_add' %}" class="">Add Technician</a></li>
+                        <li class=""><a href="{% url 'dashboard:lab_technicians_list' %}" class="">All Technicians </a></li>
+                        <li class=""><a href="{% url 'dashboard:lab_technician_add' %}" class="">Add Technician</a></li>
                     </ul>
                 </li>
                 <li data-username="basic components" class="nav-item pcoded-hasmenu">
@@ -150,25 +150,25 @@
                             Secretaries</span></a>
                     <ul class="pcoded-submenu">
                         <li class=""><a href="bc_button.html" class=""></a></li>
-                        <li class=""><a href="{% url 'users:lab_secretaries_list' %}" class="">All Lab Secretaries </a>
+                        <li class=""><a href="{% url 'dashboard:lab_secretaries_list' %}" class="">All Lab Secretaries </a>
                         </li>
-                        <li class=""><a href="{% url 'users:lab_secretaries_add' %}" class="">Add Lab Secretary</a></li>
+                        <li class=""><a href="{% url 'dashboard:lab_secretaries_add' %}" class="">Add Lab Secretary</a></li>
                     </ul>
                 </li>
                 <li data-username="basic components" class="nav-item pcoded-hasmenu">
                     <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-user"></i></span><span class="pcoded-mtext">Students</span></a>
                     <ul class="pcoded-submenu">
-                        <li class=""><a href="{% url 'users:students_list' %}" class="">All Students </a></li>
-                        <li class=""><a href="{% url 'users:student_add' %}" class="">Add Student</a></li>
+                        <li class=""><a href="{% url 'dashboard:students_list' %}" class="">All Students </a></li>
+                        <li class=""><a href="{% url 'dashboard:student_add' %}" class="">Add Student</a></li>
                     </ul>
                 </li>
                 <li data-username="basic components" class="nav-item pcoded-hasmenu">
                     <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
                                 class="ti-id-badge"></i></span><span class="pcoded-mtext">Admins</span></a>
                     <ul class="pcoded-submenu">
-                        <li class=""><a href="{% url 'users:staff_list' %}" class="">All Admins </a></li>
-                        <li class=""><a href="{% url 'users:staff_add' %}" class="">Add Admin</a></li>
+                        <li class=""><a href="{% url 'dashboard:staff_list' %}" class="">All Admins </a></li>
+                        <li class=""><a href="{% url 'dashboard:staff_add' %}" class="">Add Admin</a></li>
                     </ul>
                 </li>
                 {% elif not user.user_type == 'Staff' %}

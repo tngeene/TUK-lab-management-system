@@ -3,7 +3,7 @@ from django.contrib import messages
 from ..models import Category, Equipment, Batch
 from django.db.models import Count
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
-from dashboard.views import DashboardView
+from dashboard.views.dashboard import DashboardView
 from django.urls import reverse_lazy
 
 

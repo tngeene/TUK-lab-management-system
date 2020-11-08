@@ -29,9 +29,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'django.contrib.sites',
+
+    # 3rd party libs
     'allauth',
     'allauth.account',
     'widget_tweaks',
+
+    # system apps
     'dashboard',
     'users',
     'core',

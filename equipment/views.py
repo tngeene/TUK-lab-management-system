@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Category, Equipment
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
-from dashboard.views import DashboardView
+from dashboard.views.dashboard import DashboardView
 
 
 

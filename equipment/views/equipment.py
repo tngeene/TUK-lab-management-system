@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from dashboard.views import DashboardView
+from dashboard.views.dashboard import DashboardView
 
 from ..models import Category, Equipment
 

@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView, DeleteView, DetailView, ListView, UpdateView)
 
-from dashboard.views import DashboardView
+from dashboard.views.dashboard import DashboardView
 
 from ..models import Course, Department, Lab
 

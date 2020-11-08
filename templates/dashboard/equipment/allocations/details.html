@@ -24,7 +24,7 @@ allocation Details
                                         <tr>
                                             <th>Allocated To.</th>
                                             {% if allocation.student %}
-                                            <td> <a href="{% url 'users:student_details' allocation.student.id %}"> {{ allocation.student }} </a> </td>
+                                            <td> <a href="{% url 'dashboard:student_details' allocation.student.id %}"> {{ allocation.student }} </a> </td>
                                             {% else %}
                                             <td>{{ allocation.course  }}</td>
                                             {% endif %}
@@ -43,7 +43,7 @@ allocation Details
                                         </tr>
                                         <tr>
                                             <th>Allocated By</th>
-                                            <td> <a href="{% url 'users:lab_technician_details' allocation.allocated_by.id %}"> {{ allocation.allocated_by }} </a> </td>
+                                            <td> <a href="{% url 'dashboard:lab_technician_details' allocation.allocated_by.id %}"> {{ allocation.allocated_by }} </a> </td>
                                         </tr>
                                     </tbody>
                                 </table>

@@ -21,7 +21,7 @@ All Students
                 
                 <table class="table" id="data-table">
                     <div class="float-right">
-                        <a href="{% url 'users:student_add' %}" class="label theme-bg2 text-white f-12">Add Student</a>
+                        <a href="{% url 'dashboard:student_add' %}" class="label theme-bg2 text-white f-12">Add Student</a>
                     </div>
                     <thead>
                         <tr>
@@ -47,7 +47,7 @@ All Students
                             <td><span class="badge badge-pill badge-danger">Suspended</span></td>
                             {% endif %}
                             <td><i class="fas fa-circle text-c-green f-10 m-r-15"></i>{{ user.date_joined }}</td>
-                            <td><a href="{% url 'users:student_details' user.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
+                            <td><a href="{% url 'dashboard:student_details' user.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
