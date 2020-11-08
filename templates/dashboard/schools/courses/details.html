@@ -83,7 +83,7 @@ course Details
                             <td>{{ user.registration_no }}</td>
                             <td>{{ user.year_of_study }}</td>
                             <td>{{ user.date_joined }}</td>
-                            <td><a href="{% url 'users:student_details' user.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
+                            <td><a href="{% url 'dashboard:student_details' user.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
                         </tr>
                         {% endfor %}  
                     </tbody>
