@@ -43,7 +43,7 @@ All Lab Secretaries
                             <td><span class="badge badge-pill badge-danger">Suspended</span></td>
                             {% endif %}
                             <td><i class="fas fa-circle text-c-green f-10 m-r-15"></i>{{ user.date_joined }}</td>
-                            <td><a href="{% url 'dashboard:lab_secretaries_details' user.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
+                            <td><a href="{% url 'dashboard:lab_secretary_details' user.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

@@ -41,7 +41,7 @@ urlpatterns = [
     # lab secretaries
     path('admin/lab-secretaries/',LabSecListView.as_view(),name='lab_secretaries_list'),
     path('admin/lab-secretaries/add',LabSecCreateView.as_view(),name='lab_secretaries_add'),
-    path('admin/lab-secretaries/<int:pk>/details',LabSecDetailView.as_view(),name='lab_secretaries_details'),
+    path('admin/lab-secretaries/<int:pk>/details',LabSecDetailView.as_view(),name='lab_secretary_details'),
     path('admin/lab-secretaries/<int:pk>/suspend', LabSecSuspendView.as_view(),name='lab_secretary_confirm_suspension'),
 
     # lecturers

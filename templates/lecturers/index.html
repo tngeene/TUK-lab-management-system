@@ -64,17 +64,13 @@
     <div class="col-xl-12 col-md-12">
     <div class="card Recent-allocations">
         <div class="card-header">
-            <h5>All allocations</h5>
+            <h5>All My allocations</h5>
         </div>
         <div class="card-block px-0 py-3">
             <div class="table-responsive">
                 <table class="table" id="data-table">
-                    <div class="float-right">
-                        <a href="{% url 'equipment:new_allocation' %}" class="label theme-bg2 text-white f-12">Add allocation</a>
-                    </div>
                     <thead>
                         <tr>
-                            <th>Allocated To.</th>
                             <th>Equipment</th>
                             <th>Quantity</th>
                             <th>Allocated By</th>
@@ -85,11 +81,6 @@
                     <tbody>
                         {% for allocation in recent_allocations %}
                         <tr>
-                            {% if allocation.student %}
-                            <td>{{ allocation.student.get_full_name }}</td>
-                            {% else %}
-                            <td>{{ allocation.course.name }}</td>
-                            {% endif %}
                             <td>{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }}</td>
                             <td>{{ allocation.quantity }}</td>
                             <td>{{ allocation.allocated_by.get_full_name }}</td>

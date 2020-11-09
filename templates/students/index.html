@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<!-- [ Main Content ] start -->
+<div class="row">
+    <!-- cards start  -->
+    <div class="col-md-6 col-xl-3">
+        <div class="card daily-sales">
+            <div class="card-block">
+                <h6 class="mb-4">Equipment Allocations</h6>
+                <div class="row d-flex align-items-center">
+                    <div class="col-9">
+                        <h3 class="f-w-300 d-flex align-items-center m-b-0"><i
+                                class="ti-filter text-c-green f-30 m-r-10"></i>{{ recent_allocations.count }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card Monthly-sales">
+            <div class="card-block">
+                <h6 class="mb-4">Returned Allocations</h6>
+                <div class="row d-flex align-items-center">
+                    <div class="col-9">
+                        <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i
+                                class="fa fa-user text-c-purple f-30 m-r-10"></i>{{returned_allocation_count}}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-xl-3">
+        <div class="card yearly-sales">
+            <div class="card-block">
+                <h6 class="mb-4">Unreturned Allocations</h6>
+                <div class="row d-flex align-items-center">
+                    <div class="col-9">
+                        <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i
+                                class="fa fa-building text-c-green f-30 m-r-10"></i>{{unreturned_allocation_count}}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-xl-3">
+        <div class="card yearly-sales">
+            <div class="card-block">
+                <h6 class="mb-4">Damaged Equipment</h6>
+                <div class="row d-flex align-items-center">
+                    <div class="col-9">
+                        <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i
+                                class="fa fa-user text-c-green m-r-10"></i>{{ damaged_equipment_count }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- cards end -->
+    {% comment %} main body starts {% endcomment %}
+    <div class="col-xl-12 col-md-12">
+    <div class="card Recent-allocations">
+        <div class="card-header">
+            <h5>Recent allocations</h5>
+        </div>
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                <table class="table" id="data-table">
+                    <div class="float-right">
+                        <a href="" class="label theme-bg2 text-white f-12">All allocations</a>
+                    </div>
+                    <thead>
+                        <tr>
+                            <th>Equipment</th>
+                            <th>Quantity</th>
+                            <th>Allocated By</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for allocation in recent_allocations %}
+                        <tr>
+                            <td>{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }}</td>
+                            <td>{{ allocation.quantity }}</td>
+                            <td>{{ allocation.allocated_by.get_full_name }}</td>
+                            {% if allocation.is_returned %}
+                            <td><span class="badge badge-pill badge-success">Returned</span></td>
+                            {% else %}
+                            <td><span class="badge badge-pill badge-danger">Unreturned</span></td>
+                            {% endif %}
+                            <td>{{ allocation.created_on }}</td>
+                            <td><a href=" {% url 'equipment:allocation_details' allocation.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<!--[ Recent Users ] end-->
+</div>
+
+
+{% endblock %}

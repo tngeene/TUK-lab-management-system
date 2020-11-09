@@ -38,7 +38,7 @@
      {% include 'lab-secretaries/side-nav.html' %}
      {% elif user.user_type == 'Lab_Tech' %}
      {% include 'lab-technicians/side-nav.html' %}
-     {% elif user.user_type == 'Student' %}
+     {% elif user.user_type == 'Student' or user.user_type == 'Lecturer' %}
      {% include 'students/side-nav.html' %}
     {% endif %}
     

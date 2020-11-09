@@ -17,4 +17,4 @@ class LabSecView(LoginRequiredMixin, UserPassesTestMixin):
         return False
 
 class LabSecDashboardView(LabSecView, TemplateView):
-    template_name = 'lab-secretaries/dashboard.html'
+    template_name = 'lab-secretaries/index.html'

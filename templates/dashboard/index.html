@@ -7,7 +7,7 @@
 <!-- [ Main Content ] start -->
 <div class="row">
     <!-- cards start  -->
-    <div class="col-md-6 col-xl-3">
+    {% comment %} <div class="col-md-6 col-xl-3">
         <div class="card daily-sales">
             <div class="card-block">
                 <h6 class="mb-4">Equipment</h6>
@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> {% endcomment %}
     <div class="col-md-6 col-xl-3">
         <div class="card Monthly-sales">
             <div class="card-block">
@@ -59,6 +59,19 @@
             </div>
         </div>
     </div>
+    <div class="col-md-12 col-xl-3">
+        <div class="card yearly-sales">
+            <div class="card-block">
+                <h6 class="mb-4">Lecturers</h6>
+                <div class="row d-flex align-items-center">
+                    <div class="col-9">
+                        <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i
+                                class="fa fa-user text-c-blue m-r-10"></i>{{ lecturers_count }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- cards end -->
     {% comment %} main body starts {% endcomment %}
     <div class="col-xl-12 col-md-12">
@@ -85,9 +98,14 @@
                                 <td>{{ user.get_full_name }}</td>
                                 <td>{{ user.gender }}</td>
                                 <td>{{ user.phone_number }}</td>
-                                <td>{{ user.is_active }}</td>
+                                {% if user.is_active %}
+                                <td><span class="badge badge-pill badge-success">Active</span></td>
+                                {% else %}
+                                <td><span class="badge badge-pill badge-danger">Suspended</span></td>
+                                {% endif %}
                                 <td><i class="fas fa-circle text-c-green f-10 m-r-15"></i>{{ user.date_joined }}</td>
-                                <td><a href="{% url 'dashboard:lab_technician_details' user.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
+                                <td><a href="{% url 'dashboard:lab_technician_details' user.pk %}"
+                                        class="label theme-bg2 text-white f-12">View</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -97,6 +115,46 @@
         </div>
     </div>
 
+    <div class="col-xl-12 col-md-12">
+        <div class="card Recent-Users">
+            <div class="card-header">
+                <h5>Recently Registered Students</h5>
+            </div>
+            <div class="card-block px-0 py-3">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> Full Name </th>
+                                <th> Gender </th>
+                                <th> Contact </th>
+                                <th> Status </th>
+                                <th> Date Joined </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in recent_students %}
+                            <tr>
+                                <td>{{ user.get_full_name }}</td>
+                                <td>{{ user.gender }}</td>
+                                <td>{{ user.phone_number }}</td>
+                                {% if user.is_active %}
+                                <td><span class="badge badge-pill badge-success">Active</span></td>
+                                {% else %}
+                                <td><span class="badge badge-pill badge-danger">Suspended</span></td>
+                                {% endif %}
+                                <td><i class="fas fa-circle text-c-green f-10 m-r-15"></i>{{ user.date_joined }}</td>
+                                <td><a href="{% url 'dashboard:student_details' user.pk %}"
+                                        class="label theme-bg2 text-white f-12">View</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-xl-12 col-md-12">
         <div class="card Recent-Users">
             <div class="card-header">
@@ -121,9 +179,54 @@
                                 <td>{{ user.get_full_name }}</td>
                                 <td>{{ user.gender }}</td>
                                 <td>{{ user.phone_number }}</td>
-                                <td>{{ user.is_active }}</td>
+                                {% if user.is_active %}
+                                <td><span class="badge badge-pill badge-success">Active</span></td>
+                                {% else %}
+                                <td><span class="badge badge-pill badge-danger">Suspended</span></td>
+                                {% endif %}
                                 <td><i class="fas fa-circle text-c-green f-10 m-r-15"></i>{{ user.date_joined }}</td>
-                                <td><a href="{% url 'dashboard:lab_secretaries_details' user.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
+                                <td><a href="{% url 'dashboard:lab_secretary_details' user.pk %}"
+                                        class="label theme-bg2 text-white f-12">View</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-12 col-md-12">
+        <div class="card Recent-Users">
+            <div class="card-header">
+                <h5>Recent Lecturers</h5>
+            </div>
+            <div class="card-block px-0 py-3">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> Full Name </th>
+                                <th> Gender </th>
+                                <th> Contact </th>
+                                <th> Status </th>
+                                <th> Date Joined </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in recent_lecturers %}
+                            <tr>
+                                <td>{{ user.get_full_name }}</td>
+                                <td>{{ user.gender }}</td>
+                                <td>{{ user.phone_number }}</td>
+                                {% if user.is_active %}
+                                <td><span class="badge badge-pill badge-success">Active</span></td>
+                                {% else %}
+                                <td><span class="badge badge-pill badge-danger">Suspended</span></td>
+                                {% endif %}
+                                <td><i class="fas fa-circle text-c-green f-10 m-r-15"></i>{{ user.date_joined }}</td>
+                                <td><a href="{% url 'dashboard:lecturer_details' user.pk %}"
+                                        class="label theme-bg2 text-white f-12">View</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>

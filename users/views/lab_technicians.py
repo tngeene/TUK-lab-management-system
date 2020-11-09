@@ -19,7 +19,7 @@ class LabTechnicianView(LoginRequiredMixin, UserPassesTestMixin):
 
 
 class LabTechnicianDashboardView(LabTechnicianView, TemplateView):
-    template_name = 'lab-technicians/dashboard.html'
+    template_name = 'lab-technicians/index.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

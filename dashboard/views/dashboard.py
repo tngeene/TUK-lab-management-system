@@ -26,13 +26,17 @@ class DashboardTemplateView(DashboardView, TemplateView):
         lab_technicians = UserAccount.objects.filter(user_type='Lab_Tech')
         lab_secretaries = UserAccount.objects.filter(user_type='Lab_Sec')
         students = UserAccount.objects.filter(user_type='Student')
+        lecturers = UserAccount.objects.filter(user_type='Lecturer')
         labs = Lab.objects.all()
         context = super().get_context_data(**kwargs)
         context["lab_technicians_count"] = lab_technicians.count()
         context["labs_count"] = labs.count()
         context["students_count"] = students.count()
+        context["lecturers_count"] = lecturers.count()
         context["recent_lab_techs"] = lab_technicians.order_by("-pk")[:10]
         context["recent_lab_secs"] = lab_secretaries.order_by("-pk")[:10]
+        context["recent_students"] = students.order_by("-pk")[:10]
+        context["recent_lecturers"] = lecturers.order_by("-pk")[:10]
         return context
 
 

@@ -27,6 +27,9 @@
                 {% elif  user.user_type == 'Lab_Sec' %}
                 <a href=" {% url 'users:lab_sec_dashboard_index' %} " class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+                {% elif  user.user_type == 'Lecturer' %}
+                <a href=" {% url 'users:lecturer_dashboard_index' %} " class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
                 {% endif %}
                 </li>
                 {% if user.user_type == 'Staff' %}
@@ -103,7 +106,7 @@
                                 class="feather icon-share-2"></i></span><span
                             class="pcoded-mtext">Allocations</span></a>
                 </li>
-                {% elif user.user_type == 'Student' %}
+                {% elif user.user_type == 'Student' or user.user_type == 'Lecturer' %}
                 <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item">
                     <a href="{% url 'equipment:all_allocations' %}" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-share-2"></i></span><span
