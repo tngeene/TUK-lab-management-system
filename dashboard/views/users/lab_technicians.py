@@ -29,7 +29,7 @@ class LabTechnicianCreateView(DashboardView, CreateView):
 
     def get_success_url(self):
         messages.success(self.request, "Lab Technician Added Successfully")
-        return reverse_lazy('users:lab_technician_details',
+        return reverse_lazy('dashboard:lab_technician_details',
                             kwargs={'pk': self.object.pk})
 
 
