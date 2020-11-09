@@ -68,8 +68,7 @@ class Batch(CommonInfo):
 
 
 class Allocation(CommonInfo):
-    student = models.ForeignKey(User, limit_choices_to={'user_type':'Student'},on_delete=models.CASCADE,
-        null=True,blank=True,related_name='equipment_allocated')
+    allocated_to = models.ForeignKey(User,on_delete=models.CASCADE, null=True,blank=True,related_name='equipment_allocated')
     course = models.ForeignKey(Course,on_delete=models.CASCADE,null=True,blank=True,related_name='allocations')
     equipment = models.ForeignKey(Equipment,on_delete=models.CASCADE,null=True,blank=True,related_name='allocations')
     quantity = models.IntegerField(default=0)
@@ -77,8 +76,8 @@ class Allocation(CommonInfo):
     is_returned = models.BooleanField(default=False)
 
     def __str__(self):
-        if self.student:
-            return f"{self.student} {self.student.course} {self.allocated_by}"
+        if self.allocated_to:
+            return f"{self.allocated_to.get_full_name()} allocated by {self.allocated_by.get_full_name()}"
         else:
             return f"{self.course.name} {self.allocated_by.first_name}"
 

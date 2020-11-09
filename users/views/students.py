@@ -17,7 +17,7 @@ class StudentDashboardView(StudentView, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         student = self.request.user
-        allocation = Allocation.objects.filter(student=student)
+        allocation = Allocation.objects.filter(allocated_to=student)
         context["recent_allocations"] = allocation.order_by('-pk')[:10]
         context["returned_allocation_count"] = allocation.filter(is_returned=True).count()
         context["unreturned_allocation_count"] = allocation.filter(is_returned=False).count()

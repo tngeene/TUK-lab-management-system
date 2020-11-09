@@ -8,6 +8,8 @@ from .views.users.lab_technicians import (LabTechnicianCreateView,
                                           LabTechnicianDetailView,
                                           LabTechnicianListView,
                                           LabTechnicianSuspendView)
+from .views.users.lecturers import (LecturerCreateView, LecturerDetailView,
+                                    LecturerListView, LecturerSuspendView)
 from .views.users.staff import (StaffCreateView, StaffDetailView,
                                 StaffListView, StaffSuspendView)
 from .views.users.students import (StudentCreateView, StudentDetailView,
@@ -40,5 +42,11 @@ urlpatterns = [
     path('admin/lab-secretaries/',LabSecListView.as_view(),name='lab_secretaries_list'),
     path('admin/lab-secretaries/add',LabSecCreateView.as_view(),name='lab_secretaries_add'),
     path('admin/lab-secretaries/<int:pk>/details',LabSecDetailView.as_view(),name='lab_secretaries_details'),
-    path('admin/lab-/<int:pk>/suspend', LabSecSuspendView.as_view(),name='lab_secretary_confirm_suspension'),
+    path('admin/lab-secretaries/<int:pk>/suspend', LabSecSuspendView.as_view(),name='lab_secretary_confirm_suspension'),
+
+    # lecturers
+    path('admin/lecturers/',LecturerListView.as_view(),name='lecturers_list'),
+    path('admin/lecturers/add',LecturerCreateView.as_view(),name='lecturer_add'),
+    path('admin/lecturers/<int:pk>/details',LecturerDetailView.as_view(),name='lecturer_details'),
+    path('admin/lecturers/<int:pk>/suspend', LecturerSuspendView.as_view(),name='lecturer_confirm_suspension'),
 ]

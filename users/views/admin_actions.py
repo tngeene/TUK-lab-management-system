@@ -24,6 +24,9 @@ def suspend_user(request, pk):
     elif(user.user_type == 'Student'):
         messages.success(request,"User suspended")
         return redirect("dashboard:student_details", pk=pk)
+    elif(user.user_type == 'Lecturer'):
+        messages.success(request,"User suspended")
+        return redirect("dashboard:lecturer_details", pk=pk)
 
 # logic for unsuspending users and redirection
 def unsuspend_user(request,pk):
@@ -43,3 +46,6 @@ def unsuspend_user(request,pk):
     elif(user.user_type == 'Student'):
         messages.success(request,"User activated")
         return redirect("dashboard:student_details", pk=pk)
+    elif(user.user_type == 'Lecturer'):
+        messages.success(request,"User activated")
+        return redirect("dashboard:lecturer_details", pk=pk)

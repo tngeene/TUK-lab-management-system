@@ -23,10 +23,12 @@ allocation Details
                                     <tbody>
                                         <tr>
                                             <th>Allocated To.</th>
-                                            {% if allocation.student %}
-                                            <td> <a href="{% url 'dashboard:student_details' allocation.student.id %}"> {{ allocation.student }} </a> </td>
-                                            {% else %}
-                                            <td>{{ allocation.course  }}</td>
+                                            {% if allocation.allocated_to.user_type == 'Student' %}
+                                            <td> <a href="{% url 'dashboard:student_details' allocation.allocated_to.id %}"> {{ allocation.allocated_to.get_full_name }} </a> </td>
+                                            {% elif allocation.allocated_to.user_type == 'Lecturer' %}
+                                            <td> <a href="{% url 'dashboard:lecturer_details' allocation.allocated_to.id %}"> {{ allocation.allocated_to.get_full_name }} </a> </td>
+                                            {% elif allocation.allocated_to.user_type == 'Lab_Tech' %}
+                                            <td> <a href="{% url 'dashboard:lab_technician_details' allocation.allocated_to.id %}"> {{ allocation.allocated_to.get_full_name }} </a> </td>
                                             {% endif %}
                                         </tr>
                                         <tr>

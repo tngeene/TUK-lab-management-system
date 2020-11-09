@@ -70,7 +70,7 @@ class StudentDetailView(DashboardView, DetailView):
         student = self.object.id
         context = super().get_context_data(**kwargs)
         context["equipment_allocations"] = Allocation.objects.filter(
-            student=student)
+            allocated_to=student)
         return context
 
 

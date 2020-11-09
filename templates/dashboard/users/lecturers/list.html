@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Add Lab Technicians
+{% endblock %}
+
+
+{% block styles %}
+<link href="{% static 'css/data-tables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="col-xl-12 col-md-12">
+    <div class="card Recent-Users">
+        <div class="card-header">
+            <h5>All Lecturers</h5>
+        </div>
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                <table class="table" id="data-table">
+                    <div class="float-right">
+                        <a href="{% url 'dashboard:lecturer_add' %}" class="label theme-bg2 text-white f-12">Add New Lecturer</a>
+                    </div>
+                    <thead>
+                        <tr>
+                            <th> Full Name </th>
+                            <th> Gender </th>
+                            <th> Contact </th>
+                            <th> Status </th>
+                            <th> Date Joined </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.get_full_name }}</td>
+                            <td>{{ user.gender }}</td>
+                            <td>{{ user.phone_number }}</td>
+                            {% if user.is_active %}
+                            <td><span class="badge badge-pill badge-success">Active</span></td>
+                            {% else %}
+                            <td><span class="badge badge-pill badge-danger">Suspended</span></td>
+                            {% endif %}
+                            <td><i class="fas fa-circle text-c-green f-10 m-r-15"></i>{{ user.date_joined }}</td>
+                            <td><a href="{% url 'dashboard:lecturer_details' user.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock  %}
+
+{% block scripts %}
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+<script>
+    $('#data-table').DataTable();
+</script>
+{% endblock %}

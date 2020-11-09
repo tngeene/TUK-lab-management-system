@@ -1,15 +1,5 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block title %}
-Lab Technician Details
-{% endblock %}
-
-
-{% block styles %}
-<link href="{% static 'css/data-tables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
-{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block title %} Lecturer Details {% endblock %} {% block styles %}
+<link href="{% static 'css/data-tables/dataTables.bootstrap4.min.css' %}" rel="stylesheet"> {% endblock %} {% block content %}
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -21,12 +11,12 @@ Lab Technician Details
                             <h5 class="pt-5">{{ user.get_full_name }}</h5>
                             <p class="text-muted">{{ user.get_user_type_display }}</p>
                             <p><span class="ti-time mx-1"> {{ user.date_joined | timesince}} ago
-                                    </span></p>
-                                <p><span class="ti-mobile"> {{ user.phone_number}}
-                                    </span>
+                                </span></p>
+                            <p><span class="ti-mobile"> {{ user.phone_number}}
+                                </span>
                                 <p>
                                     <a href="" class="mx-1">
-                                        <button class="btn btn-primary">Edit User</button>
+                                        <button class="btn btn-primary">Edit Lecturer</button>
                                     </a>
                                 </p>
 
@@ -34,50 +24,47 @@ Lab Technician Details
                     </div>
                     <div class="col-md-8 ">
                         <div class="m-3 p-3 shadow-sm">
-                            <h3 class="text-center py-3">Lab Technician Details</h3>
+                            <h3 class="text-center py-3">Lecturer Details</h3>
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <tbody>
-                                    <tr>
-                                        <th>Email</th>
-                                        <td>{{ user.email }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Phone</th>
-                                        <td>{{ user.phone_number }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Staff Id</th>
-                                        <td>{{ user.staff_id }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Gender</th>
-                                        <td>{{ user.gender }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Status</th>
-                                        <td>
-                                            {% if user.is_active %}
-                                            <span class="badge badge-pill badge-success">Active</span>
-                                            {% else %}
-                                            <span class="badge badge-pill badge-danger">Suspended</span>
-                                            {% endif %}
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <th>Email</th>
+                                            <td>{{ user.email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Phone</th>
+                                            <td>{{ user.phone_number }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Staff ID</th>
+                                            <td>{{ user.staff_id }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Gender</th>
+                                            <td>{{ user.gender }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Status</th>
+                                            <td>
+                                                {% if user.is_active %}
+                                                <span class="badge badge-pill badge-success">Active</span> {% else %}
+                                                <span class="badge badge-pill badge-danger">Suspended</span> {% endif %}
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                                 <div class="text-center py-3">
                                     {% if user.is_active%}
-                                        <a href="{% url 'dashboard:lab_technician_confirm_suspension' user.pk %}"
-                                            class="mx-1">
-                                            <button class="btn btn-warning btn-md w-50">Suspend</button>
-                                        </a>
-                                        {% else %}
-                                        <a href="{% url 'users:user_unsuspend_action' user.pk %}" class="mx-1">
-                                            <button class="btn btn-success btn-md w-50">Activate</button>
-                                        </a>
-                                        {% endif %}
-                                </div> 
+                                    <a href="{% url 'dashboard:lecturer_confirm_suspension' user.pk %}" class="mx-1">
+                                        <button class="btn btn-warning btn-md w-50">Suspend</button>
+                                    </a>
+                                    {% else %}
+                                    <a href="{% url 'users:user_unsuspend_action' user.pk %}" class="mx-1">
+                                        <button class="btn btn-success btn-md w-50">Activate</button>
+                                    </a>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -85,7 +72,7 @@ Lab Technician Details
             </div>
         </div>
     </div>
-      <div class="col-xl-12 col-md-12">
+    <div class="col-xl-12 col-md-12">
         <div class="card equipment-allocations">
             <div class="card-header">
                 <h5>All Equipment Allocations</h5>
@@ -105,7 +92,7 @@ Lab Technician Details
                                 <th> Serial No. </th>
                                 <th> Equipment Type </th>
                                 <th> Lab </th>
-                                <th> Allocated To </th>
+                                <th> Allocated By </th>
                                 <th> Working Condition </th>
                                 <th> Allocation Status </th>
                                 <th> Date Added </th>
@@ -118,13 +105,7 @@ Lab Technician Details
                                 <td><a href="{% url 'equipment:equipment_details' allocation.equipment.id %}">{{ allocation.equipment.serial_no }}</a></td>
                                 <td>{{ allocation.equipment.category.name }}</td>
                                 <td>{{ allocation.equipment.lab.name }}</td>
-                                {% if allocation.allocated_to.user_type == 'Student' %}
-                                <td><a href="{% url 'dashboard:student_details' allocation.allocated_to.id %}">{{ allocation.allocated_to.get_full_name }}</a>
-                                {% elif allocation.allocated_to.user_type == 'Lecturer' %}
-                                <td><a href="{% url 'dashboard:lecturer' allocation.allocated_to.id %}">{{ allocation.allocated_to.get_full_name }}</a>
-                                {% elif allocation.allocated_to.user_type == 'Lab_Tech' %}
-                                <td><a href="{% url 'dashboard:lab_technician_details' allocation.allocated_to.id %}">{{ allocation.allocated_to.get_full_name }}</a>
-                                {% endif %}
+                                <td><a href="{% url 'dashboard:lab_technician_details' allocation.allocated_by.id %}">{{ allocation.allocated_by }}</a>
                                 </td>
                                 {% if not allocation.equipment.is_damaged %}
                                 <td> <span class="badge badge-pill badge-success">Working</span></td>
@@ -147,9 +128,7 @@ Lab Technician Details
     </div>
 </div>
 
-{% endblock  %}
-
-{% block scripts %}
+{% endblock %} {% block scripts %}
 <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
 <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
 <script>

@@ -10,7 +10,7 @@ from ..models import Allocation
 
 class AllocationCreateView(CreateView):
     model = Allocation
-    fields = ('equipment','quantity','student',)
+    fields = ('equipment','quantity','allocated_to',)
     template_name  = 'dashboard/equipment/allocations/add.html'
 
 
