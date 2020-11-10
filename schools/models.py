@@ -21,6 +21,7 @@ class Department(models.Model):
 class Lab(models.Model):
     name = models.CharField(max_length=255)
     school = models.ManyToManyField(School, related_name='labs')
+    room = models.CharField(max_length=10, null=True, unique=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 

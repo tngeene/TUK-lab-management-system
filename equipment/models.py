@@ -38,6 +38,7 @@ class Equipment(CommonInfo):
     lab = models.ForeignKey(Lab,related_name='equipment_lab',on_delete=models.PROTECT)
     storage_unit = models.ForeignKey('StorageUnit',on_delete=models.CASCADE,null=True)
     is_allocated = models.BooleanField(default=False)
+    has_exceeded_shelf_life = models.BooleanField(default=False)
     is_damaged = models.BooleanField(default=False)
 
     def __str__(self):
@@ -46,6 +47,7 @@ class Equipment(CommonInfo):
 class StorageUnit(CommonInfo):
     name = models.CharField(max_length=80,null=True)
     lab = models.ForeignKey(Lab,on_delete=models.CASCADE,related_name='storage_unit_lab',null=True)
+    room = models.CharField(unique=True, max_length=10, null=True)
 
 
     def __str__(self):

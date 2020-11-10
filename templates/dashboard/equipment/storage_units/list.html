@@ -25,6 +25,7 @@ All Storage Units
                     <thead>
                         <tr>
                             <th> Name </th>
+                            <th> Room </th>
                             <th> Lab </th> 
                             <th> Date Added </th>
                             <th></th>
@@ -34,6 +35,7 @@ All Storage Units
                         {% for unit in units %}
                         <tr>
                             <td>{{ unit.name }}</td>
+                            <td>{{ unit.room }}</td>
                             <td>{{ unit.lab.name }}</td>
                             <td>{{ unit.created_on }}</td>
                             <td><a href=" {% url 'equipment:storage_unit_details' unit.pk %} " class="label theme-bg2 text-white f-12">View</a></td>

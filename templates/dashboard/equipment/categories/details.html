@@ -25,10 +25,10 @@ category Details
                                             <th>Name</th>
                                             <td>{{ category.name }}</td>
                                         </tr>
-                                        <tr>
+                                        {% comment %} <tr>
                                             <th>Batches Received</th>
                                             <td>{{ category.category_batch_count }}</td>
-                                        </tr>
+                                        </tr> {% endcomment %}
                                         <tr>
                                             <th>Equipment</th>
                                             <td>{{ category.category_equipment_count }}</td>
@@ -51,7 +51,7 @@ category Details
             </div>
         </div>
         <div class="col-xl-12 col-md-12">
-            <div class="card Recent-categorys">
+            {% comment %} <div class="card Recent-categorys">
                 <div class="card-header">
                     <h5>All Batches in {{category.name}}</h5>
                 </div>
@@ -87,7 +87,7 @@ category Details
                         </table>
                     </div>
                 </div>
-            </div>
+            </div> {% endcomment %}
             <div class="card Recent-categorys">
                 <div class="card-header">
                     <h5>All Equipment in {{category.name}}</h5>

@@ -26,6 +26,7 @@ All Labs
                     <thead>
                         <tr>
                             <th> Name </th>
+                            <th> Room </th>
                             <th> Date Added </th>
                             <th></th>
                         </tr>
@@ -34,6 +35,7 @@ All Labs
                         {% for lab in labs %}
                         <tr>
                             <td>{{ lab.name }}</td>
+                            <td>{{ lab.room }}</td>
                             <td>{{ lab.created_on }}</td>
                             <td><a href=" {% url 'schools:lab_details' lab.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
                         </tr>

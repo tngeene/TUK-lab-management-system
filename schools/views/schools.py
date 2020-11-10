@@ -34,7 +34,7 @@ class SchoolDetailView(DashboardView, DetailView):
         context["labs"] = Lab.objects.filter(school=school)
         context["courses"] = Course.objects.filter(department__school=school)
         context["departments"] = Department.objects.filter(school=school)
-        context["school"] = School.objects.filter(id=school).annotate(labs_in_school_count=Count('lab')).first()
+        context["school"] = School.objects.filter(id=school).annotate(labs_in_school_count=Count('labs')).first()
         return context
 
 

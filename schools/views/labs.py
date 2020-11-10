@@ -13,7 +13,7 @@ from ..models import Lab, School
 
 class LabCreateView(DashboardView, CreateView):
     model = Lab
-    fields = ('name',)
+    fields = ('name', 'room')
     template_name = 'dashboard/schools/labs/add.html'
 
     def get_success_url(self):
@@ -42,7 +42,7 @@ class LabDetailView(DashboardView, DetailView):
 class LabUpdateView(DashboardView, UpdateView):
     model = Lab
     template_name = 'dashboard/schools/labs/edit.html'
-    fields = ('name',)
+    fields = ('name', 'room')
 
     def get_success_url(self):
         messages.success(self.request,"Lab Details Updated")

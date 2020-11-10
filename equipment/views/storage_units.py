@@ -9,7 +9,7 @@ from django.db.models import Count
 
 class StorageUnitCreateView(DashboardView, CreateView):
     model = StorageUnit
-    fields = ('name','lab')
+    fields = ('name','lab', 'room')
     template_name = 'dashboard/equipment/storage_units/add.html'
 
     def get_success_url(self):
@@ -39,7 +39,7 @@ class StorageUnitDetailView(DashboardView, DetailView):
 class StorageUnitUpdateView(DashboardView, UpdateView):
     model = StorageUnit
     template_name = 'dashboard/equipment/storage_units/edit.html'
-    fields = ('name','lab')
+    fields = ('name','lab', 'room')
 
     def get_success_url(self):
         messages.success(self.request,"Storage Unit updated")
