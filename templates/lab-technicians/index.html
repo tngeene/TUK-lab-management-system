@@ -14,7 +14,7 @@
                 <div class="row d-flex align-items-center">
                     <div class="col-9">
                         <h3 class="f-w-300 d-flex align-items-center m-b-0"><i
-                                class="ti-filter text-c-green f-30 m-r-10"></i>0</h3>
+                                class="ti-filter text-c-green f-30 m-r-10"></i>{{equipment_count}}</h3>
                     </div>
                 </div>
             </div>
@@ -49,11 +49,11 @@
     <div class="col-md-12 col-xl-3">
         <div class="card yearly-sales">
             <div class="card-block">
-                <h6 class="mb-4">Lab Technicians</h6>
+                <h6 class="mb-4">My Allocations</h6>
                 <div class="row d-flex align-items-center">
                     <div class="col-9">
                         <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i
-                                class="fa fa-user text-c-green m-r-10"></i>{{ lab_technicians_count }}</h3>
+                                class="fa fa-user text-c-green m-r-10"></i>{{ my_allocations.count }}</h3>
                     </div>
                 </div>
             </div>
@@ -83,7 +83,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for allocation in allocations %}
+                        {% for allocation in my_allocations %}
                         <tr>
                             {% if allocation.student %}
                             <td>{{ allocation.student.get_full_name }}</td>
@@ -100,6 +100,96 @@
                             {% endif %}
                             <td>{{ allocation.created_on }}</td>
                             <td><a href=" {% url 'equipment:allocation_details' allocation.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card Recent-allocations">
+        <div class="card-header">
+            <h5>My Recent Equipment</h5>
+        </div>
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                <table class="table" id="data-table">
+                   <thead>
+                        <tr>
+                            <th> Serial No. </th>
+                            <th> Equipment Type </th> 
+                            <th> Lab </th>
+                            <th> Storage Unit </th>
+                            <th> Allocation Status</th>
+                            <th> Working Condition </th>
+                            <th> Date Added </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for equipment in my_equipments %}
+                        <tr>
+                            <td>{{ equipment.serial_no }}</td>
+                            <td>{{ equipment.category.name }}</td>
+                            <td>{{ equipment.lab.name }}</td>
+                            <td>{{ equipment.storage_unit.name }}</td>
+                            {% if not equipment.is_allocated %}
+                            <td><span class="badge badge-pill badge-success">In Storage</span></td>
+                            {% else %}
+                            <td><span class="badge badge-pill badge-danger">Allocated</span></td>
+                            {% endif %}
+                            {% if equipment.is_damaged == False %}
+                             <td> <span class="badge badge-pill badge-success">Working</span></td>
+                             {% else %}
+                              <td> <span class="badge badge-pill badge-danger">Damaged</span></td>
+                            {% endif %}
+                            <td>{{ equipment.created_on }}</td>
+                            <td><a href=" {% url 'users:equipment_details' equipment.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+     <div class="card Recent-allocations">
+        <div class="card-header">
+            <h5> Recently Added Equipment</h5>
+        </div>
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                <table class="table" id="data-table">
+                   <thead>
+                        <tr>
+                            <th> Serial No. </th>
+                            <th> Equipment Type </th> 
+                            <th> Lab </th>
+                            <th> Storage Unit </th>
+                            <th> Allocation Status</th>
+                            <th> Working Condition </th>
+                            <th> Date Added </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for equipment in equipments %}
+                        <tr>
+                            <td>{{ equipment.serial_no }}</td>
+                            <td>{{ equipment.category.name }}</td>
+                            <td>{{ equipment.lab.name }}</td>
+                            <td>{{ equipment.storage_unit.name }}</td>
+                            {% if not equipment.is_allocated %}
+                            <td><span class="badge badge-pill badge-success">In Storage</span></td>
+                            {% else %}
+                            <td><span class="badge badge-pill badge-danger">Allocated</span></td>
+                            {% endif %}
+                            {% if equipment.is_damaged == False %}
+                             <td> <span class="badge badge-pill badge-success">Working</span></td>
+                             {% else %}
+                              <td> <span class="badge badge-pill badge-danger">Damaged</span></td>
+                            {% endif %}
+                            <td>{{ equipment.created_on }}</td>
+                            <td><a href=" {% url 'users:equipment_details' equipment.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

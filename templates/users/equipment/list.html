@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+All Equipment
+{% endblock %}
+
+
+{% block styles %}
+<link href="{% static 'css/data-tables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="col-xl-12 col-md-12">
+    <div class="card Recent-equipments">
+        <div class="card-header">
+            <h5>All Equipment</h5>
+        </div>
+        
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                <table class="table" id="data-table">
+                    <div class="float-right">
+                        <a href="{% url 'equipment:equipment_add' %}" class="label theme-bg2 text-white f-12">Add equipment</a>
+                    </div>
+                    <thead>
+                        <tr>
+                            <th> Serial No. </th>
+                            <th> Equipment Type </th> 
+                            <th> Lab </th>
+                            <th> Storage Unit </th>
+                            <th> Allocation Status</th>
+                            <th> Working Condition </th>
+                            <th> Date Added </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for equipment in equipments %}
+                        <tr>
+                            <td>{{ equipment.serial_no }}</td>
+                            <td>{{ equipment.category.name }}</td>
+                            <td>{{ equipment.lab.name }}</td>
+                            <td>{{ equipment.storage_unit.name }}</td>
+                            {% if not equipment.is_allocated %}
+                            <td><span class="badge badge-pill badge-success">In Storage</span></td>
+                            {% else %}
+                            <td><span class="badge badge-pill badge-danger">Allocated</span></td>
+                            {% endif %}
+                            {% if equipment.is_damaged == False %}
+                             <td> <span class="badge badge-pill badge-success">Working</span></td>
+                             {% else %}
+                              <td> <span class="badge badge-pill badge-danger">Damaged</span></td>
+                            {% endif %}
+                            <td>{{ equipment.created_on }}</td>
+                            <td><a href=" {% url 'users:equipment_details' equipment.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock  %}
+
+{% block scripts %}
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+<script>
+    $('#data-table').DataTable();
+</script>
+{% endblock %}

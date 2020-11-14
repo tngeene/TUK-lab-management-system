@@ -13,6 +13,9 @@ class EquipmentCreateView(DashboardView, CreateView):
     fields = ('serial_no','category','lab','storage_unit')
     template_name = 'dashboard/equipment/equipment/add.html'
 
+    def form_valid(self, form):
+        form.instance.added_by = self.request.user
+        return super(EquipmentCreateView, self).form_valid(form)
 
     def get_success_url(self):
         messages.success(self.request,"Equipment Added successfully")
@@ -45,7 +48,9 @@ def mark_as_damaged(request, pk):
     equipment.save()
 
     messages.success(request,"Equipment marked as damaged")
-    return redirect("equipment:equipment_details", pk=pk)
+    if request.user.user_type == 'Staff':
+        return redirect("equipment:equipment_details", pk=pk)
+    return redirect("users:equipment_details", pk=pk)
 
 # logic for marking equipment as in good condition
 def mark_as_working(request,pk):
@@ -54,4 +59,6 @@ def mark_as_working(request,pk):
     equipment.save()
 
     messages.success(request,"Equipment marked as working")
-    return redirect("equipment:equipment_details", pk=pk)
+    if request.user.user_type == 'Staff':
+        return redirect("equipment:equipment_details", pk=pk)
+    return redirect("users:equipment_details", pk=pk)

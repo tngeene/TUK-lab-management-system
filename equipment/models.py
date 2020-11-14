@@ -40,6 +40,7 @@ class Equipment(CommonInfo):
     is_allocated = models.BooleanField(default=False)
     has_exceeded_shelf_life = models.BooleanField(default=False)
     is_damaged = models.BooleanField(default=False)
+    added_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='equipment_added', null=True)
 
     def __str__(self):
         return f"{self.serial_no} {self.category} {self.lab} {self.batch}"
@@ -78,10 +79,7 @@ class Allocation(CommonInfo):
     is_returned = models.BooleanField(default=False)
 
     def __str__(self):
-        if self.allocated_to:
-            return f"{self.allocated_to.get_full_name()} allocated by {self.allocated_by.get_full_name()}"
-        else:
-            return f"{self.course.name} {self.allocated_by.first_name}"
+        return f"{self.equipment.serial_no} allocated by {self.allocated_by.get_full_name()}"
 
     def save(self, *args, **kwargs):
         if self.equipment:
