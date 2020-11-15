@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+User Profile
+{% endblock %}
+
+
+{% block styles %}
+<link href="{% static 'css/data-tables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 p-3 text-center">
+                        <div class="py-3">
+                            <img src="{% static 'images/user/user_icon.png' %}" alt="{{ user.get_full_name }}" class="w-50">
+                            <h5 class="pt-5">{{ user.get_full_name }}</h5>
+                            <p class="text-muted">{{ user.get_user_type_display }}</p>
+                            <p><span class="ti-time mx-1"> {{ user.date_joined | timesince}} ago
+                                    </span></p>
+                                <p><span class="ti-mobile"> {{ user.phone_number}}
+                                    </span>
+                                <p>
+                                    <a href="{% url 'users:profile_update' user.pk %}" class="mx-1">
+                                        <button class="btn btn-primary">Edit</button>
+                                    </a>
+                                </p>
+
+                        </div>
+                    </div>
+                    <div class="col-md-8 ">
+                        <div class="m-3 p-3 shadow-sm">
+                            <h3 class="text-center py-3">My Details</h3>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <tbody>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>{{ user.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Phone</th>
+                                        <td>{{ user.phone_number }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                        {% if request.user.user_type == 'Lecturer' or request.user.user_type == 'Lab_Tech' %}
+                                        Staff ID
+                                        {% elif request.user.user_type == 'Student' %}
+                                        Registration Number
+                                        {% endif %}</th>
+                                        <td>
+                                        {% if request.user.user_type == 'Lecturer' or request.user.user_type == 'Lab_Tech' %}
+                                        {{ user.staff_id }}
+                                        {% elif request.user.user_type == 'Student' %}
+                                        {{ user.registration_no }}
+                                        {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% if request.user.user_type == 'Student' %}
+                                    <tr>
+                                        <th>Course</th>
+                                        <td>{{ user.course.name }}</td>
+                                    <tr>
+                                    <tr>
+                                        <th>Year of Study</th>
+                                        <td>{{ user.year_of_study }}</td>
+                                    <tr>
+                                    {% endif %}
+                                        <th>Gender</th>
+                                        <td>{{ user.gender }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Status</th>
+                                        <td>
+                                            {% if user.is_active %}
+                                            <span class="badge badge-pill badge-success">Active</span>
+                                            {% else %}
+                                            <span class="badge badge-pill badge-danger">Suspended</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Last Login</th>
+                                        <td>{{ user.last_login }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock  %}
+
+{% block scripts %}
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+<script>
+    $('#data-table').DataTable();
+</script>
+{% endblock %}

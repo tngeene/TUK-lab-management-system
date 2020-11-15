@@ -53,7 +53,7 @@ class UserAccount(AbstractUser):
     course = models.ForeignKey(Course,on_delete=models.PROTECT,null=True,blank=True)
     year_of_study = models.CharField(max_length=30, choices=YEAR_OF_STUDY_CHOICES,default="Select One",blank=True,null=True)
     staff_id = models.CharField(max_length=50, null=True,blank=True)
-    registration_no = models.CharField(max_length=50, null=True, blank=True)
+    registration_no = models.CharField(max_length=50, null=True, blank=True, verbose_name='Registration Number')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'phone_number',]

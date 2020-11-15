@@ -37,6 +37,7 @@ class Equipment(CommonInfo):
     batch = models.ForeignKey('Batch',on_delete=models.SET_NULL,related_name='equipment_batch',null=True,blank=True)
     lab = models.ForeignKey(Lab,related_name='equipment_lab',on_delete=models.PROTECT)
     storage_unit = models.ForeignKey('StorageUnit',on_delete=models.CASCADE,null=True)
+    price = models.PositiveIntegerField(null=True)
     is_allocated = models.BooleanField(default=False)
     has_exceeded_shelf_life = models.BooleanField(default=False)
     is_damaged = models.BooleanField(default=False)

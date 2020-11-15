@@ -64,7 +64,7 @@
     <div class="col-xl-12 col-md-12">
     <div class="card Recent-allocations">
         <div class="card-header">
-            <h5>All My allocations</h5>
+            <h5>Recent allocations</h5>
         </div>
         <div class="card-block px-0 py-3">
             <div class="table-responsive">
@@ -90,7 +90,7 @@
                             <td><span class="badge badge-pill badge-danger">Unreturned</span></td>
                             {% endif %}
                             <td>{{ allocation.created_on }}</td>
-                            <td><a href=" {% url 'equipment:allocation_details' allocation.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
+                            <td><a href=" {% url 'users:allocation_details' allocation.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

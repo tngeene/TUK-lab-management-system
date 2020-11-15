@@ -4,14 +4,14 @@ from equipment.models import Allocation
 
 
 # check that the user has the role of a student
-class StudentView(LoginRequiredMixin, UserPassesTestMixin):
+class StudentorLecturerView(LoginRequiredMixin, UserPassesTestMixin):
     def test_func(self):
         user = self.request.user
-        if user.user_type == 'Student':
+        if user.user_type == 'Student' or user.user_type == 'Lecturer':
             return True
         return False
 
-class StudentDashboardView(StudentView, TemplateView):
+class StudentorLecturerDashboardView(StudentorLecturerView, TemplateView):
     template_name = 'students/index.html'
 
     def get_context_data(self, **kwargs):

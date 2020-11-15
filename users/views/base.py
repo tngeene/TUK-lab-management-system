@@ -19,8 +19,6 @@ def login_redirect(request):
         return redirect('users:student_dashboard_index')
     elif request.user.user_type == 'Lab_Tech':
         return redirect('users:lab_technicians_dashboard_index')
-    elif request.user.user_type == 'Lab_Sec':
-        return redirect('users:lab_sec_dashboard_index')
     elif request.user.user_type == 'Lecturer':
         return redirect('users:lecturer_dashboard_index')
     elif request.user.is_staff:
