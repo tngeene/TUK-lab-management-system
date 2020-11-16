@@ -34,9 +34,9 @@ Lab Details
                                             <td>{{ lab.created_on }}</td>
                                         </tr>
                                          <tr>
-                                            <th>Schools</th>
-                                            <td>{{ lab.school.count }}</td>
-                                        </tr> 
+                                            <th>School</th>
+                                            {% comment %} <td> <a href="{% url 'schools:school_details' lab.school.pk %}"> {{ lab.school.name }}</a></td> {% endcomment %}
+                                        </tr> >
                                         <tr>
                                             <th>Last Update</th>
                                             <td>{{ lab.updated_on }}</td>
@@ -54,48 +54,50 @@ Lab Details
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="col-xl-12 col-md-12">
-            <div class="card Recent-Labs">
+<div class="col-xl-12 col-md-12">
+            <div class="card Recent-labs">
                 <div class="card-header">
-                    <h5>All Schools in {{lab.name}} Lab</h5>
+                    <h5 class="text-capitalize">All Lab Technicians in this Lab</h5>
                 </div>
 
                 <div class="card-block px-0 py-3">
                     <div class="table-responsive">
 
                         <table class="table" id="data-table">
-                            <div class="float-right">
-                                <a href="{% url 'schools:lab_assign_school' lab.pk %}" class="label theme-bg2 text-white f-12 mt-5">Add
-                                    School</a>
-                            </div>
                             <thead>
-                                <tr>
-                                    <th> Name </th>
-                                    <th> Department </th>
-                                    <th> Date Added </th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for school in schools %}
-                                <tr>
-                                    <td>{{ school.name }}</td>
-                                    <td>{{ school.department }}</td>
-                                    <td>{{ school.created_on }}</td>
-                                    <td><a href=" {% url 'schools:school_unassign_action' school_pk=school.pk pk=lab.pk %} " class="label theme-bg3 text-white f-12">Remove</a></td>
-                                    <td><a href=" {% url 'schools:school_details' school.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
+                        <tr>
+                            <th> Full Name </th>
+                            <th> Gender </th>
+                            <th> Contact </th>
+                            <th> Status </th>
+                            <th> Date Joined </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.get_full_name }}</td>
+                            <td>{{ user.gender }}</td>
+                            <td>{{ user.phone_number }}</td>
+                            {% if user.is_active %}
+                            <td><span class="badge badge-pill badge-success">Active</span></td>
+                            {% else %}
+                            <td><span class="badge badge-pill badge-danger">Suspended</span></td>
+                            {% endif %}
+                            <td><i class="fas fa-circle text-c-green f-10 m-r-15"></i>{{ user.date_joined }}</td>
+                            <td><a href="{% url 'dashboard:lab_technician_details' user.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
 {% endblock  %}
 

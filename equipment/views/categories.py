@@ -1,11 +1,12 @@
-from django.shortcuts import render
-from django.contrib import messages
-from ..models import Category, Equipment, Batch
-from django.db.models import Count
-from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from dashboard.views.dashboard import DashboardView
+from django.contrib import messages
+from django.db.models import Count
+from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  UpdateView)
 
+from ..models import Batch, Category, Equipment
 
 
 class CategoryCreateView(DashboardView, CreateView):
@@ -46,3 +47,12 @@ class CategoryUpdateView(DashboardView, UpdateView):
     def get_success_url(self):
         messages.success(self.request,"Category Updated")
         return reverse_lazy('equipment:category_details', kwargs={'pk':self.object.pk})
+
+class CategoryDeleteView(DashboardView, DeleteView):
+    model = Category
+    context_object_name = 'category'
+    template_name = 'dashboard/equipment/categories/delete.html'
+
+    def get_success_url(self) -> str:
+        messages.success(self.request, "Category Deleted Succefully")
+        return reverse_lazy("equipment:categories_list")

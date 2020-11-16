@@ -5,10 +5,10 @@ from .views.allocations import (AllocationCreateView, AllocationDetailView,
 from .views.batches import (BatchCreateView, BatchDetailView, BatchListView,
                             BatchUpdateView)
 from .views.categories import (CategoryCreateView, CategoryDetailView,
-                               CategoryListView, CategoryUpdateView)
+                               CategoryListView, CategoryUpdateView, CategoryDeleteView)
 from .views.equipment import (EquipmentCreateView, EquipmentDetailView,
-                              EquipmentListView, EquipmentUpdateView,
-                              mark_as_damaged, mark_as_working)
+                              EquipmentListView, EquipmentUpdateView, EquipmentDeleteView,
+                              mark_as_damaged, mark_as_working, mark_as_out_service, mark_as_lost, mark_as_found)
 from .views.storage_units import (
     StorageUnitCreateView, StorageUnitDetailView, StorageUnitListView,
     StorageUnitUpdateView)
@@ -22,6 +22,7 @@ urlpatterns = [
     path('categories/add',CategoryCreateView.as_view(),name="category_add"),
     path('categories/<int:pk>/details',CategoryDetailView.as_view(),name="category_details"),
     path('categories/<int:pk>/edit',CategoryUpdateView.as_view(),name="category_edit"),
+    path('categories/<int:pk>/delete',CategoryDeleteView.as_view(),name="category_delete"),
 
     # equipment batches urls
     path('batches/',BatchListView.as_view(),name="batch_list"),
@@ -34,8 +35,12 @@ urlpatterns = [
     path('equipment/add',EquipmentCreateView.as_view(),name="equipment_add"),
     path('equipment/<int:pk>/details',EquipmentDetailView.as_view(),name="equipment_details"),
     path('equipment/<int:pk>/edit',EquipmentUpdateView.as_view(),name="equipment_edit"),
+    path('equipment/<int:pk>/delete',EquipmentDeleteView.as_view(),name="equipment_delete"),
     path('equipment/<int:pk>/mark-as-damaged/',mark_as_damaged,name="equipment_damaged_action"),
     path('equipment/<int:pk>/mark-as-working/',mark_as_working,name="equipment_working_action"),
+    path('equipment/<int:pk>/mark-as-out-of-service/',mark_as_out_service,name="equipment_out_of_service_action"),
+    path('equipment/<int:pk>/mark-as-lost/',mark_as_lost,name="equipment_lost_action"),
+    path('equipment/<int:pk>/mark-as-found/',mark_as_found,name="equipment_found_action"),
 
     # supplier urls
     path('suppliers/', SupplierListView.as_view(), name='supplier_list'),

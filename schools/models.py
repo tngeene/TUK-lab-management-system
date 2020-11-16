@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.base import ModelState
 
 
 class School(models.Model):
@@ -20,13 +21,13 @@ class Department(models.Model):
 
 class Lab(models.Model):
     name = models.CharField(max_length=255)
-    school = models.ManyToManyField(School, related_name='labs')
+    school = models.ForeignKey(School, on_delete=models.CASCADE, null=True, related_name='labs')
     room = models.CharField(max_length=10, null=True, unique=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} - Room {self.room} "
 
 class Course(models.Model):
     name = models.CharField(max_length=255)

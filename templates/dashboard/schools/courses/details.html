@@ -34,7 +34,7 @@ course Details
                                             <td>{{ course.created_on }}</td>
                                         </tr>
                                         <tr>
-                                             <th>Students</th>
+                                            <th>Students</th>
                                             <td>{{ course.students_in_course_count }}</td>
                                         </tr>
                                         <tr>
@@ -55,44 +55,46 @@ course Details
             </div>
         </div>
         <div class="col-xl-12 col-md-12">
-        <div class="card Recent-courses">
-        <div class="card-header">
-            <h5>All Students in {{course.name}}</h5>
-        </div>
-        
-        <div class="card-block px-0 py-3">
-            <div class="table-responsive">
-                
-                <table class="table" id="data-table">
-                    <div class="float-right">
-                        <a href="{% url 'schools:course_add' %}" class="label theme-bg2 text-white f-12">Add Student</a>
+            <div class="card Recent-courses">
+                <div class="card-header">
+                    <h5>All Students in {{course.name}}</h5>
+                </div>
+
+                <div class="card-block px-0 py-3">
+                    <div class="table-responsive">
+
+                        <table class="table" id="data-table">
+                            <div class="float-right">
+                                <a href="{% url 'schools:course_add' %}" class="label theme-bg2 text-white f-12">Add
+                                    Student</a>
+                            </div>
+                            <thead>
+                                <tr>
+                                    <th> Name </th>
+                                    <th> Registration No. </th>
+                                    <th> YOS </th>
+                                    <th> Date Added </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                <tr>
+                                    <td>{{ user.get_full_name }}</td>
+                                    <td>{{ user.registration_no }}</td>
+                                    <td>{{ user.year_of_study }}</td>
+                                    <td>{{ user.date_joined }}</td>
+                                    <td><a href="{% url 'dashboard:student_details' user.pk %}"
+                                            class="label theme-bg2 text-white f-12">View</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
-                    <thead>
-                        <tr>
-                            <th> Name </th>
-                            <th> Registration No. </th>
-                            <th> YOS </th>
-                            <th> Date Added </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                         {% for user in users %}
-                        <tr>
-                            <td>{{ user.get_full_name }}</td>
-                            <td>{{ user.registration_no }}</td>
-                            <td>{{ user.year_of_study }}</td>
-                            <td>{{ user.date_joined }}</td>
-                            <td><a href="{% url 'dashboard:student_details' user.pk %}" class="label theme-bg2 text-white f-12">View</a></td>
-                        </tr>
-                        {% endfor %}  
-                    </tbody>
-                </table>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-    
+
     </div>
 </div>
 

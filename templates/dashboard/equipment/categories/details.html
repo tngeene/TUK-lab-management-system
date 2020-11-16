@@ -43,7 +43,10 @@ category Details
                         </div>
                         <div class="text-center">
                             <a href="{% url 'equipment:category_edit' category.pk %}" class="mx-1">
-                                <button class="btn btn-md w-50 btn-primary">Edit</button>
+                                <button class="btn btn-md  btn-primary">Edit</button>
+                            </a>
+                            <a href="{% url 'equipment:category_delete' category.pk %}" class="mx-1">
+                                <button class="btn btn-md  btn-danger">Delete</button>
                             </a>
                         </div>
                     </div>

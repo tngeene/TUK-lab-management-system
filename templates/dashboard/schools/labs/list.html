@@ -18,7 +18,6 @@ All Labs
         
         <div class="card-block px-0 py-3">
             <div class="table-responsive">
-                
                 <table class="table" id="data-table">
                     <div class="float-right">
                         <a href="{% url 'schools:lab_add' %}" class="label theme-bg2 text-white f-12">Add lab</a>
@@ -26,6 +25,7 @@ All Labs
                     <thead>
                         <tr>
                             <th> Name </th>
+                            <th> Schools </th>
                             <th> Room </th>
                             <th> Date Added </th>
                             <th></th>
@@ -35,6 +35,7 @@ All Labs
                         {% for lab in labs %}
                         <tr>
                             <td>{{ lab.name }}</td>
+                            <td>{{ lab.school.name }}</td>
                             <td>{{ lab.room }}</td>
                             <td>{{ lab.created_on }}</td>
                             <td><a href=" {% url 'schools:lab_details' lab.pk %} " class="label theme-bg2 text-white f-12">View</a></td>

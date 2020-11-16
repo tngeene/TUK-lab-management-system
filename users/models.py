@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.utils.translation import ugettext_lazy as _
 from schools.models import Course
-
+from schools.models import Lab
 class UserAccountManager(UserManager):
     def create_user(self, username=None, email=None, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
@@ -54,6 +54,7 @@ class UserAccount(AbstractUser):
     year_of_study = models.CharField(max_length=30, choices=YEAR_OF_STUDY_CHOICES,default="Select One",blank=True,null=True)
     staff_id = models.CharField(max_length=50, null=True,blank=True)
     registration_no = models.CharField(max_length=50, null=True, blank=True, verbose_name='Registration Number')
+    lab = models.ForeignKey(Lab, on_delete=models.CASCADE, related_name='users', null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'phone_number',]

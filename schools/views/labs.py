@@ -4,21 +4,22 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView, DeleteView, DetailView, ListView, UpdateView)
-
+from django.contrib.auth import get_user_model
 from dashboard.views.dashboard import DashboardView
 
 from ..models import Lab, School
 
+User = get_user_model()
 # Create your views here.
 
 class LabCreateView(DashboardView, CreateView):
     model = Lab
-    fields = ('name', 'room')
+    fields = ('name', 'room', 'school')
     template_name = 'dashboard/schools/labs/add.html'
 
     def get_success_url(self):
         messages.success(self.request,"Lab Added Successfully")
-        return reverse_lazy('schools:lab_assign_school', kwargs={'pk': self.object.pk})
+        return reverse_lazy('schools:lab_details', kwargs={'pk': self.object.pk})
 
 
 class LabListView(DashboardView, ListView):
@@ -36,13 +37,14 @@ class LabDetailView(DashboardView, DetailView):
         lab = self.object.id
         context = super().get_context_data(**kwargs)
         context["schools"] = School.objects.filter(labs=lab)
+        context["users"] = User.objects.filter(lab=lab)
         return context
 
 
 class LabUpdateView(DashboardView, UpdateView):
     model = Lab
     template_name = 'dashboard/schools/labs/edit.html'
-    fields = ('name', 'room')
+    fields = ('name', 'room', 'school')
 
     def get_success_url(self):
         messages.success(self.request,"Lab Details Updated")

@@ -10,11 +10,13 @@ from equipment.models import Equipment
 
 class EquipmentCreateView(LabTechnicianView, CreateView):
     model = Equipment
-    fields = ('serial_no','category','lab','storage_unit')
+    fields = ('name', 'serial_no','category', 'storage_unit', 'price')
     template_name = 'users/equipment/add.html'
 
     def form_valid(self, form):
-        form.instance.added_by = self.request.user
+        user = self.request.user
+        form.instance.added_by = user
+        form.instance.lab = user.lab
         return super(EquipmentCreateView, self).form_valid(form)
 
 
@@ -30,7 +32,7 @@ class EquipmentListView(ListView):
 
     def get_queryset(self):
         user = self.request.user
-        return Equipment.objects.filter(added_by=user)
+        return Equipment.objects.filter(lab=user.lab)
 
 
 class EquipmentDetailView(LabTechnicianView, DetailView):
@@ -42,7 +44,7 @@ class EquipmentDetailView(LabTechnicianView, DetailView):
 class EquipmentUpdateView(LabTechnicianView, UpdateView):
     model = Equipment
     template_name = 'users/equipment/edit.html'
-    fields = ('lab','storage_unit')
+    fields = ('name', 'serial_no','category', 'storage_unit', 'price')
 
     def get_success_url(self):
         messages.success(self.request,"Equipment Updated successfully")

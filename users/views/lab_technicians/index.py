@@ -29,5 +29,5 @@ class LabTechnicianDashboardView(LabTechnicianView, TemplateView):
             allocated_by=lab_technician).order_by('-pk')[:10]
         context["equipment_count"] = Equipment.objects.all().count()
         context["my_equipments"] = equipment.order_by('-pk')[:10]
-        context["equipments"] = Equipment.objects.all().order_by('-pk')[:10]
+        context["equipments"] = Equipment.objects.filter(lab=lab_technician.lab).order_by('-pk')[:10]
         return context

@@ -55,6 +55,10 @@ Lab Technician Details
                                         <td>{{ user.gender }}</td>
                                     </tr>
                                     <tr>
+                                        <th>Lab</th>
+                                        <td>{{ user.lab.name }}</td>
+                                    </tr>
+                                    <tr>
                                         <th>Status</th>
                                         <td>
                                             {% if user.is_active %}

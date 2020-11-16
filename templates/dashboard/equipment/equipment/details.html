@@ -18,9 +18,25 @@ Equipment Details
                     <div class="col-md-12 ">
                         <div class="m-3 p-3 shadow-sm">
                             <h3 class="text-center py-3">Equipment Details</h3>
+                            <div class="float-right d-flex">
+                                <a href="{% url 'equipment:equipment_edit' equipment.pk %}" class="mx-1">
+                                    <button class="btn btn-sm btn-primary w-75">Edit</button>
+                                </a>
+                                {% if not equipment.is_allocated %}
+                                <a href="{% url 'equipment:equipment_delete' equipment.pk %}" class="mx-1">
+                                <button class="btn btn-md  btn-danger">Delete</button>
+                                {% endif %}
+                            </a>
+                            </div>
                             <div class="table-responsive">
                                 <table class="table table-striped text-center">
                                     <tbody>
+                                        {% if equipment.name %}
+                                        <tr>
+                                            <th>Name</th>
+                                            <td>{{ equipment.name }}</td>
+                                        </tr>
+                                        {% endif %}
                                         <tr>
                                             <th>Serial No.</th>
                                             <td>{{ equipment.serial_no }}</td>
@@ -28,6 +44,10 @@ Equipment Details
                                         <tr>
                                             <th>Equipment Type</th>
                                             <td>{{ equipment.category.name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Cost</th>
+                                            <td>Ksh {{ equipment.price }}</td>
                                         </tr>
                                         {% if equipment.batch %}
                                         <tr>
@@ -37,16 +57,16 @@ Equipment Details
                                         {% endif %}
                                         <tr>
                                             <th>Working Condition</th>
-                                            {% if not equipment.is_damaged %}
+                                            {% if not equipment.is_damaged or not equipment.has_exceeded_shelf_life  %}
                                             <td> <span class="badge badge-pill badge-success">Working</span></td>
-                                            {% else %}
+                                            {% elif equipment.is_damaged or equipment.has_exceeded_shelf_life %}
                                             <td> <span class="badge badge-pill badge-danger">Damaged</span></td>
                                             {% endif %}
                                         </tr>
                                         <tr>
                                             <th>Allocation Status</th>
                                             {% if equipment.is_allocated  %}
-                                            <td> <span class="badge badge-pill badge-info">Allocted</span></td>
+                                            <td> <span class="badge badge-pill badge-info">Allocated</span></td>
                                             {% else %}
                                             <td> <span class="badge badge-pill badge-success">In Storage</span></td>
                                             {% endif %}
@@ -60,32 +80,55 @@ Equipment Details
                             </div>
                         </div>
                         <div class="row text-center">
-                         <div class="col-md-6">
-                            <a href="{% url 'equipment:equipment_edit' equipment.pk %}" class="mx-1 col-md-6">
-                                <button class="btn btn-sm w-50 btn-primary">Edit</button>
-                            </a>
-                         </div>
-                         <div class="col-md-6">
-                            {% if equipment.is_damaged == False %}
-                            <a href="{% url 'equipment:equipment_damaged_action' pk=equipment.pk %}" class="mx-1 col-md-6">
-                                <button class="btn btn-sm w-50 btn-warning">Mark as Damaged</button>
-                            </a>
-                            {% else %}
-                            <a href="{% url 'equipment:equipment_working_action' pk=equipment.pk %}" class="mx-1 col-md-6">
-                                <button class="btn btn-sm w-50 btn-success">Mark as Working</button>
-                            </a>
+                            {% if not equipment.is_allocated %}
+                            <div class="col-md-6">
+                                {% if equipment.has_exceeded_shelf_life == False %}
+                                <a href="{% url 'equipment:equipment_out_of_service_action' pk=equipment.pk %}"
+                                    class="mx-1 col-md-6">
+                                    <button class="btn btn-sm w-50 btn-warning">Mark as Out Of Service</button>
+                                </a>
+                                {% endif %}
+                            </div>
                             {% endif %}
-                         </div>
+                            <div class="col-md-6">
+                                {% if equipment.is_damaged == False %}
+                                <a href="{% url 'equipment:equipment_damaged_action' pk=equipment.pk %}"
+                                    class="mx-1 col-md-6">
+                                    <button class="btn btn-sm w-50 btn-warning">Mark as Damaged</button>
+                                </a>
+                                {% else %}
+                                <a href="{% url 'equipment:equipment_working_action' pk=equipment.pk %}"
+                                    class="mx-1 col-md-6">
+                                    <button class="btn btn-sm w-50 btn-success">Mark as Working</button>
+                                </a>
+                                {% endif %}
+                                {% if equipment.is_allocated %}
+                                <div>
+                                {% if not equipment.is_lost  %}
+                                <a href="{% url 'equipment:equipment_lost_action' pk=equipment.pk %}"
+                                    class="mx-1 col-md-6">
+                                    <button class="btn btn-sm w-50 btn-warning">Mark as Lost</button>
+                                </a>
+                                {% else %}
+                                <a href="{% url 'equipment:equipment_found_action' pk=equipment.pk %}"
+                                    class="mx-1 col-md-6">
+                                    <button class="btn btn-sm w-50 btn-success">Mark as Returned</button>
+                                </a>
+                                {% endif %}
+                            </div>
+                                {% endif %}
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-       
+
     </div>
 </div>
-    
-    </div>
+
+</div>
 </div>
 
 {% endblock  %}

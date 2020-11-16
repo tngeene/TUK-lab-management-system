@@ -15,7 +15,6 @@ All Storage Units
         <div class="card-header">
             <h5>All Storage Units</h5>
         </div>
-        
         <div class="card-block px-0 py-3">
             <div class="table-responsive">
                 <table class="table" id="data-table">
@@ -35,7 +34,7 @@ All Storage Units
                         {% for unit in units %}
                         <tr>
                             <td>{{ unit.name }}</td>
-                            <td>{{ unit.room }}</td>
+                            <td>{{ unit.lab.room }}</td>
                             <td>{{ unit.lab.name }}</td>
                             <td>{{ unit.created_on }}</td>
                             <td><a href=" {% url 'equipment:storage_unit_details' unit.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
