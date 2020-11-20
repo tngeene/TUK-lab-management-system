@@ -1,18 +1,25 @@
 from django.urls import path
 
-from .views.allocations import (AllocationCreateView, AllocationDetailView,
-                                AllocationListView, AllocationUpdateView, mark_as_damaged, mark_as_returned)
+from .views.allocations import (AllocateToLecturerView, AllocateToStudentView,
+                                AllocationCreateView, AllocationDetailView,
+                                AllocationListView, AllocationUpdateView,
+                                allocate_equipment, mark_as_damaged,
+                                mark_as_returned, unallocate_equipment)
 from .views.batches import (BatchCreateView, BatchDetailView, BatchListView,
                             BatchUpdateView)
-from .views.categories import (CategoryCreateView, CategoryDetailView,
-                               CategoryListView, CategoryUpdateView, CategoryDeleteView)
-from .views.equipment import (EquipmentCreateView, EquipmentDetailView,
-                              EquipmentListView, EquipmentUpdateView, EquipmentDeleteView,
-                              mark_as_damaged, mark_as_working, mark_as_out_service, mark_as_lost, mark_as_found)
-from .views.storage_units import (
-    StorageUnitCreateView, StorageUnitDetailView, StorageUnitListView,
-    StorageUnitUpdateView)
-from .views.suppliers import SupplierCreateView, SupplierDetailView, SupplierListView, SupplierUpdateView
+from .views.categories import (CategoryCreateView, CategoryDeleteView,
+                               CategoryDetailView, CategoryListView,
+                               CategoryUpdateView)
+from .views.equipment import (EquipmentCreateView, EquipmentDeleteView,
+                              EquipmentDetailView, EquipmentListView,
+                              EquipmentUpdateView, mark_as_damaged,
+                              mark_as_found, mark_as_lost, mark_as_out_service,
+                              mark_as_working)
+from .views.storage_units import (StorageUnitCreateView, StorageUnitDetailView,
+                                  StorageUnitListView, StorageUnitUpdateView)
+from .views.suppliers import (SupplierCreateView, SupplierDetailView,
+                              SupplierListView, SupplierUpdateView)
+
 app_name = "equipment"
 
 
@@ -61,4 +68,8 @@ urlpatterns = [
     path('allocations/<int:pk>/edit',AllocationUpdateView.as_view(),name="allocation_edit"),
     path('allocations/<int:pk>/mark-as-returned/', mark_as_returned, name="allocation_return_action"),
     path('allocations/<int:pk>/mark-as-damaged/', mark_as_damaged, name="allocation_damaged_action"),
+    path('allocations/<int:pk>/allocate-to-student/', AllocateToStudentView.as_view(), name="allocate_to_student"),
+    path('allocations/<int:pk>/allocate-to-lecturer/', AllocateToLecturerView.as_view(), name="allocate_to_lecturer"),
+    path('allocations/<int:pk>/allocate/<int:user_pk>/', allocate_equipment, name="allocate_equipment_action"),
+    path('allocations/<int:pk>/unallocate/<int:user_pk>/', unallocate_equipment, name="unallocate_equipment_action"),
 ]

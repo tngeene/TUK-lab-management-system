@@ -27,7 +27,7 @@ class UserDetailView(LoginRequiredMixin, TemplateView):
 
 class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = User
-    fields = ('first_name','last_name','email','phone_number','gender','staff_id', 'photo')
+    fields = ('first_name','last_name','email','phone_number','gender','photo')
     template_name = 'users/profile/edit.html'
 
     def form_valid(self, form):
@@ -39,4 +39,4 @@ class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         messages.success(self.request, "Your Details have been successfully updated.")
-        reverse_lazy("users:user_profile")
+        return reverse_lazy("users:user_profile")

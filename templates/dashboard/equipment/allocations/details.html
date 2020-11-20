@@ -36,10 +36,6 @@ allocation Details
                                             <td><a href="{% url 'equipment:equipment_details' allocation.equipment.id %}">{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }} </a></td>
                                         </tr>
                                         <tr>
-                                            <th>Quantities</th>
-                                            <td>{{ allocation.quantity }}</td>
-                                        </tr>
-                                        <tr>
                                             <th>Added On</th>
                                             <td>{{ allocation.created_on }}</td>
                                         </tr>

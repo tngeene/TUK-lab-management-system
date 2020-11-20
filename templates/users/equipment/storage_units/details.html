@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Storage Unit Details
+{% endblock %}
+
+
+{% block styles %}
+<link href="{% static 'css/data-tables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="m-3 p-3 shadow-sm">
+                            <h3 class="text-center py-3">Storage Unit Details</h3>
+                            <div class="table-responsive">
+                                <table class="table table-striped text-center">
+                                    <tbody>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td>{{ unit.name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Room</th>
+                                            <td>{{ unit.lab.room }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Lab</th>
+                                            <td>{{ unit.lab.name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Equipment Quantities</th>
+                                            <td>{{ unit.equipment_count }}</td>
+                                        </tr> 
+                                        <tr>
+                                            <th>Added On</th>
+                                            <td>{{ unit.created_on }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {% comment %} <div class="text-center">
+                            <a href="{% url 'users:storage_unit_edit' unit.pk %}" class="mx-1">
+                                <button class="btn btn-md w-50 btn-primary">Edit</button>
+                            </a>
+                        </div> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 col-md-12">
+        <div class="card Recent-Storage Units">
+        <div class="card-header">
+            <h5 class="text-capitalize">All Equipment in  this Storage Unit</h5>
+        </div>
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                <table class="table" id="data-table">
+                    <thead>
+                        <tr>
+                            <th> Serial No. </th>
+                            <th> Equipment Type </th> 
+                            <th> Lab </th>
+                            <th> Status </th> 
+                            <th> Date Added </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for equipment in equipments %}
+                        <tr>
+                            <td>{{ equipment.serial_no }}</td>
+                            <td>{{ equipment.category.name }}</td>
+                            <td>{{ equipment.lab.name }}</td>
+                            {% if equipment.is_damaged == False %}
+                             <td> <span class="badge badge-pill badge-success">Working</span></td>
+                             {% else %}
+                              <td> <span class="badge badge-pill badge-danger">Damaged</span></td>
+                            {% endif %}
+                            <td>{{ equipment.created_on }}</td>
+                            <td><a href=" {% url 'users:equipment_details' equipment.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+    
+    </div>
+</div>
+
+{% endblock  %}
+
+{% block scripts %}
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+<script>
+    $('#data-table').DataTable();
+</script>
+{% endblock %}

@@ -4,25 +4,47 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from ..models import Allocation
+from ..models import Allocation, User
 
 
 class AllocationCreateView(CreateView):
     model = Allocation
-    fields = ('equipment','quantity','allocated_to',)
+    fields = ('equipment','allocating_to',)
     template_name  = 'dashboard/equipment/allocations/add.html'
 
-
+    user_type = None
     def form_valid(self, form):
-        form.instance.allocated_by = self.request.user
-
-        form.instance.equipment.is_allocated = True
-
+        allocation = form.save(commit=False)
+        self.user_type = allocation.allocating_to
+        allocation.allocated_by = self.request.user
+        allocation.save()
         return super().form_valid(form)
 
-    def get_success_url(self):
-        messages.success(self.request,"Allocation saved")
-        return reverse_lazy('equipment:allocation_details',kwargs = {'pk': self.object.pk})
+    def get_success_url(self, *args, **kwargs):
+        if self.user_type == 'Student':
+            return reverse_lazy('equipment:allocate_to_student',kwargs = {'pk': self.object.pk})
+        return reverse_lazy('equipment:allocate_to_lecturer',kwargs = {'pk': self.object.pk})
+
+
+class AllocateToStudentView(DashboardView, ListView):
+    model = User
+    template_name  = 'dashboard/equipment/allocations/allocate-student.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["users"] = User.objects.filter(user_type='Student')
+        context["allocation"] = Allocation.objects.get(id=self.kwargs['pk'])
+        return context
+
+class AllocateToLecturerView(DashboardView, ListView):
+    model = User
+    template_name  = 'dashboard/equipment/allocations/allocate-lecturer.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["users"] = User.objects.filter(user_type='Lecturer')
+        context["allocation"] = Allocation.objects.get(id=self.kwargs['pk'])
+        return context
 
 class AllocationListView(DashboardView,ListView):
     model = Allocation
@@ -80,3 +102,21 @@ def mark_as_damaged(request, pk):
 
     messages.success(request,"Equipment marked as damaged")
     return redirect('equipment:allocation_details', pk=pk)
+
+
+def allocate_equipment(request, pk, user_pk):
+    allocation = get_object_or_404(Allocation, id=pk)
+    user = get_object_or_404(User, id=user_pk)
+    allocation.allocated_to = user
+    allocation.equipment.is_allocated = True
+    allocation.save()
+    messages.success(request, "Equipment Allocated")
+    return redirect("equipment:allocation_details", pk=pk)
+
+
+def unallocate_equipment(request, pk, user_pk):
+    allocation = get_object_or_404(Allocation, id=pk)
+    user = get_object_or_404(User, id=user_pk)
+    allocation.allocated_to.remove(user)
+    allocation.save()
+    return redirect("equipment:allocation_details", pk=pk)

@@ -72,13 +72,16 @@ class Batch(CommonInfo):
     def __str__(self):
         return f"{self.category} {self.serial_no} {self.equipment_quantities}"
 
-
+ALLOCATION_USER_CHOICES = (
+    ('Student', 'Student'),
+    ('Lecturer', 'Lecturer'),
+)
 
 class Allocation(CommonInfo):
+    allocating_to = models.CharField(max_length=30, choices=ALLOCATION_USER_CHOICES, default='student')
     allocated_to = models.ForeignKey(User,on_delete=models.CASCADE, null=True,blank=True,related_name='equipment_allocated')
     course = models.ForeignKey(Course,on_delete=models.CASCADE,null=True,blank=True,related_name='allocations')
     equipment = models.ForeignKey(Equipment,on_delete=models.CASCADE,null=True,blank=True,related_name='allocations')
-    quantity = models.IntegerField(default=0)
     allocated_by = models.ForeignKey(User, on_delete=models.PROTECT,related_name='equipment_allocations')
     is_returned = models.BooleanField(default=False)
 

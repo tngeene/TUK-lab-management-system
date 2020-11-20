@@ -12,7 +12,7 @@ class AllocationListView(BaseUserMixin, ListView):
     def get_queryset(self):
         user = self.request.user
         if user.user_type == 'Lab_Tech':
-            qs = Allocation.objects.filter(allocated_by=user)
+            qs = Allocation.objects.filter(allocated_by__lab=user.lab)
             return qs
         elif user.user_type == 'Student' or user.user_type == 'Lecturer':
             qs = Allocation.objects.filter(allocated_to=user)

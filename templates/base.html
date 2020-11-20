@@ -32,11 +32,11 @@
     {% include 'header.html' %}
 
     <div class="side-nav">
-     {% if user.user_type == 'Staff' %}
+     {% if request.user.user_type == 'Staff' %}
      {% include 'dashboard/side-nav.html' %}
-     {% elif user.user_type == 'Lab_Tech' %}
+     {% elif request.user.user_type == 'Lab_Tech' %}
      {% include 'lab-technicians/side-nav.html' %}
-     {% elif user.user_type == 'Student' or user.user_type == 'Lecturer' %}
+     {% elif request.user.user_type == 'Student' or user.user_type == 'Lecturer' %}
      {% include 'students/side-nav.html' %}
     {% endif %}
     </div>
