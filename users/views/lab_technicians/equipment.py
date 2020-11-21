@@ -31,7 +31,7 @@ class EquipmentListView(ListView):
 
     def get_queryset(self):
         user = self.request.user
-        return Equipment.objects.filter(lab=user.lab)
+        return Equipment.objects.filter(lab=user.lab).order_by('-id')
 
 
 class EquipmentDetailView(LabTechnicianView, DetailView):

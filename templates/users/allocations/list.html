@@ -10,8 +10,13 @@ All Equipment allocations
 {% endblock %}
 
 {% block content %}
-<div class="col-xl-12 col-md-12">
-    <div class="card Recent-allocations">
+
+<div class="col-md-12  mt-4">
+    {% include 'partials/nav-pills/allocations.html' %}
+</div>
+
+<div class="col-xl-12 col-md-12 tab-content">
+    <div class="card recent-allocations tab-pane fade show active" id="pills-allocations" role="tabpanel" aria-labelledby="pills-allocations-tab">
         <div class="card-header">
             <h5>All allocations</h5>
         </div>
@@ -20,19 +25,19 @@ All Equipment allocations
                 <table class="table" id="data-table">
                     {% if request.user.user_type == 'Lab_Tech' %}
                     <div class="float-right">
-                        <a href="{% url 'users:new_allocation' %}" class="label theme-bg2 text-white f-12">Add allocation</a>
+                        <a href="{% url 'users:new_allocation' %}" class="label theme-bg2 text-white f-12">Add
+                            allocation</a>
                     </div>
                     {% endif %}
                     <thead>
                         <tr>
                             <th>Equipment</th>
-                            <th>Quantity</th>
                             <th>
-                            {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
-                            Allocated By
-                            {% elif request.user.user_type == 'Lab_Tech' %}
-                            Allocated To
-                            {% endif %}
+                                {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
+                                Allocated By
+                                {% elif request.user.user_type == 'Lab_Tech' %}
+                                Allocated To
+                                {% endif %}
                             </th>
                             <th>Status</th>
                             <th></th>
@@ -42,13 +47,12 @@ All Equipment allocations
                         {% for allocation in allocations %}
                         <tr>
                             <td>{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }}</td>
-                            <td>{{ allocation.quantity }}</td>
                             <td>
-                           {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
-                            {{ allocation.allocated_by.get_full_name }}
-                            {% elif request.user.user_type == 'Lab_Tech' %}
-                            {{ allocation.allocated_to.get_full_name }}
-                            {% endif %}
+                                {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
+                                {{ allocation.allocated_by.get_full_name }}
+                                {% elif request.user.user_type == 'Lab_Tech' %}
+                                {{ allocation.allocated_to.get_full_name }}
+                                {% endif %}
                             </td>
                             {% if allocation.is_returned %}
                             <td><span class="badge badge-pill badge-success">Returned</span></td>
@@ -56,7 +60,257 @@ All Equipment allocations
                             <td><span class="badge badge-pill badge-danger">Unreturned</span></td>
                             {% endif %}
                             <td>{{ allocation.created_on }}</td>
-                            <td><a href=" {% url 'users:allocation_details' allocation.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
+                            <td><a href=" {% url 'users:allocation_details' allocation.pk %} "
+                                    class="label theme-bg2 text-white f-12">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card recent-allocations tab-pane fade" id="pills-my-allocations" role="tabpanel" aria-labelledby="pills-my-allocations-tab">
+        <div class="card-header">
+            <h5>My allocations</h5>
+        </div>
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                <table class="table" id="data-table">
+                    {% if request.user.user_type == 'Lab_Tech' %}
+                    <div class="float-right">
+                        <a href="{% url 'users:new_allocation' %}" class="label theme-bg2 text-white f-12">Add
+                            allocation</a>
+                    </div>
+                    {% endif %}
+                    <thead>
+                        <tr>
+                            <th>Equipment</th>
+                            <th>
+                                {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
+                                Allocated By
+                                {% elif request.user.user_type == 'Lab_Tech' %}
+                                Allocated To
+                                {% endif %}
+                            </th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for allocation in logged_in_user_allocations %}
+                        <tr>
+                            <td>{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }}</td>
+                            <td>
+                                {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
+                                {{ allocation.allocated_by.get_full_name }}
+                                {% elif request.user.user_type == 'Lab_Tech' %}
+                                {{ allocation.allocated_to.get_full_name }}
+                                {% endif %}
+                            </td>
+                            {% if allocation.is_returned %}
+                            <td><span class="badge badge-pill badge-success">Returned</span></td>
+                            {% else %}
+                            <td><span class="badge badge-pill badge-danger">Unreturned</span></td>
+                            {% endif %}
+                            <td>{{ allocation.created_on }}</td>
+                            <td><a href=" {% url 'users:allocation_details' allocation.pk %} "
+                                    class="label theme-bg2 text-white f-12">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card recent-allocations tab-pane fade" id="pills-returned" role="tabpanel" aria-labelledby="pills-returned-tab">
+        <div class="card-header">
+            <h5>Returned Equipment</h5>
+        </div>
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                <table class="table" id="data-table">
+                    <thead>
+                        <tr>
+                            <th>Equipment</th>
+                            <th>
+                                {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
+                                Allocated By
+                                {% elif request.user.user_type == 'Lab_Tech' %}
+                                Allocated To
+                                {% endif %}
+                            </th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for allocation in returned_allocations %}
+                        <tr>
+                            <td>{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }}</td>
+                            <td>
+                                {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
+                                {{ allocation.allocated_by.get_full_name }}
+                                {% elif request.user.user_type == 'Lab_Tech' %}
+                                {{ allocation.allocated_to.get_full_name }}
+                                {% endif %}
+                            </td>
+                            {% if allocation.is_returned %}
+                            <td><span class="badge badge-pill badge-success">Returned</span></td>
+                            {% else %}
+                            <td><span class="badge badge-pill badge-danger">Unreturned</span></td>
+                            {% endif %}
+                            <td>{{ allocation.created_on }}</td>
+                            <td><a href=" {% url 'users:allocation_details' allocation.pk %} "
+                                    class="label theme-bg2 text-white f-12">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card recent-allocations tab-pane fade" id="pills-unreturned" role="tabpanel" aria-labelledby="pills-unreturned-tab">
+        <div class="card-header">
+            <h5>Unreturned Equipment</h5>
+        </div>
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                <table class="table" id="data-table">
+                    <thead>
+                        <tr>
+                            <th>Equipment</th>
+                            <th>
+                                {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
+                                Allocated By
+                                {% elif request.user.user_type == 'Lab_Tech' %}
+                                Allocated To
+                                {% endif %}
+                            </th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for allocation in unreturned_allocations %}
+                        <tr>
+                            <td>{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }}</td>
+                            <td>
+                                {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
+                                {{ allocation.allocated_by.get_full_name }}
+                                {% elif request.user.user_type == 'Lab_Tech' %}
+                                {{ allocation.allocated_to.get_full_name }}
+                                {% endif %}
+                            </td>
+                            {% if allocation.is_returned %}
+                            <td><span class="badge badge-pill badge-success">Returned</span></td>
+                            {% else %}
+                            <td><span class="badge badge-pill badge-danger">Unreturned</span></td>
+                            {% endif %}
+                            <td>{{ allocation.created_on }}</td>
+                            <td><a href=" {% url 'users:allocation_details' allocation.pk %} "
+                                    class="label theme-bg2 text-white f-12">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card recent-allocations tab-pane fade" id="pills-damaged" role="tabpanel" aria-labelledby="pills-damaged-tab">
+        <div class="card-header">
+            <h5>Unreturned Equipment</h5>
+        </div>
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                <table class="table" id="data-table">
+                    <thead>
+                        <tr>
+                            <th>Equipment</th>
+                            <th>
+                                {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
+                                Allocated By
+                                {% elif request.user.user_type == 'Lab_Tech' %}
+                                Allocated To
+                                {% endif %}
+                            </th>
+                            <th>Status</th>
+                            <th>Working Condition</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for allocation in damaged_allocations %}
+                        <tr>
+                            <td>{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }}</td>
+                            <td>
+                                {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
+                                {{ allocation.allocated_by.get_full_name }}
+                                {% elif request.user.user_type == 'Lab_Tech' %}
+                                {{ allocation.allocated_to.get_full_name }}
+                                {% endif %}
+                            </td>
+                            {% if allocation.is_returned %}
+                            <td><span class="badge badge-pill badge-success">Returned</span></td>
+                            {% else %}
+                            <td><span class="badge badge-pill badge-danger">Unreturned</span></td>
+                            {% endif %}
+                            {% if allocation.equipment.is_damaged %}
+                            <td><span class="badge badge-pill badge-danger">Damaged</span></td>
+                            {% else %}
+                            <td><span class="badge badge-pill badge-success">Working</span></td>
+                            {% endif %}
+                            <td>{{ allocation.created_on }}</td>
+                            <td><a href=" {% url 'users:allocation_details' allocation.pk %} "
+                                    class="label theme-bg2 text-white f-12">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card recent-allocations tab-pane fade" id="pills-lost" role="tabpanel" aria-labelledby="pills-lost-tab">
+        <div class="card-header">
+            <h5>Lost Equipment</h5>
+        </div>
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                <table class="table" id="data-table">
+                    <thead>
+                        <tr>
+                            <th>Equipment</th>
+                            <th>
+                                {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
+                                Allocated By
+                                {% elif request.user.user_type == 'Lab_Tech' %}
+                                Allocated To
+                                {% endif %}
+                            </th>
+                            <th>Status</th>
+                            <th>Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for allocation in lost_allocations %}
+                        <tr>
+                            <td>{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }}</td>
+                            <td>
+                                {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
+                                {{ allocation.allocated_by.get_full_name }}
+                                {% elif request.user.user_type == 'Lab_Tech' %}
+                                {{ allocation.allocated_to.get_full_name }}
+                                {% endif %}
+                            </td>
+                            {% if allocation.equipment.is_lost %}
+                            <td><span class="badge badge-pill badge-danger">Lost</span></td>
+                            {% else %}
+                            <td><span class="badge badge-pill badge-success">Replaced</span></td>
+                            {% endif %}
+                            <td> Ksh {{allocation.equipment.price|floatformat:2}} </td>
+                            <td>{{ allocation.created_on }}</td>
+                            <td><a href=" {% url 'users:allocation_details' allocation.pk %} "
+                                    class="label theme-bg2 text-white f-12">View</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

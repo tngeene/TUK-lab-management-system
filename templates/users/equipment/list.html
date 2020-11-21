@@ -14,48 +14,59 @@ All Equipment
     <div class="card Recent-equipments">
         <div class="card-header">
             <h5>All Equipment</h5>
+            {% if equipments.count > 0 %}
+            <div class="float-right">
+                <button class="btn btn-info" id="printBtn" value="ExportToPdf" onclick="ExportToPdf()"><span
+                        class="pcoded-micon"><i class="feather icon-printer"></i></span> Print</button>
+            </div>
+            {% endif %}
         </div>
-        
+
         <div class="card-block px-0 py-3">
             <div class="table-responsive">
-                <table class="table" id="data-table">
+                <table class="table" id="data-table" style="background-color: #fff;">
                     <div class="float-right">
-                        <a href="{% url 'users:equipment_add' %}" class="label theme-bg2 text-white f-12">Add equipment</a>
+                        <a href="{% url 'users:equipment_add' %}" class="label theme-bg2 text-white f-12">Add
+                            equipment</a>
                     </div>
-                    <thead>
-                        <tr>
-                            <th> Serial No. </th>
-                            <th> Equipment Type </th> 
-                            <th> Lab </th>
-                            <th> Storage Unit </th>
-                            <th> Allocation Status</th>
-                            <th> Working Condition </th>
-                            <th> Date Added </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for equipment in equipments %}
-                        <tr>
-                            <td>{{ equipment.serial_no }}</td>
-                            <td>{{ equipment.category.name }}</td>
-                            <td>{{ equipment.lab.name }}</td>
-                            <td>{{ equipment.storage_unit.name }}</td>
-                            {% if not equipment.is_allocated %}
-                            <td><span class="badge badge-pill badge-success">In Storage</span></td>
-                            {% else %}
-                            <td><span class="badge badge-pill badge-danger">Allocated</span></td>
-                            {% endif %}
-                            {% if equipment.is_damaged == False %}
-                             <td> <span class="badge badge-pill badge-success">Working</span></td>
-                             {% else %}
-                              <td> <span class="badge badge-pill badge-danger">Damaged</span></td>
-                            {% endif %}
-                            <td>{{ equipment.created_on }}</td>
-                            <td><a href=" {% url 'users:equipment_details' equipment.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
+                    <div class="content" id="EquipmentTable" >
+                        <thead>
+                            <tr>
+                                <th> Serial No. </th>
+                                <th> Equipment Type </th>
+                                <th> Lab </th>
+                                <th> Storage Unit </th>
+                                <th> Allocation Status</th>
+                                <th> Working Condition </th>
+                                <th> Date Added </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for equipment in equipments %}
+                            <tr>
+                                <td>{{ equipment.serial_no }}</td>
+                                <td>{{ equipment.category.name }}</td>
+                                <td>{{ equipment.lab.name }}</td>
+                                <td>{{ equipment.storage_unit.name }}</td>
+                                {% if not equipment.is_allocated %}
+                                <td><span class="badge badge-pill badge-success">In Storage</span></td>
+                                {% else %}
+                                <td><span class="badge badge-pill badge-danger">Allocated</span></td>
+                                {% endif %}
+                                {% if equipment.is_damaged == False %}
+                                <td> <span class="badge badge-pill badge-success">Working</span></td>
+                                {% else %}
+                                <td> <span class="badge badge-pill badge-danger">Damaged</span></td>
+                                {% endif %}
+                                <td>{{ equipment.created_on }}</td>
+                                <td><a href=" {% url 'users:equipment_details' equipment.pk %} "
+                                        class="label theme-bg2 text-white f-12">View</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </div>
+
                 </table>
             </div>
         </div>
@@ -67,6 +78,23 @@ All Equipment
 <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
 <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
 <script>
-    $('#data-table').DataTable();
+    $(document).ready(function () {
+        $('#data-table').DataTable({
+            "pageLength": 25,
+        });
+    });
+
+    function ExportToPdf() {
+        const pdfTitle = '{{ request.user.lab.name }} Equipment'
+        console.log(pdfTitle)
+        const pdf = new jsPDF('p', 'pt', 'a4');
+        pdf.addHTML($('.table'), function () {
+            if (pdfTitle) {
+                pdf.save(`${pdfTitle}.pdf`);
+            } else {
+                pdf.save('Equipment.pdf');
+            }
+        });
+    }
 </script>
 {% endblock %}
