@@ -158,46 +158,6 @@
     <div class="col-xl-12 col-md-12">
         <div class="card Recent-Users">
             <div class="card-header">
-                <h5>Recent Lab Secretaries</h5>
-            </div>
-            <div class="card-block px-0 py-3">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th> Full Name </th>
-                                <th> Gender </th>
-                                <th> Contact </th>
-                                <th> Status </th>
-                                <th> Date Joined </th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for user in recent_lab_secs %}
-                            <tr>
-                                <td>{{ user.get_full_name }}</td>
-                                <td>{{ user.gender }}</td>
-                                <td>{{ user.phone_number }}</td>
-                                {% if user.is_active %}
-                                <td><span class="badge badge-pill badge-success">Active</span></td>
-                                {% else %}
-                                <td><span class="badge badge-pill badge-danger">Suspended</span></td>
-                                {% endif %}
-                                <td><i class="fas fa-circle text-c-green f-10 m-r-15"></i>{{ user.date_joined }}</td>
-                                <td><a href="{% url 'dashboard:lab_secretary_details' user.pk %}"
-                                        class="label theme-bg2 text-white f-12">View</a></td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-12 col-md-12">
-        <div class="card Recent-Users">
-            <div class="card-header">
                 <h5>Recent Lecturers</h5>
             </div>
             <div class="card-block px-0 py-3">

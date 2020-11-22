@@ -1,5 +1,4 @@
 from django.urls import path
-from equipment.views.allocations import allocate_equipment
 
 from users.views.admin_actions import suspend_user, unsuspend_user
 from users.views.lab_sec import LabSecDashboardView
@@ -16,7 +15,7 @@ from users.views.users.allocations import (AllocationDetailView,
 
 from .views.lab_technicians.allocations import (AllocateToLecturerView,
                                                 AllocateToStudentView,
-                                                AllocationCreateView)
+                                                AllocationCreateView, allocate_equipment)
 from .views.lecturers import LecturerDashboardView
 from .views.users.base import UserDetailView, UserProfileUpdateView
 

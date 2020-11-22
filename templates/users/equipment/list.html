@@ -33,7 +33,7 @@ All Equipment
                         <thead>
                             <tr>
                                 <th> Serial No. </th>
-                                <th> Equipment Type </th>
+                                <th> Equipment Name </th>
                                 <th> Lab </th>
                                 <th> Storage Unit </th>
                                 <th> Allocation Status</th>
@@ -46,7 +46,7 @@ All Equipment
                             {% for equipment in equipments %}
                             <tr>
                                 <td>{{ equipment.serial_no }}</td>
-                                <td>{{ equipment.category.name }}</td>
+                                <td>{{ equipment.name }}</td>
                                 <td>{{ equipment.lab.name }}</td>
                                 <td>{{ equipment.storage_unit.name }}</td>
                                 {% if not equipment.is_allocated %}

@@ -40,7 +40,12 @@ All Students
                             {% else %}
                             <td><span class="badge badge-pill badge-danger">Suspended</span></td>
                             {% endif %}
+                            {% if request.user.user_type == 'Staff' %}
                             <td><a href=" {% url 'equipment:allocate_equipment_action' pk=allocation.pk user_pk=user.pk  %} " class="label theme-bg3 text-white f-12">Allocate</a></td>
+                            {% elif request.user.user_type == 'Lab_Tech' %}
+                            <td><a href=" {% url 'users:allocate_equipment_action' pk=allocation.pk user_pk=user.pk  %} " class="label theme-bg3 text-white f-12">Allocate</a></td>
+                            {% endif %}
+                            
                         </tr>
                         {% endfor %}
                     </tbody>

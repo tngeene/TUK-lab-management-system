@@ -46,7 +46,7 @@ All Equipment allocations
                     <tbody>
                         {% for allocation in allocations %}
                         <tr>
-                            <td>{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }}</td>
+                            <td>{{ allocation.equipment.name }} - {{ allocation.equipment.serial_no }}</td>
                             <td>
                                 {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
                                 {{ allocation.allocated_by.get_full_name }}
@@ -99,7 +99,7 @@ All Equipment allocations
                     <tbody>
                         {% for allocation in logged_in_user_allocations %}
                         <tr>
-                            <td>{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }}</td>
+                            <td>{{ allocation.equipment.name }} - {{ allocation.equipment.serial_no }}</td>
                             <td>
                                 {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
                                 {{ allocation.allocated_by.get_full_name }}
@@ -146,7 +146,7 @@ All Equipment allocations
                     <tbody>
                         {% for allocation in returned_allocations %}
                         <tr>
-                            <td>{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }}</td>
+                            <td>{{ allocation.equipment.name }} - {{ allocation.equipment.serial_no }}</td>
                             <td>
                                 {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
                                 {{ allocation.allocated_by.get_full_name }}
@@ -193,7 +193,7 @@ All Equipment allocations
                     <tbody>
                         {% for allocation in unreturned_allocations %}
                         <tr>
-                            <td>{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }}</td>
+                            <td>{{ allocation.equipment.name }} - {{ allocation.equipment.serial_no }}</td>
                             <td>
                                 {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
                                 {{ allocation.allocated_by.get_full_name }}
@@ -241,7 +241,7 @@ All Equipment allocations
                     <tbody>
                         {% for allocation in damaged_allocations %}
                         <tr>
-                            <td>{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }}</td>
+                            <td>{{ allocation.equipment.name }} - {{ allocation.equipment.serial_no }}</td>
                             <td>
                                 {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
                                 {{ allocation.allocated_by.get_full_name }}
@@ -294,7 +294,7 @@ All Equipment allocations
                     <tbody>
                         {% for allocation in lost_allocations %}
                         <tr>
-                            <td>{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }}</td>
+                            <td>{{ allocation.equipment.name }} - {{ allocation.equipment.serial_no }}</td>
                             <td>
                                 {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
                                 {{ allocation.allocated_by.get_full_name }}

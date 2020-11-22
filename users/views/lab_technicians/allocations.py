@@ -1,9 +1,12 @@
-from .index import LabTechnicianDashboardView
-from equipment.models import Allocation
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, ListView
+from django.views.generic import CreateView, ListView, UpdateView
+
+from equipment.models import Allocation
+
+from .index import LabTechnicianDashboardView
 
 User = get_user_model()
 
@@ -23,8 +26,8 @@ class AllocationCreateView(CreateView):
 
     def get_success_url(self, *args, **kwargs):
         if self.user_type == 'Student':
-            return reverse_lazy('users:allocate_to_student',kwargs = {'pk': self.object.pk})
-        return reverse_lazy('users:allocate_to_lecturer',kwargs = {'pk': self.object.pk})
+            return reverse_lazy('equipment:allocate_to_student',kwargs = {'pk': self.object.pk})
+        return reverse_lazy('equipment:allocate_to_lecturer',kwargs = {'pk': self.object.pk})
 
 
 class AllocateToStudentView(LabTechnicianDashboardView, ListView):
@@ -48,6 +51,16 @@ class AllocateToLecturerView(LabTechnicianDashboardView, ListView):
         context["allocation"] = Allocation.objects.get(id=self.kwargs['pk'])
         return context
 
+
+
+def allocate_equipment(request, pk, user_pk):
+    allocation = get_object_or_404(Allocation, id=pk)
+    user = get_object_or_404(User, id=user_pk)
+    allocation.allocated_to = user
+    allocation.equipment.is_allocated = True
+    allocation.save()
+    messages.success(request, "Equipment Allocated")
+    return redirect("users:allocation_details", pk=pk)
 
 
 

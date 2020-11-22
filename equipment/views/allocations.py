@@ -26,7 +26,7 @@ class AllocationCreateView(CreateView):
         return reverse_lazy('equipment:allocate_to_lecturer',kwargs = {'pk': self.object.pk})
 
 
-class AllocateToStudentView(DashboardView, ListView):
+class AllocateToStudentView(ListView):
     model = User
     template_name  = 'dashboard/equipment/allocations/allocate-student.html'
 
@@ -36,7 +36,7 @@ class AllocateToStudentView(DashboardView, ListView):
         context["allocation"] = Allocation.objects.get(id=self.kwargs['pk'])
         return context
 
-class AllocateToLecturerView(DashboardView, ListView):
+class AllocateToLecturerView(ListView):
     model = User
     template_name  = 'dashboard/equipment/allocations/allocate-lecturer.html'
 
