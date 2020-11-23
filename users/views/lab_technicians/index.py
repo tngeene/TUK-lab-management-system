@@ -23,6 +23,8 @@ class LabTechnicianDashboardView(LabTechnicianView, TemplateView):
 
     def get_context_data(self, **kwargs):
         lab_technician = self.request.user
+        students = UserAccount.objects.filter(user_type='Student')
+        lecturers = UserAccount.objects.filter(user_type='Lecturer')
         equipment = Equipment.objects.filter(added_by=lab_technician)
         context = super().get_context_data(**kwargs)
         context["my_allocations"] = Allocation.objects.filter(
@@ -30,4 +32,6 @@ class LabTechnicianDashboardView(LabTechnicianView, TemplateView):
         context["equipment_count"] = Equipment.objects.all().count()
         context["my_equipments"] = equipment.order_by('-pk')[:10]
         context["equipments"] = Equipment.objects.filter(lab=lab_technician.lab).order_by('-pk')[:10]
+        context["students_count"] = students.count()
+        context["lecturers_count"] = lecturers.count()
         return context

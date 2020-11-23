@@ -3,8 +3,11 @@ from django.urls import path
 from .views.allocations import (AllocateToLecturerView, AllocateToStudentView,
                                 AllocationCreateView, AllocationDetailView,
                                 AllocationListView, AllocationUpdateView,
-                                allocate_equipment, mark_as_damaged,
-                                mark_as_returned, unallocate_equipment)
+                                allocate_equipment, allocation_mark_as_damaged,
+                                allocation_mark_as_fixed,
+                                allocation_mark_as_lost,
+                                allocation_mark_as_replaced, mark_as_returned,
+                                unallocate_equipment)
 from .views.batches import (BatchCreateView, BatchDetailView, BatchListView,
                             BatchUpdateView)
 from .views.categories import (CategoryCreateView, CategoryDeleteView,
@@ -67,7 +70,10 @@ urlpatterns = [
     path('allocations/<int:pk>/details/',AllocationDetailView.as_view(),name="allocation_details"),
     path('allocations/<int:pk>/edit',AllocationUpdateView.as_view(),name="allocation_edit"),
     path('allocations/<int:pk>/mark-as-returned/', mark_as_returned, name="allocation_return_action"),
-    path('allocations/<int:pk>/mark-as-damaged/', mark_as_damaged, name="allocation_damaged_action"),
+    path('allocations/<int:pk>/mark-as-damaged/', allocation_mark_as_damaged, name="allocation_damaged_action"),
+    path('allocations/<int:pk>/mark-as-fixed/', allocation_mark_as_fixed, name="allocation_fixed_action"),
+    path('allocations/<int:pk>/mark-as-lost/', allocation_mark_as_lost, name="allocation_lost_action"),
+    path('allocations/<int:pk>/mark-as-replaced/', allocation_mark_as_replaced, name="allocation_replaced_action"),
     path('allocations/<int:pk>/allocate-to-student/', AllocateToStudentView.as_view(), name="allocate_to_student"),
     path('allocations/<int:pk>/allocate-to-lecturer/', AllocateToLecturerView.as_view(), name="allocate_to_lecturer"),
     path('allocations/<int:pk>/allocate/<int:user_pk>/', allocate_equipment, name="allocate_equipment_action"),

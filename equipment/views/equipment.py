@@ -65,6 +65,8 @@ class EquipmentDeleteView(DashboardView, DeleteView):
 def mark_as_working(request,pk):
     equipment = get_object_or_404(Equipment, pk=pk)
     equipment.is_damaged = False
+    if equipment.has_exceeded_shelf_life == True:
+        equipment.has_exceeded_shelf_life = False
     equipment.save()
 
     messages.success(request,"Equipment marked as working")
@@ -77,6 +79,7 @@ def mark_as_working(request,pk):
 def mark_as_out_service(request,pk):
     equipment = get_object_or_404(Equipment, pk=pk)
     equipment.has_exceeded_shelf_life = True
+    equipment.is_damaged = True
     equipment.save()
 
     messages.success(request,"Equipment marked as out of service")

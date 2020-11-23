@@ -15,9 +15,8 @@ class LecturerListView(LabTechnicianView, ListView):
 
     def get_context_data(self, **kwargs):
         user = self.request.user
-        lab = user.lab
         context = super().get_context_data(**kwargs)
-        context["users"] = User.objects.filter(user_type='Lecturer', department__school=lab.school)
+        context["users"] = User.objects.filter(user_type='Lecturer')
         return context
 
 

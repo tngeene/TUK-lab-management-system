@@ -36,11 +36,11 @@
     <div class="col-md-12 col-xl-3">
         <div class="card yearly-sales">
             <div class="card-block">
-                <h6 class="mb-4">Labs</h6>
+                <h6 class="mb-4">Lecturers</h6>
                 <div class="row d-flex align-items-center">
                     <div class="col-9">
                         <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i
-                                class="fa fa-building text-c-green f-30 m-r-10"></i>{{labs_count}}</h3>
+                                class="fa fa-user text-c-red f-30 m-r-10"></i>{{lecturers_count}}</h3>
                     </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                         <tr>
                             <th>Allocated To.</th>
                             <th>Equipment</th>
-                            <th>Quantity</th>
+                            <th>Serial No.</th>
                             <th>Allocated By</th>
                             <th>Status</th>
                             <th></th>
@@ -85,13 +85,9 @@
                     <tbody>
                         {% for allocation in my_allocations %}
                         <tr>
-                            {% if allocation.student %}
-                            <td>{{ allocation.student.get_full_name }}</td>
-                            {% else %}
-                            <td>{{ allocation.course.name }}</td>
-                            {% endif %}
-                            <td>{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }}</td>
-                            <td>{{ allocation.quantity }}</td>
+                            <td>{{ allocation.allocated_to.get_full_name }}</td>
+                            <td>{{ allocation.equipment.name }} </td>
+                            <td>{{ allocation.equipment.serial_no }}</td>
                             <td>{{ allocation.allocated_by.get_full_name }}</td>
                             {% if allocation.is_returned %}
                             <td><span class="badge badge-pill badge-success">Returned</span></td>

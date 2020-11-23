@@ -91,16 +91,32 @@ def mark_as_returned(request, pk):
     allocation.save()
 
     messages.success(request,"Allocation updated")
-    return redirect('equipment:allocation_details', pk=pk)
+    if request.user.user_type == 'Staff':
+        return redirect('equipment:allocation_details', pk=pk)
+    return redirect('users:allocation_details', pk=pk)
 
-def mark_as_damaged(request, pk):
+def allocation_mark_as_damaged(request, pk):
     allocation = get_object_or_404(Allocation, pk=pk)
 
     allocation.equipment.is_damaged = True
     allocation.equipment.save()
 
     messages.success(request,"Equipment marked as damaged")
-    return redirect('equipment:allocation_details', pk=pk)
+    if request.user.user_type == 'Staff':
+        return redirect('equipment:allocation_details', pk=pk)
+    return redirect('users:allocation_details', pk=pk)
+
+
+def allocation_mark_as_fixed(request, pk):
+    allocation = get_object_or_404(Allocation, pk=pk)
+
+    allocation.equipment.is_damaged = False
+    allocation.equipment.save()
+
+    messages.success(request,"Equipment marked as fixed")
+    if request.user.user_type == 'Staff':
+        return redirect('equipment:allocation_details', pk=pk)
+    return redirect('users:allocation_details', pk=pk)
 
 
 def allocate_equipment(request, pk, user_pk):
@@ -119,3 +135,31 @@ def unallocate_equipment(request, pk, user_pk):
     allocation.allocated_to.remove(user)
     allocation.save()
     return redirect("equipment:allocation_details", pk=pk)
+
+def allocation_mark_as_lost(request, pk):
+    allocation = get_object_or_404(Allocation, pk=pk)
+
+    allocation.equipment.is_lost = True
+    allocation.equipment.save()
+
+    allocation.is_returned = False
+    allocation.save()
+
+    messages.success(request,"Allocation updated")
+    if request.user.user_type == 'Staff':
+        return redirect('equipment:allocation_details', pk=pk)
+    return redirect('users:allocation_details', pk=pk)
+
+def allocation_mark_as_replaced(request, pk):
+    allocation = get_object_or_404(Allocation, pk=pk)
+
+    allocation.equipment.is_lost = False
+    allocation.equipment.save()
+
+    allocation.is_returned = True
+    allocation.save()
+
+    messages.success(request,"Allocation updated")
+    if request.user.user_type == 'Staff':
+        return redirect('equipment:allocation_details', pk=pk)
+    return redirect('users:allocation_details', pk=pk)

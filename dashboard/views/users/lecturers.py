@@ -12,7 +12,7 @@ from users.models import UserAccount
 class LecturerCreateView(DashboardView, CreateView):
     model = UserAccount
     fields = ('first_name', 'last_name', 'email',
-              'phone_number', 'gender', 'departmemt', 'staff_id')
+              'phone_number', 'gender', 'department', 'staff_id')
     template_name = 'dashboard/users/lecturers/add.html'
 
     def form_valid(self, form):

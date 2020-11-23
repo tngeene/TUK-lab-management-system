@@ -26,6 +26,7 @@ All Students
                             <th> Full Name </th>
                             <th> Gender </th>
                             <th> Contact </th>
+                            <th> Registration No. </th>
                             <th> Course </th>
                             <th> Status </th>
                             <th> Date Joined </th>
@@ -38,6 +39,7 @@ All Students
                             <td>{{ user.get_full_name }}</td>
                             <td>{{ user.gender }}</td>
                             <td>{{ user.phone_number }}</td>
+                            <td>{{ user.registration_no }}</td>
                             <td>{{ user.course }}</td>
                             {% if user.is_active %}
                             <td><span class="badge badge-pill badge-success">Active</span></td>

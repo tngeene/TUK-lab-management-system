@@ -14,10 +14,8 @@ class StudentListView(LabTechnicianView, ListView):
     template_name = 'users/students/list.html'
 
     def get_context_data(self, **kwargs):
-        user = self.request.user
-        lab = user.lab
         context = super().get_context_data(**kwargs)
-        context["users"] = User.objects.filter(user_type='Student', course__department__school=lab.school)
+        context["users"] = User.objects.filter(user_type='Student')
         return context
 
 

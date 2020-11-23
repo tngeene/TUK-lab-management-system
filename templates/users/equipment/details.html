@@ -37,12 +37,10 @@ Equipment Details
                                             <th>Lab</th>
                                             <td>{{ equipment.lab.name }}</td>
                                         </tr>
-                                        {% if equipment.batch %}
                                         <tr>
-                                            <th>School</th>
-                                            <td>{{ equipment.batch.s }}</td>
+                                            <th>Price</th>
+                                            <td>{{ equipment.price }}</td>
                                         </tr>
-                                        {% endif %}
                                         <tr>
                                             <th>Working Condition</th>
                                             {% if not equipment.is_damaged %}
@@ -62,7 +60,7 @@ Equipment Details
                                         <tr>
                                             <th>Allocation Status</th>
                                             {% if equipment.is_allocated  %}
-                                            <td> <span class="badge badge-pill badge-info">Allocted</span></td>
+                                            <td> <span class="badge badge-pill badge-info">Allocated</span></td>
                                             {% else %}
                                             <td> <span class="badge badge-pill badge-success">In Storage</span></td>
                                             {% endif %}
@@ -75,6 +73,7 @@ Equipment Details
                                 </table>
                             </div>
                         </div>
+                        {% if request.user.user_type == 'Lab_Tech' or request.user.user_type == 'Staff' %}
                         <div class="row text-center">
                          <div class="col-md-6">
                             <a href="{% url 'users:equipment_edit' equipment.pk %}" class="mx-1 col-md-6">
@@ -91,8 +90,15 @@ Equipment Details
                                 <button class="btn btn-sm w-50 btn-success">Mark as Working</button>
                             </a>
                             {% endif %}
+                            {% if equipment.has_exceeded_shelf_life == False %}
+                                <a href="{% url 'equipment:equipment_out_of_service_action' pk=equipment.pk %}"
+                                    class="mx-1 col-md-3 mx-auto">
+                                    <button class="btn btn-sm w-50 btn-warning">Mark as Out Of Service</button>
+                                </a>
+                            {% endif %}
                          </div>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
