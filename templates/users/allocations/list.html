@@ -32,6 +32,7 @@ All Equipment allocations
                     <thead>
                         <tr>
                             <th>Equipment</th>
+                            <th>Serial No.</th>
                             <th>
                                 {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
                                 Allocated By
@@ -46,12 +47,19 @@ All Equipment allocations
                     <tbody>
                         {% for allocation in allocations %}
                         <tr>
-                            <td>{{ allocation.equipment.name }} - {{ allocation.equipment.serial_no }}</td>
+                            <td>{{ allocation.equipment.name }}</td>
+                            <td>{{ allocation.equipment.serial_no }}</td>
                             <td>
                                 {% if request.user.user_type == 'Student' or request.user.user_type == 'Lecturer' %}
-                                {{ allocation.allocated_by.get_full_name }}
+                                {{ allocation.allocated_by.get_full_name }} 
                                 {% elif request.user.user_type == 'Lab_Tech' %}
-                                {{ allocation.allocated_to.get_full_name }}
+                                {{ allocation.allocated_to.get_full_name }} -
+
+                                    {% if allocation.allocated_to.user_type == 'Student' %}
+                                        {{ allocation.allocated_to.registration_no }}
+                                        {% elif allocation.allocated_to.user_type == 'Lecturer' or allocation.allocated_to.user_type  == 'Lab_Tech'  %}
+                                        {{ allocation.allocated_to.staff_id }}
+                                    {% endif %}
                                 {% endif %}
                             </td>
                             {% if allocation.is_returned %}

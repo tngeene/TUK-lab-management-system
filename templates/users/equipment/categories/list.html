@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-All Storage Units
+All Equipment Categories
 {% endblock %}
 
 
@@ -11,33 +11,34 @@ All Storage Units
 
 {% block content %}
 <div class="col-xl-12 col-md-12">
-    <div class="card Recent-units">
+    <div class="card Recent-categorys">
         <div class="card-header">
-            <h5>All Storage Units</h5>
+            <h5>All Categories</h5>
         </div>
+        
         <div class="card-block px-0 py-3">
             <div class="table-responsive">
                 <table class="table" id="data-table">
                     <div class="float-right">
-                        <a href="{% url 'users:storage_unit_add' %}" class="label theme-bg2 text-white f-12">Add unit</a>
+                        <a href="{% url 'users:category_add' %}" class="label theme-bg2 text-white f-12">Add category</a>
                     </div>
                     <thead>
                         <tr>
                             <th> Name </th>
-                            <th> Room </th>
-                            <th> Lab </th> 
+                            {% comment %} <th> School </th>
+                            <th> category Code </th> {% endcomment %}
                             <th> Date Added </th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for unit in units %}
+                        {% for category in categories %}
                         <tr>
-                            <td>{{ unit.name }}</td>
-                            <td>{{ unit.lab.room }}</td>
-                            <td>{{ unit.lab.name }}</td>
-                            <td>{{ unit.created_on }}</td>
-                            <td><a href=" {% url 'users:storage_unit_details' unit.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
+                            <td>{{ category.name }}</td>
+                            {% comment %} <td>{{ category.school.name }}</td>
+                            <td>{{ category.code }}</td> {% endcomment %}
+                            <td>{{ category.created_on }}</td>
+                            <td><a href=" {% url 'users:category_details' category.pk %} " class="label theme-bg2 text-white f-12">View</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

@@ -48,7 +48,7 @@ class Equipment(CommonInfo):
     added_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='equipment_added', null=True)
 
     def __str__(self):
-        return f"{self.serial_no} {self.category} {self.lab} {self.batch}"
+        return f"{self.name} - {self.serial_no}"
 
 class StorageUnit(CommonInfo):
     name = models.CharField(max_length=80,null=True)

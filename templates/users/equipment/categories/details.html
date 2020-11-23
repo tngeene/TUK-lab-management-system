@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+category Details
+{% endblock %}
+
+
+{% block styles %}
+<link href="{% static 'css/data-tables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="m-3 p-3 shadow-sm">
+                            <h3 class="text-center py-3">category Details</h3>
+                            <div class="table-responsive">
+                                <table class="table table-striped text-center">
+                                    <tbody>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td>{{ category.name }}</td>
+                                        </tr>
+                                        {% comment %} <tr>
+                                            <th>Batches Received</th>
+                                            <td>{{ category.category_batch_count }}</td>
+                                        </tr> {% endcomment %}
+                                        <tr>
+                                            <th>Equipment</th>
+                                            <td>{{ category.category_equipment_count }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Last Update</th>
+                                            <td>{{ category.updated_on }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <a href="{% url 'users:category_edit' category.pk %}" class="mx-1">
+                                <button class="btn btn-md  btn-primary">Edit</button>
+                            </a>
+                            <a href="{% url 'users:category_delete' category.pk %}" class="mx-1">
+                                <button class="btn btn-md  btn-danger">Delete</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 col-md-12">
+            {% comment %} <div class="card Recent-categorys">
+                <div class="card-header">
+                    <h5>All Batches in {{category.name}}</h5>
+                </div>
+
+                <div class="card-block px-0 py-3">
+                    <div class="table-responsive">
+                        <table class="table" id="data-table">
+                            <div class="float-right">
+                                <a href="{% url 'equipment:batch_add' %}" class="label theme-bg2 text-white f-12">Add
+                                    batch</a>
+                            </div>
+                            <thead>
+                                <tr>
+                                    <th>Serial No.</th>
+                                    <th>School</th>
+                                    <th>Equipment Quantities</th>
+                                    <th>Date Added</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for batch in batches %}
+                                <tr>
+                                    <td>{{ batch.serial_no }}</td>
+                                    <td>{{ batch.school.name | truncatechars:13 }}</td>
+                                    <td>{{ batch.equipment_quantities }}</td>
+                                    <td>{{ batch.created_on }}</td>
+                                    <td><a href=" {% url 'equipment:batch_details' batch.pk %} "
+                                            class="label theme-bg2 text-white f-12">View</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> {% endcomment %}
+            <div class="card Recent-categorys">
+                <div class="card-header">
+                    <h5>All Equipment in {{category.name}}</h5>
+                </div>
+
+                <div class="card-block px-0 py-3">
+                    <div class="table-responsive">
+
+                        <table class="table" id="data-table">
+                            <div class="float-right">
+                                <a href="{% url 'equipment:equipment_add' %}"
+                                    class="label theme-bg2 text-white f-12">Add equipment</a>
+                            </div>
+                            <thead>
+                                <tr>
+                                    <th> Serial No. </th>
+                                    <th> Equipment Name </th>
+                                    <th> Lab </th>
+                                    <th> Storage Unit </th>
+                                    <th> Status </th>
+                                    <th> Date Added </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for equipment in equipments %}
+                                <tr>
+                                    <td>{{ equipment.serial_no }}</td>
+                                    <td>{{ equipment.name }}</td>
+                                    <td>{{ equipment.lab.name }}</td>
+                                    <td>{{ equipment.storage_unit.name }}</td>
+                                    {% if equipment.is_damaged == False %}
+                                    <td> <span class="badge badge-pill badge-success">Working</span></td>
+                                    {% else %}
+                                    <td> <span class="badge badge-pill badge-danger">Damaged</span></td>
+                                    {% endif %}
+                                    <td>{{ equipment.created_on }}</td>
+                                    <td><a href=" {% url 'users:equipment_details' equipment.pk %} "
+                                            class="label theme-bg2 text-white f-12">View</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endblock  %}
+
+        {% block scripts %}
+        <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+        <script>
+            $('#data-table').DataTable();
+        </script>
+        {% endblock %}

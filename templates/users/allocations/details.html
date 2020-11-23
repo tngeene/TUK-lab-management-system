@@ -24,16 +24,20 @@ allocation Details
                                         <tr>
                                             <th>Allocated To.</th>
                                             {% if allocation.allocated_to.user_type == 'Student' %}
-                                            <td> <a href="{% url 'dashboard:student_details' allocation.allocated_to.id %}"> {{ allocation.allocated_to.get_full_name }} </a> </td>
+                                            <td> <a href="{% url 'dashboard:student_details' allocation.allocated_to.id %}"> {{ allocation.allocated_to.get_full_name }} - {{ allocation.allocated_to.registration_no }}  </a> </td>
                                             {% elif allocation.allocated_to.user_type == 'Lecturer' %}
-                                            <td> <a href="{% url 'dashboard:lecturer_details' allocation.allocated_to.id %}"> {{ allocation.allocated_to.get_full_name }} </a> </td>
+                                            <td> <a href="{% url 'dashboard:lecturer_details' allocation.allocated_to.id %}"> {{ allocation.allocated_to.get_full_name }} - {{ allocation.allocated_to.staff_id }} </a> </td>
                                             {% elif allocation.allocated_to.user_type == 'Lab_Tech' %}
                                             <td> <a href="{% url 'dashboard:lab_technician_details' allocation.allocated_to.id %}"> {{ allocation.allocated_to.get_full_name }} </a> </td>
                                             {% endif %}
                                         </tr>
                                         <tr>
-                                            <th>Equipment</th>
-                                            <td><a href="{% url 'users:equipment_details' allocation.equipment.id %}">{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }} </a></td>
+                                            <th>Equipment Name</th>
+                                            <td><a href="{% url 'users:equipment_details' allocation.equipment.id %}">{{ allocation.equipment.name }}  </a></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Equipment Serial No.</th>
+                                            <td> {{ allocation.equipment.serial_no }}</td>
                                         </tr>
                                         {% if allocation.equipment.is_lost %}
 

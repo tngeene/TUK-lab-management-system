@@ -3,13 +3,13 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
-
+from users.views.forms import AllocationCreateForm
 from ..models import Allocation, User
 
 
 class AllocationCreateView(CreateView):
     model = Allocation
-    fields = ('equipment','allocating_to',)
+    form_class = AllocationCreateForm
     template_name  = 'dashboard/equipment/allocations/add.html'
 
     user_type = None
@@ -66,7 +66,6 @@ class AllocationUpdateView(DashboardView, UpdateView):
     def form_valid(self, form):
         allocation_id = self.kwargs['pk']
         current_allocation = Allocation.objects.get(id=allocation_id)
-        print(f"current allocation is {current_allocation}")
 
         if form.instance.is_returned == True:
             current_allocation.equipment.is_allocated = False

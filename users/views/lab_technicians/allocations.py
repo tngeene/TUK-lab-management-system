@@ -4,16 +4,16 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView
 
-from equipment.models import Allocation
-
-from .index import LabTechnicianDashboardView
+from equipment.models import Allocation, Equipment
+from ..forms import AllocationCreateForm
+from .index import LabTechnicianView
 
 User = get_user_model()
 
 
 class AllocationCreateView(CreateView):
     model = Allocation
-    fields = ('equipment','allocating_to',)
+    form_class = AllocationCreateForm
     template_name  = 'dashboard/equipment/allocations/add.html'
 
     user_type = None
@@ -26,11 +26,11 @@ class AllocationCreateView(CreateView):
 
     def get_success_url(self, *args, **kwargs):
         if self.user_type == 'Student':
-            return reverse_lazy('equipment:allocate_to_student',kwargs = {'pk': self.object.pk})
-        return reverse_lazy('equipment:allocate_to_lecturer',kwargs = {'pk': self.object.pk})
+            return reverse_lazy('users:allocate_to_student',kwargs = {'pk': self.object.pk})
+        return reverse_lazy('users:allocate_to_lecturer',kwargs = {'pk': self.object.pk})
 
 
-class AllocateToStudentView(LabTechnicianDashboardView, ListView):
+class AllocateToStudentView(LabTechnicianView, ListView):
     model = User
     template_name = 'dashboard/equipment/allocations/allocate-student.html'
 
@@ -41,7 +41,7 @@ class AllocateToStudentView(LabTechnicianDashboardView, ListView):
         return context
 
 
-class AllocateToLecturerView(LabTechnicianDashboardView, ListView):
+class AllocateToLecturerView(LabTechnicianView, ListView):
     model = User
     template_name = 'dashboard/equipment/allocations/allocate-lecturer.html'
 

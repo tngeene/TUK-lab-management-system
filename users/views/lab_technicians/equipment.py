@@ -4,13 +4,13 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from users.views.lab_technicians.index import LabTechnicianView
-
+from users.views.forms import EquipmentCreationForm
 from equipment.models import Equipment, StorageUnit
 
 
 class EquipmentCreateView(LabTechnicianView, CreateView):
     model = Equipment
-    fields = ('name', 'serial_no', 'category', 'storage_unit', 'price')
+    form_class = EquipmentCreationForm
     template_name = 'users/equipment/add.html'
 
     def form_valid(self, form):
@@ -49,6 +49,22 @@ class EquipmentUpdateView(LabTechnicianView, UpdateView):
         messages.success(self.request, "Equipment Updated successfully")
         return reverse_lazy('users:equipment_details', kwargs={'pk': self.object.pk})
 
+class StorageUnitCreateView(LabTechnicianView, CreateView):
+    model = StorageUnit
+    fields = ('name',)
+    template_name = 'dashboard/equipment/storage_units/add.html'
+
+
+    def form_valid(self, form):
+        storage_unit = form.save(commit=False)
+        user = self.request.user
+        storage_unit.lab = user.lab
+        storage_unit.save()
+        return super(StorageUnitCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        messages.success(self.request,"Storage Unit added")
+        return reverse_lazy('users:storage_unit_details', kwargs={'pk':self.object.pk})
 
 class StorageUnitListView(LabTechnicianView, ListView):
     model = StorageUnit

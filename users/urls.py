@@ -7,7 +7,8 @@ from users.views.lab_technicians.equipment import (EquipmentCreateView,
                                                    EquipmentListView,
                                                    EquipmentUpdateView,
                                                    StorageUnitDetailView,
-                                                   StorageUnitListView)
+                                                   StorageUnitListView,
+                                                   StorageUnitCreateView)
 from users.views.lab_technicians.index import LabTechnicianDashboardView
 from users.views.students import StudentorLecturerDashboardView
 from users.views.users.allocations import (AllocationDetailView,
@@ -15,7 +16,16 @@ from users.views.users.allocations import (AllocationDetailView,
 
 from .views.lab_technicians.allocations import (AllocateToLecturerView,
                                                 AllocateToStudentView,
-                                                AllocationCreateView, allocate_equipment)
+                                                AllocationCreateView,
+                                                allocate_equipment)
+from .views.lab_technicians.categories import (CategoryCreateView,
+                                               CategoryDeleteView,
+                                               CategoryDetailView,
+                                               CategoryListView,
+                                               CategoryUpdateView)
+from .views.lab_technicians.lecturers import (LecturerDetailView,
+                                              LecturerListView)
+from .views.lab_technicians.students import StudentDetailView, StudentListView
 from .views.lecturers import LecturerDashboardView
 from .views.users.base import UserDetailView, UserProfileUpdateView
 
@@ -31,10 +41,20 @@ urlpatterns = [
          EquipmentDetailView.as_view(), name="equipment_details"),
     path('equipment/<int:pk>/edit',
          EquipmentUpdateView.as_view(), name="equipment_edit"),
+    path('storage-units/add', StorageUnitCreateView.as_view(),
+         name="storage_unit_add"),
     path('storage-units/', StorageUnitListView.as_view(),
          name="storage_units_list"),
     path('storage-units/<int:pk>/details',
          StorageUnitDetailView.as_view(), name="storage_unit_details"),
+    path('lab-technicians-dashboard/lecturers/all',
+         LecturerListView.as_view(), name="lecturer_list"),
+    path('lab-technicians-dashboard/lecturers/<int:pk>/details',
+         LecturerDetailView.as_view(), name="lecturer_details"),
+    path('lab-technicians-dashboard/students/all',
+         StudentListView.as_view(), name="students_list"),
+    path('lab-technicians-dashboard/students/<int:pk>/details',
+         StudentDetailView.as_view(), name="student_details"),
 
     # allocations urls
     path('allocations/new/', AllocationCreateView.as_view(), name="new_allocation"),
@@ -67,4 +87,13 @@ urlpatterns = [
          AllocateToLecturerView.as_view(), name="allocate_to_lecturer"),
     path('allocations/<int:pk>/allocate/<int:user_pk>/',
          allocate_equipment, name="allocate_equipment_action"),
+
+    path('categories/', CategoryListView.as_view(), name="categories_list"),
+    path('categories/add', CategoryCreateView.as_view(), name="category_add"),
+    path('categories/<int:pk>/details',
+         CategoryDetailView.as_view(), name="category_details"),
+    path('categories/<int:pk>/edit',
+         CategoryUpdateView.as_view(), name="category_edit"),
+    path('categories/<int:pk>/delete',
+         CategoryDeleteView.as_view(), name="category_delete"),
 ]

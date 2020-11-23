@@ -22,6 +22,10 @@ Equipment Details
                                 <table class="table table-striped text-center">
                                     <tbody>
                                         <tr>
+                                            <th>Name.</th>
+                                            <td>{{ equipment.name }}</td>
+                                        </tr>
+                                        <tr>
                                             <th>Serial No.</th>
                                             <td>{{ equipment.serial_no }}</td>
                                         </tr>
@@ -45,6 +49,14 @@ Equipment Details
                                             <td> <span class="badge badge-pill badge-success">Working</span></td>
                                             {% else %}
                                             <td> <span class="badge badge-pill badge-danger">Damaged</span></td>
+                                            {% endif %}
+                                        </tr>
+                                        <tr>
+                                            <th>Availability</th>
+                                            {% if not equipment.has_exceeded_shelf_life %}
+                                            <td> <span class="badge badge-pill badge-success">Yes</span></td>
+                                            {% else %}
+                                            <td> <span class="badge badge-pill badge-danger">Exceeded Shelf Life</span></td>
                                             {% endif %}
                                         </tr>
                                         <tr>

@@ -25,7 +25,7 @@ All Equipment allocations
                         <tr>
                             <th>Allocated To.</th>
                             <th>Equipment</th>
-                            <th>Quantity</th>
+                            <th>Serial No</th>
                             <th>Allocated By</th>
                             <th>Status</th>
                             <th></th>
@@ -34,13 +34,9 @@ All Equipment allocations
                     <tbody>
                         {% for allocation in allocations %}
                         <tr>
-                            {% if allocation.allocated_to %}
                             <td>{{ allocation.allocated_to.get_full_name }}</td>
-                            {% else %}
-                            <td>{{ allocation.course.name }}</td>
-                            {% endif %}
-                            <td>{{ allocation.equipment.category }} - {{ allocation.equipment.serial_no }}</td>
-                            <td>{{ allocation.quantity }}</td>
+                            <td>{{ allocation.equipment.name }}</td>
+                            <td>{{ allocation.equipment.serial_no }}</td>
                             <td>{{ allocation.allocated_by.get_full_name }}</td>
                             {% if allocation.is_returned %}
                             <td><span class="badge badge-pill badge-success">Returned</span></td>
