@@ -57,10 +57,18 @@ Equipment Details
                                         {% endif %}
                                         <tr>
                                             <th>Working Condition</th>
-                                            {% if not equipment.is_damaged or not equipment.has_exceeded_shelf_life  %}
-                                            <td> <span class="badge badge-pill badge-success">Working</span></td>
-                                            {% elif equipment.is_damaged or equipment.has_exceeded_shelf_life %}
+                                            {% if equipment.is_damaged or equipment.has_exceeded_shelf_life  %}
                                             <td> <span class="badge badge-pill badge-danger">Damaged</span></td>
+                                            {% elif not equipment.is_damaged and not equipment.has_exceeded_shelf_life %}
+                                            <td> <span class="badge badge-pill badge-success">Working</span></td>
+                                            {% endif %}
+                                        </tr>
+                                        <tr>
+                                            <th>Availability</th>
+                                            {% if not equipment.has_exceeded_shelf_life %}
+                                            <td> <span class="badge badge-pill badge-success">Yes</span></td>
+                                            {% else %}
+                                            <td> <span class="badge badge-pill badge-danger">Exceeded Shelf Life</span></td>
                                             {% endif %}
                                         </tr>
                                         <tr>

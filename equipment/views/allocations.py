@@ -84,7 +84,7 @@ class AllocationUpdateView(DashboardView, UpdateView):
 def mark_as_returned(request, pk):
     allocation = get_object_or_404(Allocation, pk=pk)
 
-    allocation.equipment.is_allocated = not allocation.equipment.is_allocated
+    allocation.equipment.is_allocated = False
     allocation.equipment.save()
 
     allocation.is_returned = True
