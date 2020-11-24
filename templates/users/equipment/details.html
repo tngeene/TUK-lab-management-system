@@ -18,6 +18,13 @@ Equipment Details
                     <div class="col-md-12 ">
                         <div class="m-3 p-3 shadow-sm">
                             <h3 class="text-center py-3">Equipment Details</h3>
+                            <div class="float-right d-flex">
+                                {% if not equipment.is_allocated  and request.user.user_type == 'Lab_Tech' %}
+                                <a href="{% url 'equipment:equipment_delete' equipment.pk %}" class="mx-1">
+                                <button class="btn btn-md  btn-danger">Delete</button>
+                                {% endif %}
+                                 </a>
+                            </div>
                             <div class="table-responsive">
                                 <table class="table table-striped text-center">
                                     <tbody>

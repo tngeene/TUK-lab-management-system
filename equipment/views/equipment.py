@@ -5,7 +5,7 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView, D
 
 from dashboard.views.dashboard import DashboardView
 
-from ..models import Category, Equipment
+from ..models import  Equipment
 
 
 class EquipmentCreateView(DashboardView, CreateView):
@@ -58,8 +58,13 @@ class EquipmentDeleteView(DashboardView, DeleteView):
     template_name = 'dashboard/equipment/equipment/delete.html'
 
     def get_success_url(self) -> str:
+        user = self.request.user
+        if user.user_type == 'Staff':
+            messages.success(self.request, "Equipment Deleted Succefully")
+            return reverse_lazy("equipment:equipment_list")
         messages.success(self.request, "Equipment Deleted Succefully")
-        return reverse_lazy("equipment:equipment_list")
+        return reverse_lazy("users:equipment_list")
+        
 
 # logic for marking equipment as in good condition
 def mark_as_working(request,pk):

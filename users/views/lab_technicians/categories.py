@@ -50,7 +50,7 @@ class CategoryUpdateView(LabTechnicianView, UpdateView):
 class CategoryDeleteView(LabTechnicianView, DeleteView):
     model = Category
     context_object_name = 'category'
-    template_name = 'users/equipment/categories/delete.html'
+    template_name = 'dashboard/equipment/categories/delete.html'
 
     def get_success_url(self) -> str:
         messages.success(self.request, "Category Deleted Succefully")

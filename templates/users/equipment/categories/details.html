@@ -41,6 +41,7 @@ category Details
                                 </table>
                             </div>
                         </div>
+                        {% if request.user.user_type == 'Lab_Tech' %}
                         <div class="text-center">
                             <a href="{% url 'users:category_edit' category.pk %}" class="mx-1">
                                 <button class="btn btn-md  btn-primary">Edit</button>
@@ -49,48 +50,12 @@ category Details
                                 <button class="btn btn-md  btn-danger">Delete</button>
                             </a>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-xl-12 col-md-12">
-            {% comment %} <div class="card Recent-categorys">
-                <div class="card-header">
-                    <h5>All Batches in {{category.name}}</h5>
-                </div>
-
-                <div class="card-block px-0 py-3">
-                    <div class="table-responsive">
-                        <table class="table" id="data-table">
-                            <div class="float-right">
-                                <a href="{% url 'equipment:batch_add' %}" class="label theme-bg2 text-white f-12">Add
-                                    batch</a>
-                            </div>
-                            <thead>
-                                <tr>
-                                    <th>Serial No.</th>
-                                    <th>School</th>
-                                    <th>Equipment Quantities</th>
-                                    <th>Date Added</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for batch in batches %}
-                                <tr>
-                                    <td>{{ batch.serial_no }}</td>
-                                    <td>{{ batch.school.name | truncatechars:13 }}</td>
-                                    <td>{{ batch.equipment_quantities }}</td>
-                                    <td>{{ batch.created_on }}</td>
-                                    <td><a href=" {% url 'equipment:batch_details' batch.pk %} "
-                                            class="label theme-bg2 text-white f-12">View</a></td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div> {% endcomment %}
             <div class="card Recent-categorys">
                 <div class="card-header">
                     <h5>All Equipment in {{category.name}}</h5>
