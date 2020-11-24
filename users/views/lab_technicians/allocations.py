@@ -58,6 +58,8 @@ def allocate_equipment(request, pk, user_pk):
     user = get_object_or_404(User, id=user_pk)
     allocation.allocated_to = user
     allocation.equipment.is_allocated = True
+    allocation.equipment.save()
+    print(allocation.equipment.is_allocated)
     allocation.save()
     messages.success(request, "Equipment Allocated")
     return redirect("users:allocation_details", pk=pk)

@@ -123,7 +123,7 @@ def allocate_equipment(request, pk, user_pk):
     allocation = get_object_or_404(Allocation, id=pk)
     user = get_object_or_404(User, id=user_pk)
     allocation.allocated_to = user
-    allocation.equipment.is_allocated = True
+    allocation.equipment.is_allocated == True
     allocation.save()
     messages.success(request, "Equipment Allocated")
     return redirect("equipment:allocation_details", pk=pk)
@@ -132,6 +132,10 @@ def allocate_equipment(request, pk, user_pk):
 def unallocate_equipment(request, pk, user_pk):
     allocation = get_object_or_404(Allocation, id=pk)
     user = get_object_or_404(User, id=user_pk)
+
+    allocation.equipment.is_allocated = False
+    allocation.equipment.save()
+
     allocation.allocated_to.remove(user)
     allocation.save()
     return redirect("equipment:allocation_details", pk=pk)

@@ -1,16 +1,16 @@
+from dashboard.views.dashboard import DashboardView
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  UpdateView)
 
-from dashboard.views.dashboard import DashboardView
-
-from ..models import  Equipment
+from ..models import Equipment
 
 
 class EquipmentCreateView(DashboardView, CreateView):
     model = Equipment
-    fields = ('name', 'serial_no','category','lab','storage_unit', 'price')
+    fields = ('name', 'serial_no', 'category', 'lab', 'storage_unit', 'price')
     template_name = 'dashboard/equipment/equipment/add.html'
 
     def form_valid(self, form):
@@ -18,8 +18,8 @@ class EquipmentCreateView(DashboardView, CreateView):
         return super(EquipmentCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        messages.success(self.request,"Equipment Added successfully")
-        return reverse_lazy('equipment:equipment_details', kwargs={'pk':self.object.pk})
+        messages.success(self.request, "Equipment Added successfully")
+        return reverse_lazy('equipment:equipment_details', kwargs={'pk': self.object.pk})
 
 
 class EquipmentListView(DashboardView, ListView):
@@ -37,20 +37,22 @@ class EquipmentDetailView(DashboardView, DetailView):
 class EquipmentUpdateView(DashboardView, UpdateView):
     model = Equipment
     template_name = 'dashboard/equipment/equipment/edit.html'
-    fields = ('name', 'serial_no', 'lab','storage_unit', 'price')
+    fields = ('name', 'serial_no', 'lab', 'storage_unit', 'price')
 
     def get_success_url(self):
-        return reverse_lazy('equipment:equipment_details', kwargs={'pk':self.object.pk})
+        return reverse_lazy('equipment:equipment_details', kwargs={'pk': self.object.pk})
+
 
 def mark_as_damaged(request, pk):
     equipment = get_object_or_404(Equipment, pk=pk)
     equipment.is_damaged = not equipment.is_damaged
     equipment.save()
 
-    messages.success(request,"Equipment marked as damaged")
+    messages.success(request, "Equipment marked as damaged")
     if request.user.user_type == 'Staff':
         return redirect("equipment:equipment_details", pk=pk)
     return redirect("users:equipment_details", pk=pk)
+
 
 class EquipmentDeleteView(DashboardView, DeleteView):
     model = Equipment
@@ -64,50 +66,53 @@ class EquipmentDeleteView(DashboardView, DeleteView):
             return reverse_lazy("equipment:equipment_list")
         messages.success(self.request, "Equipment Deleted Succefully")
         return reverse_lazy("users:equipment_list")
-        
 
 # logic for marking equipment as in good condition
-def mark_as_working(request,pk):
+
+
+def mark_as_working(request, pk):
     equipment = get_object_or_404(Equipment, pk=pk)
     equipment.is_damaged = False
     if equipment.has_exceeded_shelf_life == True:
         equipment.has_exceeded_shelf_life = False
     equipment.save()
 
-    messages.success(request,"Equipment marked as working")
+    messages.success(request, "Equipment marked as working")
     if request.user.user_type == 'Staff':
         return redirect("equipment:equipment_details", pk=pk)
     return redirect("users:equipment_details", pk=pk)
 
 
 # logic for marking equipment as in good condition
-def mark_as_out_service(request,pk):
+def mark_as_out_service(request, pk):
     equipment = get_object_or_404(Equipment, pk=pk)
     equipment.has_exceeded_shelf_life = True
     equipment.is_damaged = True
     equipment.save()
 
-    messages.success(request,"Equipment marked as out of service")
+    messages.success(request, "Equipment marked as out of service")
     if request.user.user_type == 'Staff':
         return redirect("equipment:equipment_details", pk=pk)
     return redirect("users:equipment_details", pk=pk)
 
-def mark_as_lost(request,pk):
+
+def mark_as_lost(request, pk):
     equipment = get_object_or_404(Equipment, pk=pk)
     equipment.is_lost = True
     equipment.save()
 
-    messages.success(request,"Equipment marked as lost")
+    messages.success(request, "Equipment marked as lost")
     if request.user.user_type == 'Staff':
         return redirect("equipment:equipment_details", pk=pk)
     return redirect("users:equipment_details", pk=pk)
 
-def mark_as_found(request,pk):
+
+def mark_as_found(request, pk):
     equipment = get_object_or_404(Equipment, pk=pk)
     equipment.is_lost = not equipment.is_lost
     equipment.save()
 
-    messages.success(request,"Equipment marked as replaced")
+    messages.success(request, "Equipment marked as replaced")
     if request.user.user_type == 'Staff':
         return redirect("equipment:equipment_details", pk=pk)
     return redirect("users:equipment_details", pk=pk)
